@@ -5,6 +5,12 @@ from reportlab.pdfgen import canvas
 from datetime import datetime
 import os
 
+try:
+    from streamlit_autorefresh import st_autorefresh
+    st_autorefresh(interval=1000, key="countdown")
+except ImportError:
+    pass
+
 st.set_page_config(page_title="Camp '26 🎉", layout="wide", page_icon="⛺")
 
 # ------------------------------------
@@ -99,6 +105,7 @@ h2, h3 {
 .countdown-box:nth-child(1) { border-color: var(--orange); }
 .countdown-box:nth-child(2) { border-color: var(--blue); }
 .countdown-box:nth-child(3) { border-color: var(--green); }
+.countdown-box:nth-child(4) { border-color: var(--pink); }
 .countdown-box .num {
     font-family: 'Fredoka One', cursive;
     font-size: 3rem;
@@ -108,6 +115,7 @@ h2, h3 {
 .countdown-box:nth-child(1) .num { color: var(--orange); }
 .countdown-box:nth-child(2) .num { color: var(--blue); }
 .countdown-box:nth-child(3) .num { color: var(--green); }
+.countdown-box:nth-child(4) .num { color: var(--pink); }
 .countdown-box .label {
     font-weight: 800;
     font-size: 0.85rem;
@@ -363,8 +371,9 @@ event_date = datetime(2026, 8, 13)
 now = datetime.now()
 time_left = event_date - now
 days = time_left.days
-hours = int(time_left.seconds / 3600)
-minutes = int((time_left.seconds % 3600) / 60)
+hours = time_left.seconds // 3600
+minutes = (time_left.seconds % 3600) // 60
+seconds = time_left.seconds % 60
 
 st.markdown("### ⏳ Counting Down to the BIG Day!")
 
@@ -381,6 +390,10 @@ st.markdown(f"""
     <div class="countdown-box">
         <span class="num">{minutes}</span>
         <span class="label">⚡ Minutes</span>
+    </div>
+    <div class="countdown-box">
+        <span class="num">{seconds}</span>
+        <span class="label">🔥 Seconds</span>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -549,6 +562,14 @@ st.markdown('</div>', unsafe_allow_html=True)
 # ------------------------------------
 
 def detect_face(image):
+    img = np.array(image)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
+    if len(faces) > 0:
+        (x, y, w, h) = faces[0]
+        face = img[y:y+h, x:x+w]
+        return Image.fromarray(face)
     return image
 
 
@@ -674,6 +695,4 @@ st.markdown("""
         August 13–16, 2026 • All Soul' Chapel OAU, Ile-Ife
     </span>
 </div>
-
 """, unsafe_allow_html=True)
-
