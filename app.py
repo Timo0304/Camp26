@@ -1,7 +1,5 @@
 import streamlit as st
 from PIL import Image, ImageDraw, ImageFont
-import cv2
-import numpy as np
 import io
 from reportlab.pdfgen import canvas
 from datetime import datetime
@@ -551,14 +549,6 @@ st.markdown('</div>', unsafe_allow_html=True)
 # ------------------------------------
 
 def detect_face(image):
-    img = np.array(image)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
-    if len(faces) > 0:
-        (x, y, w, h) = faces[0]
-        face = img[y:y+h, x:x+w]
-        return Image.fromarray(face)
     return image
 
 
@@ -684,4 +674,5 @@ st.markdown("""
         August 13–16, 2026 • All Soul' Chapel OAU, Ile-Ife
     </span>
 </div>
+
 """, unsafe_allow_html=True)
