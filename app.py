@@ -528,7 +528,7 @@ st.markdown("""
         box-shadow: 0 6px 20px rgba(26,115,232,0.35);
         letter-spacing: 1px;
     ">
-        📸 View All Photos from Camp' 24 edition on Google Drive 📸
+        📸 View All Photos and Videos from Camp' 24 edition on Google Drive 📸
     </a>
 </div>
 """, unsafe_allow_html=True)
@@ -717,5 +717,6 @@ st.markdown("""
     </span>
 </div>
 """, unsafe_allow_html=True)
+
 
 
