@@ -533,8 +533,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="fun-divider">🎨 🎨 🎨</div>', unsafe_allow_html=True)
-
 # ------------------------------------
 # BULLETIN
 # ------------------------------------
@@ -552,7 +550,7 @@ st.download_button(
 )
 
 st.markdown('<div class="fun-divider">📞 📞 📞</div>', unsafe_allow_html=True)
-
+st.markdown('<div class="fun-divider">🎨 🎨 🎨</div>', unsafe_allow_html=True)
 
 # ------------------------------------
 # FLYER GENERATOR
@@ -735,6 +733,7 @@ st.markdown("""
     </span>
 </div>
 """, unsafe_allow_html=True)
+
 
 
 
