@@ -535,6 +535,24 @@ st.markdown("""
 
 st.markdown('<div class="fun-divider">🎨 🎨 🎨</div>', unsafe_allow_html=True)
 
+# ------------------------------------
+# BULLETIN
+# ------------------------------------
+
+st.markdown("### 📄 Bulletin From Last Edition")
+
+with open("bulletin.pdf", "rb") as f:
+    pdf_data = f.read()
+
+st.download_button(
+    label="📥 Download Last Edition Bulletin",
+    data=pdf_data,
+    file_name="camp26_bulletin.pdf",
+    mime="application/pdf"
+)
+
+st.markdown('<div class="fun-divider">📞 📞 📞</div>', unsafe_allow_html=True)
+
 
 # ------------------------------------
 # FLYER GENERATOR
@@ -717,6 +735,7 @@ st.markdown("""
     </span>
 </div>
 """, unsafe_allow_html=True)
+
 
 
 
