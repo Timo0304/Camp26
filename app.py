@@ -574,7 +574,7 @@ st.markdown(
             <a href="https://wa.me/2348034464183" target="_blank" style="display:inline-block; margin-top:8px; background:#25D366; color:white; padding:6px 18px; border-radius:50px; font-weight:800; text-decoration:none; font-size:0.85rem;">💬 WhatsApp</a>
         </div>
         <div style="background:white; border-radius:20px; padding:24px; border:3px solid #06D6A0; box-shadow:5px 5px 0px #06D6A0; text-align:center;">
-            <div style="font-size:2.5rem;">👨‍💼</div>
+            <div style="font-size:2.5rem;">👨🏾‍🏫</div>
             <div style="font-family:Arial; font-size:1.1rem; color:#FF6B35; margin:8px 0 4px;"><b>Rev. Dr. Olusegun Babalola</b></div>
             <div style="font-weight:700; color:#555; font-size:0.9rem;">Chaplain</div>
             <a href="tel:+2348062262318" style="display:block; margin-top:10px; color:#1A73E8; font-weight:800; text-decoration:none;">📱 +234 806 226 2318</a>
@@ -768,6 +768,7 @@ st.markdown("""
     </span>
 </div>
 """, unsafe_allow_html=True)
+
 
 
 
