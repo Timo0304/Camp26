@@ -512,6 +512,27 @@ with col3:
     else:
         st.info("📷 Prayer session photo coming soon!")
 
+st.markdown("""
+<div style="text-align:center; margin-top:24px;">
+    <a href="https://drive.google.com/drive/folders/1xyzN4B2IIBViAlStN09XVayf2_cq76Zc"
+    target="_blank"
+    style="
+        display:inline-block;
+        background: linear-gradient(135deg, #1A73E8, #0D47A1);
+        color: white;
+        font-family: 'Fredoka One', cursive;
+        font-size: 1.1rem;
+        border-radius: 50px;
+        padding: 14px 32px;
+        text-decoration: none;
+        box-shadow: 0 6px 20px rgba(26,115,232,0.35);
+        letter-spacing: 1px;
+    ">
+        📸 View All Photos from Camp' 24 edition on Google Drive📸
+    </a>
+</div>
+""", unsafe_allow_html=True)
+
 st.markdown('<div class="fun-divider">🎨 🎨 🎨</div>', unsafe_allow_html=True)
 
 
@@ -696,3 +717,4 @@ st.markdown("""
     </span>
 </div>
 """, unsafe_allow_html=True)
+
