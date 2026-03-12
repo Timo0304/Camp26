@@ -547,7 +547,7 @@ with open("bulletin.pdf", "rb") as f:
 st.download_button(
     label="📥 Download Last Edition Bulletin",
     data=pdf_data,
-    file_name="camp26_bulletin.pdf",
+    file_name="camp24_bulletin.pdf",
     mime="application/pdf"
 )
 
@@ -735,6 +735,7 @@ st.markdown("""
     </span>
 </div>
 """, unsafe_allow_html=True)
+
 
 
 
