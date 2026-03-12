@@ -550,6 +550,41 @@ st.download_button(
 )
 
 st.markdown('<div class="fun-divider">📞 📞 📞</div>', unsafe_allow_html=True)
+# ------------------------------------
+# ENQUIRIES
+# ------------------------------------
+
+st.markdown("### 📞 For Further Enquiries")
+
+st.markdown(
+    """
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-top:16px;">
+        <div style="background:white; border-radius:20px; padding:24px; border:3px solid #4CC9F0; box-shadow:5px 5px 0px #4CC9F0; text-align:center;">
+            <div style="font-size:2.5rem;">👨‍💼</div>
+            <div style="font-family:Arial; font-size:1.1rem; color:#FF6B35; margin:8px 0 4px;"><b>Dr. Olatomide Fadare</b></div>
+            <div style="font-weight:700; color:#555; font-size:0.9rem;">Chairman Organizing Committee</div>
+            <a href="tel:+2347054075459" style="display:block; margin-top:10px; color:#1A73E8; font-weight:800; text-decoration:none;">📱 +234 705 407 5459</a>
+            <a href="https://wa.me/2347054075459" target="_blank" style="display:inline-block; margin-top:8px; background:#25D366; color:white; padding:6px 18px; border-radius:50px; font-weight:800; text-decoration:none; font-size:0.85rem;">💬 WhatsApp</a>
+        </div>
+        <div style="background:white; border-radius:20px; padding:24px; border:3px solid #C77DFF; box-shadow:5px 5px 0px #C77DFF; text-align:center;">
+            <div style="font-size:2.5rem;">👩‍💼</div>
+            <div style="font-family:Arial; font-size:1.1rem; color:#FF6B35; margin:8px 0 4px;"><b>Mrs. Rachael Talabi</b></div>
+            <div style="font-weight:700; color:#555; font-size:0.9rem;">Sunday School Superintendent</div>
+            <a href="tel:+2348034464183" style="display:block; margin-top:10px; color:#1A73E8; font-weight:800; text-decoration:none;">📱 +234 803 446 4183</a>
+            <a href="https://wa.me/2348034464183" target="_blank" style="display:inline-block; margin-top:8px; background:#25D366; color:white; padding:6px 18px; border-radius:50px; font-weight:800; text-decoration:none; font-size:0.85rem;">💬 WhatsApp</a>
+        </div>
+        <div style="background:white; border-radius:20px; padding:24px; border:3px solid #06D6A0; box-shadow:5px 5px 0px #06D6A0; text-align:center;">
+            <div style="font-size:2.5rem;">👨‍💼</div>
+            <div style="font-family:Arial; font-size:1.1rem; color:#FF6B35; margin:8px 0 4px;"><b>Rev. Dr. Olusegun Babalola</b></div>
+            <div style="font-weight:700; color:#555; font-size:0.9rem;">Chaplain</div>
+            <a href="tel:+2348062262318" style="display:block; margin-top:10px; color:#1A73E8; font-weight:800; text-decoration:none;">📱 +234 806 226 2318</a>
+            <a href="https://wa.me/2348062262318" target="_blank" style="display:inline-block; margin-top:8px; background:#25D366; color:white; padding:6px 18px; border-radius:50px; font-weight:800; text-decoration:none; font-size:0.85rem;">💬 WhatsApp</a>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
 st.markdown('<div class="fun-divider">🎨 🎨 🎨</div>', unsafe_allow_html=True)
 
 # ------------------------------------
@@ -733,6 +768,7 @@ st.markdown("""
     </span>
 </div>
 """, unsafe_allow_html=True)
+
 
 
 
