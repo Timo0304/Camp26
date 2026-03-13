@@ -441,7 +441,7 @@ st.markdown("""
     <div class="event-item">
         <div class="icon">📍</div>
         <div class="etitle">Venue</div>
-        <div class="evalue">All Soul' Chapel OAU, Ile-Ife</div>
+        <div class="evalue">All Souls' Chapel OAU, Ile-Ife</div>
     </div>
     <div class="event-item">
         <div class="icon">⏰</div>
@@ -764,10 +764,11 @@ st.markdown("""
 ">
     🌟 See You at Camp '26! God Bless You! 🌟<br>
     <span style="font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:700;opacity:0.9;">
-        August 13–16, 2026 • All Soul' Chapel OAU, Ile-Ife
+        August 13–16, 2026 • All Souls' Chapel OAU, Ile-Ife
     </span>
 </div>
 """, unsafe_allow_html=True)
+
 
 
 
