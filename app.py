@@ -5,6 +5,8 @@ from reportlab.pdfgen import canvas
 from datetime import datetime
 import os
 
+from flyer_generator import generate_flyer, THEMES
+
 try:
     from streamlit_autorefresh import st_autorefresh
     st_autorefresh(interval=1000, key="countdown")
@@ -550,6 +552,7 @@ st.download_button(
 )
 
 st.markdown('<div class="fun-divider">📞 📞 📞</div>', unsafe_allow_html=True)
+
 # ------------------------------------
 # ENQUIRIES
 # ------------------------------------
@@ -600,12 +603,8 @@ col_left, col_right = st.columns([1, 1])
 with col_left:
     name = st.text_input("✏️ Enter your name", placeholder="e.g. Favour")
     template_choice = st.selectbox(
-        "🖼️ Choose a flyer template",
-        ["template1.png", "template2.png", "template3.png"]
-    )
-    shape = st.selectbox(
-        "🔵 Profile picture shape",
-        ["Circle", "Square", "Rounded"]
+        "🖼️ Choose a flyer version",
+        list(THEMES.keys())
     )
 
 with col_right:
@@ -628,97 +627,55 @@ with col_right:
 
 st.markdown('</div>', unsafe_allow_html=True)
 
-
-# ------------------------------------
-# FACE DETECTION
-# ------------------------------------
-
-def detect_face(image):
-    img = np.array(image)
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    face_cascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
-    if len(faces) > 0:
-        (x, y, w, h) = faces[0]
-        face = img[y:y+h, x:x+w]
-        return Image.fromarray(face)
-    return image
-
-
-# ------------------------------------
-# IMAGE SHAPING
-# ------------------------------------
-
-def shape_image(img, shape_type):
-    size = (400, 400)
-    img = img.resize(size)
-    if shape_type == "Square":
-        return img
-    mask = Image.new("L", size, 0)
-    draw = ImageDraw.Draw(mask)
-    if shape_type == "Circle":
-        draw.ellipse((0, 0, 400, 400), fill=255)
-    if shape_type == "Rounded":
-        draw.rounded_rectangle((0, 0, 400, 400), radius=60, fill=255)
-    result = Image.new("RGBA", size)
-    result.paste(img, (0, 0), mask)
-    return result
-
-
 # ------------------------------------
 # FLYER GENERATION
 # ------------------------------------
 
-if uploaded_file:
-    st.markdown("---")
+if st.button("🎨 Generate My Flyer!"):
+
+    photo_img = None
+    if uploaded_file:
+        photo_img = Image.open(uploaded_file).convert("RGBA")
+
+    with st.spinner("Creating your flyer... 🎉"):
+        flyer_buf = generate_flyer(
+            theme_name=template_choice,
+            attendee_name=name,
+            photo_img=photo_img
+        )
+
     st.markdown("### 🎉 Your Flyer is Ready!")
+    flyer_img = Image.open(flyer_buf)
+    st.image(flyer_img, use_column_width=True)
 
-    user_img = Image.open(uploaded_file).convert("RGBA")
-    user_img = detect_face(user_img)
-    user_img = shape_image(user_img, shape)
-
-    template = Image.open(f"templates/{template_choice}").convert("RGBA")
-    template.paste(user_img, (340, 350), user_img)
-
-    draw = ImageDraw.Draw(template)
-    font = ImageFont.truetype("fonts/DejaVuSans-Bold.ttf", 60)
-
-    if name:
-        text = f"{name} WILL BE ATTENDING"
-    else:
-        text = "I WILL BE ATTENDING"
-
-    text_width = draw.textlength(text, font=font)
-    position = ((template.width - text_width) // 2, 250)
-    draw.text(position, text, fill="white", font=font)
-
-    st.image(template, use_column_width=True)
+    flyer_buf.seek(0)
+    png_bytes = flyer_buf.read()
 
     dl_col1, dl_col2, dl_col3 = st.columns(3)
 
     # PNG DOWNLOAD
-    buf = io.BytesIO()
-    template.save(buf, format="PNG")
     with dl_col1:
         st.download_button(
             "⬇️ Download PNG",
-            buf.getvalue(),
-            "camp26_flyer.png",
+            png_bytes,
+            f"camp26_flyer_{name or 'attendee'}.png",
             "image/png"
         )
 
     # PDF DOWNLOAD
-    pdf_buffer = io.BytesIO()
-    c = canvas.Canvas(pdf_buffer)
-    temp_path = "temp.png"
-    template.save(temp_path)
-    c.drawImage(temp_path, 0, 0, 600, 600)
-    c.save()
     with dl_col2:
+        pdf_buffer = io.BytesIO()
+        c = canvas.Canvas(pdf_buffer, pagesize=(540, 780))
+        temp_path = "/tmp/flyer_temp.png"
+        with open(temp_path, "wb") as f:
+            f.write(png_bytes)
+        c.drawImage(temp_path, 0, 0, 540, 780)
+        c.save()
         st.download_button(
             "⬇️ Download PDF",
             pdf_buffer.getvalue(),
-            "camp26_flyer.pdf"
+            f"camp26_flyer_{name or 'attendee'}.pdf",
+            "application/pdf"
         )
 
     # WHATSAPP SHARE
@@ -768,12 +725,3 @@ st.markdown("""
     </span>
 </div>
 """, unsafe_allow_html=True)
-
-
-
-
-
-
-
-
-
