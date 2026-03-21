@@ -207,7 +207,7 @@ def draw_photo_ring(img, center, outer_r, ring_colors, photo_img=None):
         draw.text((cx - tw2 // 2, cy + face_r - 18), ph_text, font=font_small, fill="#bbbbbb")
 
 
-def generate_flyer(theme_name, attendee_name="", photo_img=None):
+def generate_flyer(theme_name, attendee_name="", photo_img=None, badge_text="I WILL BE ATTENDING!"):
     t = THEMES[theme_name]
 
     img = Image.new("RGBA", (W, H), hex2rgb(t["bg"]) + (255,))
@@ -252,11 +252,15 @@ def generate_flyer(theme_name, attendee_name="", photo_img=None):
     centered_text(draw, theme_str, 90, f_theme,
                   t["footer_sub"] if t["banner_top"] != "#0D47A1" else "white")
 
-    # ── "I WILL BE ATTENDING" BADGE ───────────────────────────────────────
-    badge_text = "I WILL BE ATTENDING!"
-    f_badge = load_font(20, bold=True)
-    bbox = draw.textbbox((0, 0), badge_text, font=f_badge)
-    bw, bh = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    # ── BADGE TEXT ────────────────────────────────────────────────────────
+    badge_text = badge_text.upper()
+    # Auto-shrink font so badge always fits within flyer width
+    for badge_size in [20, 17, 14, 12]:
+        f_badge = load_font(badge_size, bold=True)
+        bbox = draw.textbbox((0, 0), badge_text, font=f_badge)
+        bw, bh = bbox[2] - bbox[0], bbox[3] - bbox[1]
+        if bw <= W - 80:
+            break
     pad_x, pad_y = 28, 12
     bx0 = (W - bw - pad_x * 2) // 2
     bx1 = bx0 + bw + pad_x * 2
