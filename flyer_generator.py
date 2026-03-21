@@ -123,13 +123,22 @@ def load_font(size, bold=False):
     candidates_bold = [
         "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
         "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+        "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
+        "/usr/share/fonts/truetype/ubuntu/Ubuntu-B.ttf",
+        "/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf",
         "/System/Library/Fonts/Helvetica.ttc",
+        "/Library/Fonts/Arial Bold.ttf",
         "fonts/DejaVuSans-Bold.ttf",
+        "fonts/DejaVuSans.ttf",
     ]
     candidates_reg = [
         "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
         "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+        "/usr/share/fonts/truetype/freefont/FreeSans.ttf",
+        "/usr/share/fonts/truetype/ubuntu/Ubuntu-R.ttf",
+        "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf",
         "/System/Library/Fonts/Helvetica.ttc",
+        "/Library/Fonts/Arial.ttf",
         "fonts/DejaVuSans.ttf",
     ]
     candidates = candidates_bold if bold else candidates_reg
@@ -138,7 +147,11 @@ def load_font(size, bold=False):
             return ImageFont.truetype(path, size)
         except Exception:
             continue
-    return ImageFont.load_default()
+    # Last resort: use default and hope for the best
+    try:
+        return ImageFont.load_default(size=size)
+    except Exception:
+        return ImageFont.load_default()
 
 
 def centered_text(draw, text, y, font, color, width=W):
