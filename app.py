@@ -430,8 +430,18 @@ div[data-baseweb="select"] * {
 # HEADER BANNER
 # ------------------------------------
 
-st.markdown("""
+# Load logo as base64 so it works on Streamlit Cloud
+import base64
+logo_b64 = ""
+if os.path.exists("logo.png"):
+    with open("logo.png", "rb") as f:
+        logo_b64 = base64.b64encode(f.read()).decode()
+
+logo_html = f'<img src="data:image/png;base64,{logo_b64}" style="height:80px;margin-bottom:8px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.3));">' if logo_b64 else ""
+
+st.markdown(f"""
 <div class="rainbow-banner">
+    {logo_html}
     <h1>⛺ Sunday School Camp '26 ⛺</h1>
     <h2>🙏 Theme: God Answers Prayers 🙏</h2>
 </div>
