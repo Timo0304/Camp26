@@ -189,10 +189,17 @@ def draw_photo_ring(img, center, outer_r, ring_colors, photo_img=None):
         face_r = inner_r - 10
         draw.ellipse([cx - face_r, cy - face_r, cx + face_r, cy + face_r],
                      fill="#e8e8e8")
-        font_ph = load_font(int(face_r * 1.1))
-        bbox = draw.textbbox((0, 0), "😊", font=font_ph)
-        tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
-        draw.text((cx - tw // 2, cy - th // 2 - 4), "😊", font=font_ph, fill="#aaaaaa")
+        # Draw a simple smiley face with shapes instead of emoji
+        eye_r = int(face_r * 0.1)
+        eye_y = cy - int(face_r * 0.2)
+        eye_lx = cx - int(face_r * 0.25)
+        eye_rx = cx + int(face_r * 0.25)
+        draw.ellipse([eye_lx-eye_r, eye_y-eye_r, eye_lx+eye_r, eye_y+eye_r], fill="#aaaaaa")
+        draw.ellipse([eye_rx-eye_r, eye_y-eye_r, eye_rx+eye_r, eye_y+eye_r], fill="#aaaaaa")
+        smile_y = cy + int(face_r * 0.1)
+        smile_r = int(face_r * 0.4)
+        draw.arc([cx-smile_r, smile_y-smile_r//2, cx+smile_r, smile_y+smile_r//2],
+                 start=10, end=170, fill="#aaaaaa", width=3)
         font_small = load_font(11)
         ph_text = "YOUR PHOTO"
         bbox2 = draw.textbbox((0, 0), ph_text, font=font_small)
@@ -233,15 +240,20 @@ def generate_flyer(theme_name, attendee_name="", photo_img=None):
     f_title  = load_font(28, bold=True)
     f_theme  = load_font(11, bold=True)
 
-    stars_text = f"{t['theme_star']}  ✨  ✝️  ✨  {t['theme_star']}"
-    centered_text(draw, stars_text, 22, f_stars, "white")
-    centered_text(draw, "⛺ Sunday School Camp '26", 50, f_title, "white")
-    theme_str = "🙏  GOD ANSWERS PRAYERS  🙏"
+    # Draw small decorative circles across top of banner
+    dot_col_banner = (255, 255, 255, 80)
+    banner_draw = ImageDraw.Draw(img)
+    for di, dx in enumerate([W//2 - 80, W//2 - 40, W//2, W//2 + 40, W//2 + 80]):
+        r = 5 if di == 2 else 4
+        banner_draw.ellipse([dx-r, 28-r, dx+r, 28+r], fill=(255,255,255,120))
+
+    centered_text(draw, "SUNDAY SCHOOL CAMP '26", 46, f_title, "white")
+    theme_str = "~ GOD ANSWERS PRAYERS ~"
     centered_text(draw, theme_str, 90, f_theme,
                   t["footer_sub"] if t["banner_top"] != "#0D47A1" else "white")
 
     # ── "I WILL BE ATTENDING" BADGE ───────────────────────────────────────
-    badge_text = "🎉  I WILL BE ATTENDING!"
+    badge_text = "I WILL BE ATTENDING!"
     f_badge = load_font(20, bold=True)
     bbox = draw.textbbox((0, 0), badge_text, font=f_badge)
     bw, bh = bbox[2] - bbox[0], bbox[3] - bbox[1]
@@ -286,9 +298,20 @@ def generate_flyer(theme_name, attendee_name="", photo_img=None):
     centered_text(draw, name_display, ny0 + 22, f_name, t["name_fg"])
 
     # ── STICKER ROW ───────────────────────────────────────────────────────
-    f_sticker = load_font(20)
-    stickers = "🎈  🌟  🙌  🌟  🎈"
-    centered_text(draw, stickers, 480, f_sticker, t["sticker_col"])
+    # Draw decorative star shapes instead of emoji
+    def draw_star(d, cx, cy, r, color):
+        import math
+        points = []
+        for i in range(10):
+            angle = math.pi * i / 5 - math.pi / 2
+            radius = r if i % 2 == 0 else r * 0.45
+            points.append((cx + radius * math.cos(angle), cy + radius * math.sin(angle)))
+        d.polygon(points, fill=color)
+
+    star_y = 492
+    star_positions = [W//2 - 80, W//2 - 40, W//2, W//2 + 40, W//2 + 80]
+    for sx in star_positions:
+        draw_star(draw, sx, star_y, 10, t["sticker_col"])
 
     # ── DETAIL CHIPS ─────────────────────────────────────────────────────
     chip_data = [
@@ -327,7 +350,7 @@ def generate_flyer(theme_name, attendee_name="", photo_img=None):
     draw.rectangle([0, footer_top, W, H], fill=t["banner_bot"])
     f_footer   = load_font(15, bold=True)
     f_footer_s = load_font(10, bold=True)
-    centered_text(draw, "🌟  God Answers Prayers!  🌟",
+    centered_text(draw, "God Answers Prayers!",
                   footer_top + 18, f_footer, t["footer_fg"])
     centered_text(draw, "All Souls' Chapel  •  OAU Ile-Ife  •  #SundaySchoolCamp26",
                   footer_top + 46, f_footer_s, t["footer_sub"])
