@@ -6,7 +6,8 @@ from datetime import datetime
 import os
 
 from flyer_generator import generate_flyer, THEMES
-from bible_game import QUESTIONS, LEVEL_COLORS, SCORE_MESSAGES
+from bible_game import QUESTIONS, LEVEL_COLORS, SCORE_MESSAGES, TIME_UP_VERSES
+import time
 
 try:
     from streamlit_autorefresh import st_autorefresh
@@ -749,6 +750,7 @@ for _k, _v in [
     ("game_active", False), ("q_index", 0), ("score", 0),
     ("answered", False), ("selected", None), ("game_level", None),
     ("game_questions", []), ("game_over", False),
+    ("timed_out", False), ("q_start_time", None), ("timeout_verse", None),
 ]:
     if _k not in st.session_state:
         st.session_state[_k] = _v
@@ -788,6 +790,9 @@ if not st.session_state.game_active and not st.session_state.game_over:
                 st.session_state.answered       = False
                 st.session_state.selected       = None
                 st.session_state.game_over      = False
+                st.session_state.q_start_time  = None
+                st.session_state.timed_out      = False
+                st.session_state.timeout_verse  = None
                 st.rerun()
 
 # ── Active game
@@ -799,16 +804,55 @@ elif st.session_state.game_active and not st.session_state.game_over:
     _q     = _qs[_qi]
     _total = len(_qs)
     _prog  = int((_qi / _total) * 100)
+    _TIME_LIMIT = 15
+
+    # ── Start timer when new question appears
+    if st.session_state.q_start_time is None:
+        st.session_state.q_start_time = time.time()
+
+    _elapsed  = time.time() - st.session_state.q_start_time
+    _remaining = max(0, _TIME_LIMIT - int(_elapsed))
+
+    # ── Time ran out and question not yet answered → game over
+    if _remaining == 0 and not st.session_state.answered and not st.session_state.timed_out:
+        import random as _rnd
+        st.session_state.timed_out    = True
+        st.session_state.game_active  = False
+        st.session_state.game_over    = True
+        st.session_state.timeout_verse = _rnd.choice(TIME_UP_VERSES)
+        st.rerun()
+
+    # ── Timer colour: green→orange→red
+    if _remaining > 10:
+        _tcol = "#06D6A0"
+    elif _remaining > 5:
+        _tcol = "#FF6B35"
+    else:
+        _tcol = "#FF4D6D"
+
+    _timer_pct = int((_remaining / _TIME_LIMIT) * 100)
 
     st.markdown(
         f"""
-        <div style="background:#eee;border-radius:50px;height:14px;margin-bottom:16px;overflow:hidden;">
+        <div style="background:#eee;border-radius:50px;height:14px;margin-bottom:6px;overflow:hidden;">
             <div style="background:linear-gradient(90deg,{_c['badge']},{_c['border']});
             width:{_prog}%;height:100%;border-radius:50px;transition:width 0.5s;"></div>
         </div>
-        <div style="display:flex;justify-content:space-between;margin-bottom:12px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
             <span style="font-weight:800;color:{_c['badge']};">Question {_qi+1} of {_total}</span>
             <span style="font-weight:800;color:#FF6B35;">Score: {st.session_state.score} ⭐</span>
+        </div>
+        <div style="margin-bottom:6px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                <span style="font-size:0.85rem;font-weight:800;color:{_tcol};">
+                    {'⏱️' if _remaining > 5 else '🚨'} {_remaining}s remaining
+                </span>
+                <span style="font-size:0.75rem;font-weight:700;color:#aaa;">15 sec per question</span>
+            </div>
+            <div style="background:#eee;border-radius:50px;height:10px;overflow:hidden;">
+                <div style="background:{_tcol};width:{_timer_pct}%;height:100%;
+                border-radius:50px;transition:width 1s linear;"></div>
+            </div>
         </div>
         """,
         unsafe_allow_html=True
@@ -898,9 +942,10 @@ elif st.session_state.game_active and not st.session_state.game_over:
 
         if _qi + 1 < _total:
             if st.button("Next Question ➡️", use_container_width=True):
-                st.session_state.q_index  += 1
-                st.session_state.answered  = False
-                st.session_state.selected  = None
+                st.session_state.q_index      += 1
+                st.session_state.answered      = False
+                st.session_state.selected      = None
+                st.session_state.q_start_time  = None
                 st.rerun()
         else:
             if st.button("See My Score! 🏆", use_container_width=True):
@@ -908,7 +953,88 @@ elif st.session_state.game_active and not st.session_state.game_over:
                 st.session_state.game_active = False
                 st.rerun()
 
-# ── Game over screen
+# ── TIME'S UP screen
+elif st.session_state.game_over and st.session_state.timed_out:
+    _verse  = st.session_state.timeout_verse or {"verse": "Psalm 119:11", "text": "I have hidden your word in my heart."}
+    _level  = st.session_state.game_level or "Kids (Easy)"
+    _c      = LEVEL_COLORS[_level]
+    _score  = st.session_state.score
+    _total  = len(st.session_state.game_questions) if st.session_state.game_questions else 5
+
+    st.markdown(
+        f"""
+        <div style="background:#fff0f0;border:4px solid #FF4D6D;border-radius:28px;
+        padding:36px;text-align:center;box-shadow:6px 6px 0 #FF4D6D;">
+            <div style="font-size:3.5rem;margin-bottom:8px;">⏰</div>
+            <div style="font-family:'Fredoka One',cursive;font-size:2rem;color:#FF4D6D;margin-bottom:4px;">
+                Time's Up!
+            </div>
+            <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:#555;margin-bottom:16px;">
+                Sorry, better luck next time! You scored {_score} out of {_total} before time ran out.
+            </div>
+            <div style="background:white;border:2.5px dashed #FF4D6D;border-radius:20px;
+            padding:20px;margin:0 auto;max-width:480px;">
+                <div style="font-size:1.5rem;margin-bottom:8px;">📖</div>
+                <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:#1A73E8;
+                margin-bottom:8px;">Go and read this Bible verse:</div>
+                <div style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#FF6B35;
+                margin-bottom:8px;">{_verse['verse']}</div>
+                <div style="font-style:italic;font-weight:700;color:#555;font-size:0.95rem;
+                line-height:1.6;">"{_verse['text']}"</div>
+            </div>
+            <div style="margin-top:16px;font-family:'Fredoka One',cursive;font-size:1rem;
+            color:#888;">Keep studying and come back stronger! 💪</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    _t1, _t2, _t3 = st.columns(3)
+    with _t1:
+        if st.button("🔄 Try Again!", key="timeout_retry", use_container_width=True):
+            import random as _rnd2
+            _qs2 = QUESTIONS[_level].copy()
+            _rnd2.shuffle(_qs2)
+            st.session_state.game_questions = _qs2[:5]
+            st.session_state.q_index        = 0
+            st.session_state.score          = 0
+            st.session_state.answered       = False
+            st.session_state.selected       = None
+            st.session_state.game_over      = False
+            st.session_state.game_active    = True
+            st.session_state.timed_out      = False
+            st.session_state.q_start_time   = None
+            st.session_state.timeout_verse  = None
+            st.rerun()
+    with _t2:
+        if st.button("🎯 Pick Level", key="timeout_level", use_container_width=True):
+            st.session_state.game_active    = False
+            st.session_state.game_over      = False
+            st.session_state.timed_out      = False
+            st.session_state.q_index        = 0
+            st.session_state.score          = 0
+            st.session_state.answered       = False
+            st.session_state.selected       = None
+            st.session_state.game_level     = None
+            st.session_state.q_start_time   = None
+            st.session_state.timeout_verse  = None
+            st.rerun()
+    with _t3:
+        if st.button("🏠 Home", key="timeout_home", use_container_width=True):
+            st.session_state.game_active    = False
+            st.session_state.game_over      = False
+            st.session_state.timed_out      = False
+            st.session_state.q_index        = 0
+            st.session_state.score          = 0
+            st.session_state.answered       = False
+            st.session_state.selected       = None
+            st.session_state.game_level     = None
+            st.session_state.q_start_time   = None
+            st.session_state.timeout_verse  = None
+            st.rerun()
+
+# ── Game over screen (normal — all 5 questions answered)
 elif st.session_state.game_over:
     _score = st.session_state.score
     _level = st.session_state.game_level
@@ -963,6 +1089,9 @@ elif st.session_state.game_over:
             st.session_state.selected       = None
             st.session_state.game_over      = False
             st.session_state.game_active    = True
+            st.session_state.q_start_time   = None
+            st.session_state.timed_out      = False
+            st.session_state.timeout_verse  = None
             st.rerun()
     with _rc2:
         if st.button("🎯 Try Different Level", use_container_width=True):
