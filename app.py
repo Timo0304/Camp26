@@ -756,11 +756,19 @@ padding:32px; border:3px dashed #FFD93D; text-align:center; max-width:500px; mar
     </p>
     <div style="background:white; border-radius:16px; padding:20px; border:2px solid #FFD93D;">
         <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Bank Name</div>
-        <div style="font-family:'Fredoka One',cursive; font-size:1.2rem; color:#333; margin:4px 0 16px;">First Bank Nigeria</div>
+        <div style="font-family:'Fredoka One',cursive; font-size:1.2rem; color:#333; margin:4px 0 16px;">Access Bank</div>
         <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Account Name</div>
-        <div style="font-family:'Fredoka One',cursive; font-size:1.2rem; color:#333; margin:4px 0 16px;">Sunday School OAU Chapel</div>
+        <div style="font-family:'Fredoka One',cursive; font-size:1.2rem; color:#333; margin:4px 0 16px;">Mrs. Kehinde Taiwo</div>
         <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Account Number</div>
-        <div style="font-family:'Fredoka One',cursive; font-size:2rem; color:#1A73E8; letter-spacing:4px; margin:4px 0;">1234567890</div>
+        <div style="font-family:'Fredoka One',cursive; font-size:2rem; color:#1A73E8; letter-spacing:4px; margin:4px 0;">0817884022</div>
+    </div>
+    <div style="background:white; border-radius:16px; padding:20px; border:2px solid #FFD93D;">
+        <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Bank Name</div>
+        <div style="font-family:'Fredoka One',cursive; font-size:1.2rem; color:#333; margin:4px 0 16px;">Union Bank</div>
+        <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Account Name</div>
+        <div style="font-family:'Fredoka One',cursive; font-size:1.2rem; color:#333; margin:4px 0 16px;">Mrs. Kehinde Taiwo</div>
+        <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Account Number</div>
+        <div style="font-family:'Fredoka One',cursive; font-size:2rem; color:#1A73E8; letter-spacing:4px; margin:4px 0;">0007008895</div>
     </div>
 </div>
 """, unsafe_allow_html=True)
