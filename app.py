@@ -640,26 +640,6 @@ st.markdown('<div class="fun-divider">📸 📸 📸</div>', unsafe_allow_html=T
 
 st.markdown("### 🖼️ Pictures From Last Edition")
 
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    if os.path.exists("images/photo1.jpg"):
-        st.image("images/photo1.jpg", caption="🎤 Opening Session", use_column_width=True)
-    else:
-        st.info("📷 Opening session photo coming soon!")
-
-with col2:
-    if os.path.exists("images/photo2.jpg"):
-        st.image("images/photo2.jpg", caption="🤝 Participants", use_column_width=True)
-    else:
-        st.info("📷 Participants photo coming soon!")
-
-with col3:
-    if os.path.exists("images/photo3.jpg"):
-        st.image("images/photo3.jpg", caption="🙏 Prayer Session", use_column_width=True)
-    else:
-        st.info("📷 Prayer session photo coming soon!")
-
 st.markdown("""
 <div style="text-align:center; margin-top:24px;">
     <a href="https://drive.google.com/drive/folders/1xyzN4B2IIBViAlStN09XVayf2_cq76Zc"
