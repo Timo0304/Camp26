@@ -8,7 +8,7 @@ import io
 import math
 
 # ── Flyer size ────────────────────────────────────────────────────────────────
-W, H = 540, 780
+W, H = 540, 860
 
 # ── Theme definitions ─────────────────────────────────────────────────────────
 THEMES = {
@@ -214,7 +214,7 @@ def generate_flyer(theme_name, attendee_name="", photo_img=None, badge_text="I W
     draw = ImageDraw.Draw(img)
 
     # ── BANNER (top portion) ───────────────────────────────────────────────
-    BANNER_H = 200
+    BANNER_H = 230
     banner = Image.new("RGBA", (W, BANNER_H + 40), (0, 0, 0, 0))
     bd = ImageDraw.Draw(banner)
     bd.rectangle([0, 0, W, BANNER_H], fill=t["banner_top"])
@@ -247,10 +247,33 @@ def generate_flyer(theme_name, attendee_name="", photo_img=None, badge_text="I W
         r = 5 if di == 2 else 4
         banner_draw.ellipse([dx-r, 28-r, dx+r, 28+r], fill=(255,255,255,120))
 
-    centered_text(draw, "SUNDAY SCHOOL CAMP '26", 46, f_title, "white")
+    centered_text(draw, "SUNDAY SCHOOL CAMP '26", 42, f_title, "white")
     theme_str = "~ GOD ANSWERS PRAYERS ~"
     centered_text(draw, theme_str, 90, f_theme,
                   t["footer_sub"] if t["banner_top"] != "#0D47A1" else "white")
+
+    # ── LOGO ─────────────────────────────────────────────────────────────
+    logo_paths = ["logo.png", "images/logo.png"]
+    for lp in logo_paths:
+        try:
+            logo = Image.open(lp).convert("RGBA")
+            logo_size = 64
+            logo = logo.resize((logo_size, logo_size), Image.LANCZOS)
+            # Make white background transparent so it blends with banner
+            data = logo.getdata()
+            new_data = []
+            for px in data:
+                if px[0] > 200 and px[1] > 200 and px[2] > 200:
+                    new_data.append((255, 255, 255, 0))
+                else:
+                    new_data.append(px)
+            logo.putdata(new_data)
+            logo_x = (W - logo_size) // 2
+            logo_y = 125
+            img.paste(logo, (logo_x, logo_y), logo)
+            break
+        except Exception:
+            pass
 
     # ── BADGE TEXT ────────────────────────────────────────────────────────
     badge_text = badge_text.upper()
@@ -264,7 +287,7 @@ def generate_flyer(theme_name, attendee_name="", photo_img=None, badge_text="I W
     pad_x, pad_y = 28, 12
     bx0 = (W - bw - pad_x * 2) // 2
     bx1 = bx0 + bw + pad_x * 2
-    by0 = 145
+    by0 = 195
     by1 = by0 + bh + pad_y * 2
     draw_rounded_rect(draw, [bx0, by0, bx1, by1], radius=30,
                       fill=t["badge_bg"],
@@ -272,7 +295,7 @@ def generate_flyer(theme_name, attendee_name="", photo_img=None, badge_text="I W
     draw.text((bx0 + pad_x, by0 + pad_y), badge_text, font=f_badge, fill=t["badge_fg"])
 
     # ── PHOTO RING ────────────────────────────────────────────────────────
-    photo_center = (W // 2, 310)
+    photo_center = (W // 2, 360)
     draw_photo_ring(img, photo_center, outer_r=85,
                     ring_colors=t["ring_colors"], photo_img=photo_img)
     draw = ImageDraw.Draw(img)
@@ -288,7 +311,7 @@ def generate_flyer(theme_name, attendee_name="", photo_img=None, badge_text="I W
     box_w = max(nw + pad_nx * 2, 220)
     nx0 = (W - box_w) // 2
     nx1 = nx0 + box_w
-    ny0 = 410
+    ny0 = 460
     ny1 = ny0 + 58
     # shadow
     draw.rounded_rectangle([nx0 + 3, ny0 + 3, nx1 + 3, ny1 + 3],
@@ -312,7 +335,7 @@ def generate_flyer(theme_name, attendee_name="", photo_img=None, badge_text="I W
             points.append((cx + radius * math.cos(angle), cy + radius * math.sin(angle)))
         d.polygon(points, fill=color)
 
-    star_y = 492
+    star_y = 545
     star_positions = [W//2 - 80, W//2 - 40, W//2, W//2 + 40, W//2 + 80]
     for sx in star_positions:
         draw_star(draw, sx, star_y, 10, t["sticker_col"])
@@ -324,7 +347,7 @@ def generate_flyer(theme_name, attendee_name="", photo_img=None, badge_text="I W
         ("⏰  9:00 AM Daily",          t["chip_colors"][2]),
     ]
     f_chip = load_font(11, bold=True)
-    chip_y = 515
+    chip_y = 568
     chip_h = 28
     pad_cx = 14
     total_w = 0
@@ -350,7 +373,7 @@ def generate_flyer(theme_name, attendee_name="", photo_img=None, badge_text="I W
     # ── SECOND CHIP ROW (venue on own line if needed) is already included ─
 
     # ── BOTTOM FOOTER BANNER ──────────────────────────────────────────────
-    footer_top = H - 110
+    footer_top = H - 115
     draw.rectangle([0, footer_top, W, H], fill=t["banner_bot"])
     f_footer   = load_font(15, bold=True)
     f_footer_s = load_font(10, bold=True)
