@@ -268,8 +268,7 @@ h2, h3 {
 }
 
 /* ---- STREAMLIT WIDGET OVERRIDES ---- */
-div[data-baseweb="input"] input,
-div[data-baseweb="select"] div {
+div[data-baseweb="input"] input {
     border-radius: 12px !important;
     border: 2.5px solid var(--blue) !important;
     font-family: 'Nunito', sans-serif !important;
@@ -286,6 +285,31 @@ div[data-baseweb="input"] input::placeholder {
 div[data-baseweb="input"] input:focus {
     border-color: var(--pink) !important;
     box-shadow: 0 0 0 3px rgba(255,107,157,0.2) !important;
+}
+
+/* ---- SELECTBOX OVERRIDES ---- */
+div[data-baseweb="select"] {
+    border-radius: 12px !important;
+}
+div[data-baseweb="select"] > div {
+    border: 2.5px solid var(--blue) !important;
+    border-radius: 12px !important;
+    background: white !important;
+    min-height: 48px !important;
+    height: auto !important;
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+}
+div[data-baseweb="select"] span,
+div[data-baseweb="select"] div[class*="ValueContainer"] {
+    color: #333333 !important;
+    -webkit-text-fill-color: #333333 !important;
+    font-family: 'Nunito', sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    line-height: 1.4 !important;
 }
 
 /* ---- BUTTONS ---- */
