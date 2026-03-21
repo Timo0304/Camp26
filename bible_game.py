@@ -229,3 +229,22 @@ SCORE_MESSAGES = [
     (2,  "📖 Good try! The more you read, the more you know!"),
     (0,  "💪 Keep going! Every Bible champion started somewhere!"),
 ]
+
+
+TIME_UP_VERSES = [
+    {"verse": "Joshua 1:9", "text": "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go."},
+    {"verse": "Philippians 4:13", "text": "I can do all things through Christ who strengthens me."},
+    {"verse": "Proverbs 3:5-6", "text": "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight."},
+    {"verse": "Jeremiah 29:11", "text": "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future."},
+    {"verse": "Psalm 46:1", "text": "God is our refuge and strength, an ever-present help in trouble."},
+    {"verse": "Romans 8:28", "text": "And we know that in all things God works for the good of those who love him, who have been called according to his purpose."},
+    {"verse": "Isaiah 40:31", "text": "But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint."},
+    {"verse": "Psalm 23:1", "text": "The Lord is my shepherd, I lack nothing."},
+    {"verse": "Matthew 11:28", "text": "Come to me, all you who are weary and burdened, and I will give you rest."},
+    {"verse": "2 Timothy 1:7", "text": "For the Spirit God gave us does not make us timid, but gives us power, love and self-discipline."},
+    {"verse": "Psalm 119:11", "text": "I have hidden your word in my heart that I might not sin against you."},
+    {"verse": "James 1:5", "text": "If any of you lacks wisdom, you should ask God, who gives generously to all without finding fault, and it will be given to you."},
+    {"verse": "Deuteronomy 31:6", "text": "Be strong and courageous. Do not be afraid or terrified, for the Lord your God goes with you; he will never leave you nor forsake you."},
+    {"verse": "Psalm 27:1", "text": "The Lord is my light and my salvation — whom shall I fear? The Lord is the stronghold of my life — of whom shall I be afraid?"},
+    {"verse": "John 16:33", "text": "I have told you these things, so that in me you may have peace. In this world you will have trouble. But take heart! I have overcome the world."},
+]
