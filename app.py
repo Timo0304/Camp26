@@ -276,6 +276,12 @@ div[data-baseweb="select"] div {
     font-weight: 700 !important;
     font-size: 1rem !important;
     background: white !important;
+    color: #333333 !important;
+    -webkit-text-fill-color: #333333 !important;
+}
+div[data-baseweb="input"] input::placeholder {
+    color: #aaaaaa !important;
+    -webkit-text-fill-color: #aaaaaa !important;
 }
 div[data-baseweb="input"] input:focus {
     border-color: var(--pink) !important;
@@ -631,25 +637,35 @@ st.markdown('</div>', unsafe_allow_html=True)
 # FLYER GENERATION
 # ------------------------------------
 
-if st.button("🎨 Generate My Flyer!"):
+if "flyer_png" not in st.session_state:
+    st.session_state.flyer_png = None
+if "flyer_name" not in st.session_state:
+    st.session_state.flyer_name = ""
 
+if st.button("🎨 Generate My Flyer!"):
     photo_img = None
     if uploaded_file:
         photo_img = Image.open(uploaded_file).convert("RGBA")
 
     with st.spinner("Creating your flyer... 🎉"):
-        flyer_buf = generate_flyer(
-            theme_name=template_choice,
-            attendee_name=name,
-            photo_img=photo_img
-        )
+        try:
+            flyer_buf = generate_flyer(
+                theme_name=template_choice,
+                attendee_name=name,
+                photo_img=photo_img
+            )
+            flyer_buf.seek(0)
+            st.session_state.flyer_png = flyer_buf.read()
+            st.session_state.flyer_name = name or "attendee"
+        except Exception as e:
+            st.error(f"Oops! Something went wrong: {e}")
+
+if st.session_state.flyer_png:
+    png_bytes = st.session_state.flyer_png
+    flyer_name = st.session_state.flyer_name
 
     st.markdown("### 🎉 Your Flyer is Ready!")
-    flyer_img = Image.open(flyer_buf)
-    st.image(flyer_img, use_column_width=True)
-
-    flyer_buf.seek(0)
-    png_bytes = flyer_buf.read()
+    st.image(png_bytes, use_column_width=True)
 
     dl_col1, dl_col2, dl_col3 = st.columns(3)
 
@@ -658,7 +674,7 @@ if st.button("🎨 Generate My Flyer!"):
         st.download_button(
             "⬇️ Download PNG",
             png_bytes,
-            f"camp26_flyer_{name or 'attendee'}.png",
+            f"camp26_flyer_{flyer_name}.png",
             "image/png"
         )
 
@@ -674,7 +690,7 @@ if st.button("🎨 Generate My Flyer!"):
         st.download_button(
             "⬇️ Download PDF",
             pdf_buffer.getvalue(),
-            f"camp26_flyer_{name or 'attendee'}.pdf",
+            f"camp26_flyer_{flyer_name}.pdf",
             "application/pdf"
         )
 
