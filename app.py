@@ -746,33 +746,39 @@ with tab4:
     st.markdown("### 💛 Support the Camp")
     st.markdown("""
 <div style="background:linear-gradient(135deg,#fff9e6,#fff0fb); border-radius:24px;
-padding:32px; border:3px dashed #FFD93D; text-align:center; max-width:500px; margin:auto;">
+padding:32px; border:3px dashed #FFD93D; text-align:center; width:100%;">
     <div style="font-size:2.5rem;">🙏</div>
     <div style="font-family:'Fredoka One',cursive; font-size:1.3rem; color:#FF6B35; margin:10px 0 6px;">
         Make a Donation
     </div>
-    <p style="color:#555; font-weight:700; margin-bottom:20px;">
+    <p style="color:#555; font-weight:700; margin-bottom:24px;">
         Your giving supports children attending Camp '26. God bless you! 💛
     </p>
-    <div style="background:white; border-radius:16px; padding:20px; border:2px solid #FFD93D;">
-        <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Bank Name</div>
-        <div style="font-family:'Fredoka One',cursive; font-size:1.2rem; color:#333; margin:4px 0 16px;">Access Bank</div>
-        <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Account Name</div>
-        <div style="font-family:'Fredoka One',cursive; font-size:1.2rem; color:#333; margin:4px 0 16px;">Mrs. Kehinde Taiwo</div>
-        <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Account Number</div>
-        <div style="font-family:'Fredoka One',cursive; font-size:2rem; color:#1A73E8; letter-spacing:4px; margin:4px 0;">0817884022</div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; text-align:center;">
+        <div style="background:white; border-radius:16px; padding:24px; border:2px solid #FFD93D;
+        box-shadow:4px 4px 0 #FFD93D;">
+            <div style="font-size:1.8rem; margin-bottom:8px;">🏦</div>
+            <div style="font-weight:800; color:#888; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Bank Name</div>
+            <div style="font-family:'Fredoka One',cursive; font-size:1.2rem; color:#333; margin-bottom:14px;">Access Bank</div>
+            <div style="font-weight:800; color:#888; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Account Name</div>
+            <div style="font-family:'Fredoka One',cursive; font-size:1.1rem; color:#333; margin-bottom:14px;">Mrs. Kehinde Taiwo</div>
+            <div style="font-weight:800; color:#888; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Account Number</div>
+            <div style="font-family:'Fredoka One',cursive; font-size:1.8rem; color:#1A73E8; letter-spacing:4px;">0817884022</div>
+        </div>
+        <div style="background:white; border-radius:16px; padding:24px; border:2px solid #C77DFF;
+        box-shadow:4px 4px 0 #C77DFF;">
+            <div style="font-size:1.8rem; margin-bottom:8px;">🏦</div>
+            <div style="font-weight:800; color:#888; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Bank Name</div>
+            <div style="font-family:'Fredoka One',cursive; font-size:1.2rem; color:#333; margin-bottom:14px;">Union Bank</div>
+            <div style="font-weight:800; color:#888; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Account Name</div>
+            <div style="font-family:'Fredoka One',cursive; font-size:1.1rem; color:#333; margin-bottom:14px;">Mrs. Kehinde Taiwo</div>
+            <div style="font-weight:800; color:#888; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; margin-bottom:4px;">Account Number</div>
+            <div style="font-family:'Fredoka One',cursive; font-size:1.8rem; color:#7B2FBE; letter-spacing:4px;">0007008895</div>
+        </div>
     </div>
-    <p style="color:#555; font-weight:700; margin-bottom:20px;">
-        "Every seed sown helps a child grow". God bless you! 💛
+    <p style="color:#888; font-weight:700; margin-top:20px; font-style:italic;">
+        "Every seed sown helps a child grow in God's word." 🌱
     </p>
-    <div style="background:white; border-radius:16px; padding:20px; border:2px solid #FFD93D;">
-        <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Bank Name</div>
-        <div style="font-family:'Fredoka One',cursive; font-size:1.2rem; color:#333; margin:4px 0 16px;">Union Bank</div>
-        <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Account Name</div>
-        <div style="font-family:'Fredoka One',cursive; font-size:1.2rem; color:#333; margin:4px 0 16px;">Mrs. Kehinde Taiwo</div>
-        <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Account Number</div>
-        <div style="font-family:'Fredoka One',cursive; font-size:2rem; color:#1A73E8; letter-spacing:4px; margin:4px 0;">0007008895</div>
-    </div>
 </div>
 """, unsafe_allow_html=True)
 
