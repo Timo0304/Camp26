@@ -6,6 +6,7 @@ from datetime import datetime
 import os
 
 from flyer_generator import generate_flyer, THEMES
+from bible_game import QUESTIONS, LEVEL_COLORS, SCORE_MESSAGES
 
 try:
     from streamlit_autorefresh import st_autorefresh
@@ -671,6 +672,229 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
+
+# ------------------------------------
+# BIBLE QUIZ GAME
+# ------------------------------------
+
+st.markdown("### 🎮 Bible Quiz Challenge!")
+
+st.markdown(
+    """
+    <div style="background:linear-gradient(135deg,#fff9e6,#f0f4ff);border-radius:24px;
+    padding:20px 28px;border:3px solid #FFD93D;margin-bottom:16px;">
+        <p style="font-size:1.05rem;font-weight:700;color:#555;margin:0;">
+            🌟 Test your Bible knowledge! Pick your level, answer 5 questions,
+            and see how many you get right. Can you score 5 out of 5? 🏆
+        </p>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+# ── Session state init
+for _k, _v in [
+    ("game_active", False), ("q_index", 0), ("score", 0),
+    ("answered", False), ("selected", None), ("game_level", None),
+    ("game_questions", []), ("game_over", False),
+]:
+    if _k not in st.session_state:
+        st.session_state[_k] = _v
+
+# ── Level picker
+if not st.session_state.game_active and not st.session_state.game_over:
+    st.markdown("#### 👇 Choose your level to start!")
+    _cols = st.columns(3)
+    _level_list = list(QUESTIONS.keys())
+    _icons = ["🌱", "🔥", "👑"]
+    _descs = ["Perfect for younger kids", "For teens and youth", "For Bible pros!"]
+    for _i, (_col, _level, _icon, _desc) in enumerate(zip(_cols, _level_list, _icons, _descs)):
+        _c = LEVEL_COLORS[_level]
+        with _col:
+            st.markdown(
+                f"""
+                <div style="background:{_c['bg']};border:3px solid {_c['border']};
+                border-radius:20px;padding:20px;text-align:center;
+                box-shadow:4px 4px 0 {_c['border']};">
+                    <div style="font-size:2rem;">{_icon}</div>
+                    <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;
+                    color:{_c['badge']};margin:6px 0 4px;">{_level}</div>
+                    <div style="font-size:0.85rem;font-weight:700;color:#777;">{_desc}</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+            if st.button(f"Play {_level}", key=f"start_{_i}"):
+                import random as _random
+                _qs = QUESTIONS[_level].copy()
+                _random.shuffle(_qs)
+                st.session_state.game_questions = _qs[:5]
+                st.session_state.game_level     = _level
+                st.session_state.game_active    = True
+                st.session_state.q_index        = 0
+                st.session_state.score          = 0
+                st.session_state.answered       = False
+                st.session_state.selected       = None
+                st.session_state.game_over      = False
+                st.rerun()
+
+# ── Active game
+elif st.session_state.game_active and not st.session_state.game_over:
+    _level = st.session_state.game_level
+    _c     = LEVEL_COLORS[_level]
+    _qi    = st.session_state.q_index
+    _qs    = st.session_state.game_questions
+    _q     = _qs[_qi]
+    _total = len(_qs)
+    _prog  = int((_qi / _total) * 100)
+
+    st.markdown(
+        f"""
+        <div style="background:#eee;border-radius:50px;height:14px;margin-bottom:16px;overflow:hidden;">
+            <div style="background:linear-gradient(90deg,{_c['badge']},{_c['border']});
+            width:{_prog}%;height:100%;border-radius:50px;transition:width 0.5s;"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-bottom:12px;">
+            <span style="font-weight:800;color:{_c['badge']};">Question {_qi+1} of {_total}</span>
+            <span style="font-weight:800;color:#FF6B35;">Score: {st.session_state.score} ⭐</span>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown(
+        f"""
+        <div style="background:{_c['bg']};border:3px solid {_c['border']};
+        border-radius:24px;padding:28px;margin-bottom:20px;
+        box-shadow:5px 5px 0 {_c['border']};">
+            <div style="font-size:2.5rem;text-align:center;margin-bottom:12px;">{_q['emoji']}</div>
+            <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;
+            color:#333;text-align:center;line-height:1.4;">{_q['question']}</div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    if not st.session_state.answered:
+        _bcols = st.columns(2)
+        for _i, _opt in enumerate(_q["options"]):
+            with _bcols[_i % 2]:
+                if st.button(f"  {_opt}  ", key=f"opt_{_qi}_{_i}", use_container_width=True):
+                    st.session_state.selected = _opt
+                    st.session_state.answered = True
+                    if _opt == _q["answer"]:
+                        st.session_state.score += 1
+                    st.rerun()
+    else:
+        _selected = st.session_state.selected
+        _correct  = _q["answer"]
+        _is_right = _selected == _correct
+
+        if _is_right:
+            st.markdown(
+                f"""
+                <div style="background:#e8fff5;border:3px solid #06D6A0;border-radius:20px;
+                padding:20px;text-align:center;box-shadow:4px 4px 0 #06D6A0;margin-bottom:12px;">
+                    <div style="font-size:2rem;">🎉</div>
+                    <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:#06D6A0;">
+                        Correct! Well done!</div>
+                    <div style="font-size:0.9rem;font-weight:700;color:#555;margin-top:8px;">
+                        💡 {_q['fun_fact']}</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+        else:
+            st.markdown(
+                f"""
+                <div style="background:#fff0f0;border:3px solid #FF4D6D;border-radius:20px;
+                padding:20px;text-align:center;box-shadow:4px 4px 0 #FF4D6D;margin-bottom:12px;">
+                    <div style="font-size:2rem;">😅</div>
+                    <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:#FF4D6D;">
+                        Not quite! The answer was:</div>
+                    <div style="font-family:'Fredoka One',cursive;font-size:1.5rem;
+                    color:#333;margin:6px 0;">{_correct}</div>
+                    <div style="font-size:0.9rem;font-weight:700;color:#555;margin-top:4px;">
+                        💡 {_q['fun_fact']}</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
+        if _qi + 1 < _total:
+            if st.button("Next Question ➡️", use_container_width=True):
+                st.session_state.q_index  += 1
+                st.session_state.answered  = False
+                st.session_state.selected  = None
+                st.rerun()
+        else:
+            if st.button("See My Score! 🏆", use_container_width=True):
+                st.session_state.game_over   = True
+                st.session_state.game_active = False
+                st.rerun()
+
+# ── Game over screen
+elif st.session_state.game_over:
+    _score = st.session_state.score
+    _level = st.session_state.game_level
+    _c     = LEVEL_COLORS[_level]
+    _total = len(st.session_state.game_questions)
+    _msg   = next(m for threshold, m in SCORE_MESSAGES if _score >= threshold)
+    _pct   = int((_score / _total) * 100)
+    _bar   = "#06D6A0" if _pct == 100 else "#1A73E8" if _pct >= 60 else "#FF6B35"
+    _trophy = "🏆" if _score == _total else "🌟" if _score >= _total * 0.6 else "📖"
+
+    st.markdown(
+        f"""
+        <div style="background:{_c['bg']};border:4px solid {_c['border']};
+        border-radius:28px;padding:36px;text-align:center;
+        box-shadow:6px 6px 0 {_c['border']};">
+            <div style="font-size:3.5rem;margin-bottom:8px;">{_trophy}</div>
+            <div style="font-family:'Fredoka One',cursive;font-size:2.5rem;color:{_c['badge']};">
+                {_score} / {_total}
+            </div>
+            <div style="background:#eee;border-radius:50px;height:18px;
+            margin:12px auto;max-width:300px;overflow:hidden;">
+                <div style="background:linear-gradient(90deg,{_bar},{_c['border']});
+                width:{_pct}%;height:100%;border-radius:50px;"></div>
+            </div>
+            <div style="font-family:'Fredoka One',cursive;font-size:1.2rem;
+            color:#444;margin-top:8px;">{_msg}</div>
+            <div style="font-size:0.9rem;font-weight:700;color:#888;margin-top:8px;">
+                Level played: {_level}
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    _rc1, _rc2 = st.columns(2)
+    with _rc1:
+        if st.button("🔄 Play Again — Same Level", use_container_width=True):
+            import random as _random
+            _qs = QUESTIONS[_level].copy()
+            _random.shuffle(_qs)
+            st.session_state.game_questions = _qs[:5]
+            st.session_state.q_index        = 0
+            st.session_state.score          = 0
+            st.session_state.answered       = False
+            st.session_state.selected       = None
+            st.session_state.game_over      = False
+            st.session_state.game_active    = True
+            st.rerun()
+    with _rc2:
+        if st.button("🎯 Try a Different Level", use_container_width=True):
+            st.session_state.game_active = False
+            st.session_state.game_over   = False
+            st.session_state.q_index     = 0
+            st.session_state.score       = 0
+            st.session_state.answered    = False
+            st.session_state.selected    = None
+            st.session_state.game_level  = None
+            st.rerun()
+
 
 st.markdown('<div class="fun-divider">🎨 🎨 🎨</div>', unsafe_allow_html=True)
 
