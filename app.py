@@ -613,6 +613,15 @@ with col_left:
         list(THEMES.keys())
     )
 
+    badge_choice = st.selectbox(
+        "💬 Choose your flyer message",
+        [
+            "I Will Be Attending!",
+            "I Look Forward to Camp '26!",
+            "I Can't Wait to See You at Camp '26!",
+        ]
+    )
+
 with col_right:
     uploaded_file = st.file_uploader(
         "📸 Upload your photo here!",
@@ -652,7 +661,8 @@ if st.button("🎨 Generate My Flyer!"):
             flyer_buf = generate_flyer(
                 theme_name=template_choice,
                 attendee_name=name,
-                photo_img=photo_img
+                photo_img=photo_img,
+                badge_text=badge_choice
             )
             flyer_buf.seek(0)
             st.session_state.flyer_png = flyer_buf.read()
