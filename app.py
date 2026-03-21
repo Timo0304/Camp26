@@ -776,6 +776,17 @@ elif st.session_state.game_active and not st.session_state.game_over:
         unsafe_allow_html=True
     )
 
+    # New Game button always visible during play
+    if st.button("🔄 New Game", key="new_game_mid"):
+        st.session_state.game_active = False
+        st.session_state.game_over   = False
+        st.session_state.q_index     = 0
+        st.session_state.score       = 0
+        st.session_state.answered    = False
+        st.session_state.selected    = None
+        st.session_state.game_level  = None
+        st.rerun()
+
     if not st.session_state.answered:
         _bcols = st.columns(2)
         for _i, _opt in enumerate(_q["options"]):
@@ -841,6 +852,11 @@ elif st.session_state.game_over:
     _c     = LEVEL_COLORS[_level]
     _total = len(st.session_state.game_questions)
     _msg   = next(m for threshold, m in SCORE_MESSAGES if _score >= threshold)
+    _camp_msg = ""
+    if _score == _total:
+        _camp_msg = "🎉 See You at CAMP '26 — We can't wait!"
+    elif _score >= int(_total * 0.6):
+        _camp_msg = "⛺ See You at CAMP '26!"
     _pct   = int((_score / _total) * 100)
     _bar   = "#06D6A0" if _pct == 100 else "#1A73E8" if _pct >= 60 else "#FF6B35"
     _trophy = "🏆" if _score == _total else "🌟" if _score >= _total * 0.6 else "📖"
@@ -864,6 +880,7 @@ elif st.session_state.game_over:
             <div style="font-size:0.9rem;font-weight:700;color:#888;margin-top:8px;">
                 Level played: {_level}
             </div>
+            {('<div style="font-family:Fredoka One,cursive;font-size:1.1rem;margin-top:12px;padding:8px 16px;background:white;border-radius:50px;display:inline-block;">' + _camp_msg + '</div>') if _camp_msg else ""}
         </div>
         """,
         unsafe_allow_html=True
