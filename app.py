@@ -486,37 +486,41 @@ div[data-baseweb="select"] * {
 /* ---- TABS STYLING ---- */
 [data-baseweb="tab-list"] {
     background: white !important;
-    border-radius: 16px !important;
-    padding: 6px !important;
-    gap: 4px !important;
-    border: 2px solid #FFD93D !important;
+    border-radius: 20px !important;
+    padding: 8px !important;
+    gap: 6px !important;
+    border: 3px solid #FFD93D !important;
     flex-wrap: wrap !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08) !important;
 }
 [data-baseweb="tab"] {
-    border-radius: 12px !important;
+    border-radius: 14px !important;
     font-family: 'Fredoka One', cursive !important;
-    font-size: 0.95rem !important;
+    font-size: 1.15rem !important;
     font-weight: 700 !important;
-    padding: 10px 16px !important;
-    color: #888 !important;
+    padding: 16px 26px !important;
+    color: #666 !important;
     border: none !important;
     background: transparent !important;
     transition: all 0.2s !important;
     white-space: nowrap !important;
+    min-height: 56px !important;
 }
 [data-baseweb="tab"]:hover {
     background: #FFF8F0 !important;
     color: #FF6B35 !important;
+    transform: scale(1.03) !important;
 }
 [aria-selected="true"][data-baseweb="tab"] {
     background: linear-gradient(135deg, #FF6B35, #FF6B9D) !important;
     color: white !important;
-    box-shadow: 0 4px 12px rgba(255,107,53,0.3) !important;
+    box-shadow: 0 6px 18px rgba(255,107,53,0.4) !important;
+    transform: scale(1.05) !important;
 }
 [data-baseweb="tab-highlight"] { display: none !important; }
 [data-baseweb="tab-border"]    { display: none !important; }
 [data-baseweb="tab-panel"] {
-    padding-top: 24px !important;
+    padding-top: 28px !important;
 }
 </style>
 """, unsafe_allow_html=True)
