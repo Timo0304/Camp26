@@ -482,6 +482,42 @@ div[data-baseweb="select"] * {
     display: inline-block;
     font-weight: 700;
 }
+
+/* ---- TABS STYLING ---- */
+[data-baseweb="tab-list"] {
+    background: white !important;
+    border-radius: 16px !important;
+    padding: 6px !important;
+    gap: 4px !important;
+    border: 2px solid #FFD93D !important;
+    flex-wrap: wrap !important;
+}
+[data-baseweb="tab"] {
+    border-radius: 12px !important;
+    font-family: 'Fredoka One', cursive !important;
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    padding: 10px 16px !important;
+    color: #888 !important;
+    border: none !important;
+    background: transparent !important;
+    transition: all 0.2s !important;
+    white-space: nowrap !important;
+}
+[data-baseweb="tab"]:hover {
+    background: #FFF8F0 !important;
+    color: #FF6B35 !important;
+}
+[aria-selected="true"][data-baseweb="tab"] {
+    background: linear-gradient(135deg, #FF6B35, #FF6B9D) !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(255,107,53,0.3) !important;
+}
+[data-baseweb="tab-highlight"] { display: none !important; }
+[data-baseweb="tab-border"]    { display: none !important; }
+[data-baseweb="tab-panel"] {
+    padding-top: 24px !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -510,21 +546,16 @@ st.markdown(f"""
 
 st.markdown('<div class="sticker-row">🎉 ✝️ 🎊 🌟 🎈 🙌 🎵 💛 🎠 ⭐</div>', unsafe_allow_html=True)
 
-
-# ------------------------------------
-# COUNTDOWN TIMER
-# ------------------------------------
-
+# ── COUNTDOWN (always visible under banner) ────────────────────────────────
 event_date = datetime(2026, 8, 13)
 now = datetime.now()
 time_left = event_date - now
-days = time_left.days
-hours = time_left.seconds // 3600
+days    = time_left.days
+hours   = time_left.seconds // 3600
 minutes = (time_left.seconds % 3600) // 60
 seconds = time_left.seconds % 60
 
 st.markdown("### ⏳ Counting Down to the BIG Day!")
-
 st.markdown(f"""
 <div class="countdown-container">
     <div class="countdown-box">
@@ -548,14 +579,24 @@ st.markdown(f"""
 
 st.markdown('<div class="fun-divider">⭐ ⭐ ⭐ ⭐ ⭐</div>', unsafe_allow_html=True)
 
+# ═══════════════════════════════════════════
+# TABS
+# ═══════════════════════════════════════════
+tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+    "🏠 Home",
+    "💬 Testimonies",
+    "📸 Gallery",
+    "📞 Contact",
+    "🎮 Bible Quiz",
+    "🎨 My Flyer",
+])
 
-# ------------------------------------
-# ABOUT THE PROGRAM
-# ------------------------------------
-
-st.markdown("### 🎒 What's This Camp About?")
-
-st.markdown("""
+# ─────────────────────────────────────────
+# TAB 1 — HOME
+# ─────────────────────────────────────────
+with tab1:
+    st.markdown("### 🎒 What's This Camp About?")
+    st.markdown("""
 <div class="about-card">
     <p style="font-size:1.1rem; font-weight:700; color:#555; margin:0 0 8px;">
         Get ready for the most AMAZING Biannual Retreat ever!
@@ -563,23 +604,17 @@ st.markdown("""
     </p>
     <ul class="emoji-list">
         <li>🔥 Powerful teachings that light up your heart</li>
-        <li>🙏 Life-changing testimonies & miracles</li>
-        <li>🤝 Make new friends & awesome connections</li>
+        <li>🙏 Life-changing testimonies &amp; miracles</li>
+        <li>🤝 Make new friends &amp; awesome connections</li>
         <li>🚀 Practical sessions to grow as a leader</li>
     </ul>
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="fun-divider">⭐ ⭐ ⭐</div>', unsafe_allow_html=True)
+    st.markdown('<div class="fun-divider">⭐ ⭐ ⭐</div>', unsafe_allow_html=True)
 
-
-# ------------------------------------
-# EVENT DETAILS
-# ------------------------------------
-
-st.markdown("### 📌 Event Details")
-
-st.markdown("""
+    st.markdown("### 📌 Event Details")
+    st.markdown("""
 <div class="event-card">
     <div class="event-item">
         <div class="icon">📅</div>
@@ -599,16 +634,12 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="fun-divider">💛 💛 💛</div>', unsafe_allow_html=True)
-
-
-# ------------------------------------
-# TESTIMONIES
-# ------------------------------------
-
-st.markdown("### 💬 What Kids Are Saying!")
-
-st.markdown("""
+# ─────────────────────────────────────────
+# TAB 2 — TESTIMONIES
+# ─────────────────────────────────────────
+with tab2:
+    st.markdown("### 💬 What Kids Are Saying!")
+    st.markdown("""
 <div class="testimony-grid">
     <div class="testimony-card">
         <span class="tag">✨ Testimony</span>
@@ -620,27 +651,23 @@ st.markdown("""
         <span class="tag">🔥 Highlight</span>
         <span class="bubble-icon">🤩</span>
         <div class="speech-text">"I had so much fun and I want to do this again!"</div>
-        <div class="author">— Love 2024; ⭐⭐⭐⭐⭐</div>
+        <div class="author">— Love 2024 ⭐⭐⭐⭐⭐</div>
     </div>
     <div class="testimony-card">
         <span class="tag">🔥 Highlight</span>
         <span class="bubble-icon">🥳</span>
         <div class="speech-text">"Yes! I enjoyed myself in the camp"</div>
-        <div class="author">— Mosope 2024; ⭐⭐⭐⭐⭐</div>
+        <div class="author">— Mosope 2024 ⭐⭐⭐⭐⭐</div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="fun-divider">📸 📸 📸</div>', unsafe_allow_html=True)
-
-
-# ------------------------------------
-# PHOTO GALLERY
-# ------------------------------------
-
-st.markdown("### 🖼️ Pictures From Last Edition")
-
-st.markdown("""
+# ─────────────────────────────────────────
+# TAB 3 — GALLERY
+# ─────────────────────────────────────────
+with tab3:
+    st.markdown("### 🖼️ Pictures From Last Edition")
+    st.markdown("""
 <div style="text-align:center; margin-top:24px;">
     <a href="https://drive.google.com/drive/folders/1xyzN4B2IIBViAlStN09XVayf2_cq76Zc"
     target="_blank"
@@ -656,600 +683,601 @@ st.markdown("""
         box-shadow: 0 6px 20px rgba(26,115,232,0.35);
         letter-spacing: 1px;
     ">
-        📸 View All Photos and Videos from Camp' 24 edition on Google Drive 📸
+        📸 View All Photos and Videos from Camp '24 on Google Drive 📸
     </a>
 </div>
 """, unsafe_allow_html=True)
 
-# ------------------------------------
-# BULLETIN
-# ------------------------------------
+    st.markdown('<div class="fun-divider">📄 📄 📄</div>', unsafe_allow_html=True)
 
-st.markdown("### 📄 Bulletin From Last Edition")
+    st.markdown("### 📄 Bulletin From Last Edition")
+    if os.path.exists("bulletin.pdf"):
+        with open("bulletin.pdf", "rb") as _bf:
+            _pdf_data = _bf.read()
+        st.download_button(
+            label="📥 Download Last Edition Bulletin",
+            data=_pdf_data,
+            file_name="camp24_bulletin.pdf",
+            mime="application/pdf"
+        )
+    else:
+        st.info("📄 Bulletin will be available soon!")
 
-with open("bulletin.pdf", "rb") as f:
-    pdf_data = f.read()
-
-st.download_button(
-    label="📥 Download Last Edition Bulletin",
-    data=pdf_data,
-    file_name="camp24_bulletin.pdf",
-    mime="application/pdf"
-)
-
-st.markdown('<div class="fun-divider">📞 📞 📞</div>', unsafe_allow_html=True)
-
-# ------------------------------------
-# ENQUIRIES
-# ------------------------------------
-
-st.markdown("### 📞 For Further Enquiries")
-
-st.markdown(
-    """
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-top:16px;">
-        <div style="background:white; border-radius:20px; padding:24px; border:3px solid #4CC9F0; box-shadow:5px 5px 0px #4CC9F0; text-align:center;">
-            <div style="font-size:2.5rem;">👨‍💼</div>
-            <div style="font-family:Arial; font-size:1.1rem; color:#FF6B35; margin:8px 0 4px;"><b>Dr. Olatomide Fadare</b></div>
-            <div style="font-weight:700; color:#555; font-size:0.9rem;">Chairman Organizing Committee</div>
-            <a href="tel:+2347054075459" style="display:block; margin-top:10px; color:#1A73E8; font-weight:800; text-decoration:none;">📱 +234 705 407 5459</a>
-            <a href="https://wa.me/2347054075459" target="_blank" style="display:inline-block; margin-top:8px; background:#25D366; color:white; padding:6px 18px; border-radius:50px; font-weight:800; text-decoration:none; font-size:0.85rem;">💬 WhatsApp</a>
+# ─────────────────────────────────────────
+# TAB 4 — CONTACT
+# ─────────────────────────────────────────
+with tab4:
+    st.markdown("### 📞 For Further Enquiries")
+    st.markdown(
+        """
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; margin-top:16px;">
+            <div style="background:white; border-radius:20px; padding:24px; border:3px solid #4CC9F0; box-shadow:5px 5px 0px #4CC9F0; text-align:center;">
+                <div style="font-size:2.5rem;">👨‍💼</div>
+                <div style="font-family:Arial; font-size:1.1rem; color:#FF6B35; margin:8px 0 4px;"><b>Dr. Olatomide Fadare</b></div>
+                <div style="font-weight:700; color:#555; font-size:0.9rem;">Chairman Organizing Committee</div>
+                <a href="tel:+2347054075459" style="display:block; margin-top:10px; color:#1A73E8; font-weight:800; text-decoration:none;">📱 +234 705 407 5459</a>
+                <a href="https://wa.me/2347054075459" target="_blank" style="display:inline-block; margin-top:8px; background:#25D366; color:white; padding:6px 18px; border-radius:50px; font-weight:800; text-decoration:none; font-size:0.85rem;">💬 WhatsApp</a>
+            </div>
+            <div style="background:white; border-radius:20px; padding:24px; border:3px solid #C77DFF; box-shadow:5px 5px 0px #C77DFF; text-align:center;">
+                <div style="font-size:2.5rem;">👩‍💼</div>
+                <div style="font-family:Arial; font-size:1.1rem; color:#FF6B35; margin:8px 0 4px;"><b>Mrs. Rachael Talabi</b></div>
+                <div style="font-weight:700; color:#555; font-size:0.9rem;">Sunday School Superintendent</div>
+                <a href="tel:+2348034464183" style="display:block; margin-top:10px; color:#1A73E8; font-weight:800; text-decoration:none;">📱 +234 803 446 4183</a>
+                <a href="https://wa.me/2348034464183" target="_blank" style="display:inline-block; margin-top:8px; background:#25D366; color:white; padding:6px 18px; border-radius:50px; font-weight:800; text-decoration:none; font-size:0.85rem;">💬 WhatsApp</a>
+            </div>
+            <div style="background:white; border-radius:20px; padding:24px; border:3px solid #06D6A0; box-shadow:5px 5px 0px #06D6A0; text-align:center;">
+                <div style="font-size:2.5rem;">👨🏾‍🏫</div>
+                <div style="font-family:Arial; font-size:1.1rem; color:#FF6B35; margin:8px 0 4px;"><b>Rev. Dr. Olusegun Babalola</b></div>
+                <div style="font-weight:700; color:#555; font-size:0.9rem;">Chaplain</div>
+                <a href="tel:+2348062262318" style="display:block; margin-top:10px; color:#1A73E8; font-weight:800; text-decoration:none;">📱 +234 806 226 2318</a>
+                <a href="https://wa.me/2348062262318" target="_blank" style="display:inline-block; margin-top:8px; background:#25D366; color:white; padding:6px 18px; border-radius:50px; font-weight:800; text-decoration:none; font-size:0.85rem;">💬 WhatsApp</a>
+            </div>
         </div>
-        <div style="background:white; border-radius:20px; padding:24px; border:3px solid #C77DFF; box-shadow:5px 5px 0px #C77DFF; text-align:center;">
-            <div style="font-size:2.5rem;">👩‍💼</div>
-            <div style="font-family:Arial; font-size:1.1rem; color:#FF6B35; margin:8px 0 4px;"><b>Mrs. Rachael Talabi</b></div>
-            <div style="font-weight:700; color:#555; font-size:0.9rem;">Sunday School Superintendent</div>
-            <a href="tel:+2348034464183" style="display:block; margin-top:10px; color:#1A73E8; font-weight:800; text-decoration:none;">📱 +234 803 446 4183</a>
-            <a href="https://wa.me/2348034464183" target="_blank" style="display:inline-block; margin-top:8px; background:#25D366; color:white; padding:6px 18px; border-radius:50px; font-weight:800; text-decoration:none; font-size:0.85rem;">💬 WhatsApp</a>
-        </div>
-        <div style="background:white; border-radius:20px; padding:24px; border:3px solid #06D6A0; box-shadow:5px 5px 0px #06D6A0; text-align:center;">
-            <div style="font-size:2.5rem;">👨🏾‍🏫</div>
-            <div style="font-family:Arial; font-size:1.1rem; color:#FF6B35; margin:8px 0 4px;"><b>Rev. Dr. Olusegun Babalola</b></div>
-            <div style="font-weight:700; color:#555; font-size:0.9rem;">Chaplain</div>
-            <a href="tel:+2348062262318" style="display:block; margin-top:10px; color:#1A73E8; font-weight:800; text-decoration:none;">📱 +234 806 226 2318</a>
-            <a href="https://wa.me/2348062262318" target="_blank" style="display:inline-block; margin-top:8px; background:#25D366; color:white; padding:6px 18px; border-radius:50px; font-weight:800; text-decoration:none; font-size:0.85rem;">💬 WhatsApp</a>
-        </div>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown('<div class="fun-divider">💰 💰 💰</div>', unsafe_allow_html=True)
+
+    st.markdown("### 💛 Support the Camp")
+    st.markdown("""
+<div style="background:linear-gradient(135deg,#fff9e6,#fff0fb); border-radius:24px;
+padding:32px; border:3px dashed #FFD93D; text-align:center; max-width:500px; margin:auto;">
+    <div style="font-size:2.5rem;">🙏</div>
+    <div style="font-family:'Fredoka One',cursive; font-size:1.3rem; color:#FF6B35; margin:10px 0 6px;">
+        Make a Donation
     </div>
-    """,
-    unsafe_allow_html=True
-)
-
-
-# ------------------------------------
-# BIBLE QUIZ GAME
-# ------------------------------------
-
-st.markdown("### 🎮 Bible Quiz Challenge!")
-
-st.markdown(
-    """
-    <div style="background:linear-gradient(135deg,#fff9e6,#f0f4ff);border-radius:24px;
-    padding:20px 28px;border:3px solid #FFD93D;margin-bottom:16px;">
-        <p style="font-size:1.05rem;font-weight:700;color:#555;margin:0;">
-            🌟 Test your Bible knowledge! Pick your level, answer 5 questions,
-            and see how many you get right. Can you score 5 out of 5? 🏆
-        </p>
+    <p style="color:#555; font-weight:700; margin-bottom:20px;">
+        Your giving supports children attending Camp '26. God bless you! 💛
+    </p>
+    <div style="background:white; border-radius:16px; padding:20px; border:2px solid #FFD93D;">
+        <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Bank Name</div>
+        <div style="font-family:'Fredoka One',cursive; font-size:1.2rem; color:#333; margin:4px 0 16px;">First Bank Nigeria</div>
+        <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Account Name</div>
+        <div style="font-family:'Fredoka One',cursive; font-size:1.2rem; color:#333; margin:4px 0 16px;">Sunday School OAU Chapel</div>
+        <div style="font-weight:800; color:#888; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Account Number</div>
+        <div style="font-family:'Fredoka One',cursive; font-size:2rem; color:#1A73E8; letter-spacing:4px; margin:4px 0;">1234567890</div>
     </div>
-    """,
-    unsafe_allow_html=True
-)
+</div>
+""", unsafe_allow_html=True)
 
-# ── Session state init
-for _k, _v in [
-    ("game_active", False), ("q_index", 0), ("score", 0),
-    ("answered", False), ("selected", None), ("game_level", None),
-    ("game_questions", []), ("game_over", False),
-    ("timed_out", False), ("q_start_time", None), ("timeout_verse", None),
-]:
-    if _k not in st.session_state:
-        st.session_state[_k] = _v
+# ─────────────────────────────────────────
+# TAB 5 — BIBLE QUIZ
+# ─────────────────────────────────────────
+with tab5:
+    st.markdown("### 🎮 Bible Quiz Challenge!")
+    st.markdown(
+        """
+        <div style="background:linear-gradient(135deg,#fff9e6,#f0f4ff);border-radius:24px;
+        padding:20px 28px;border:3px solid #FFD93D;margin-bottom:16px;">
+            <p style="font-size:1.05rem;font-weight:700;color:#555;margin:0;">
+                🌟 Test your Bible knowledge! Pick your level, answer 5 questions,
+                and see how many you get right. Can you score 5 out of 5? 🏆
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-# ── Level picker
-if not st.session_state.game_active and not st.session_state.game_over:
-    st.markdown("#### 👇 Choose your level to start!")
-    _cols = st.columns(3)
-    _level_list = list(QUESTIONS.keys())
-    _icons = ["🌱", "🔥", "👑"]
-    _descs = ["Perfect for younger kids", "For teens and youth", "For Bible pros!"]
-    for _i, (_col, _level, _icon, _desc) in enumerate(zip(_cols, _level_list, _icons, _descs)):
-        _c = LEVEL_COLORS[_level]
-        with _col:
-            st.markdown(
-                f"""
-                <div style="background:{_c['bg']};border:3px solid {_c['border']};
-                border-radius:20px;padding:20px;text-align:center;
-                box-shadow:4px 4px 0 {_c['border']};margin-bottom:12px;">
-                    <div style="font-size:2rem;">{_icon}</div>
-                    <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;
-                    color:{_c['badge']};margin:6px 0 4px;">{_level}</div>
-                    <div style="font-size:0.85rem;font-weight:700;color:#777;">{_desc}</div>
+    # ── Session state init
+    for _k, _v in [
+        ("game_active", False), ("q_index", 0), ("score", 0),
+        ("answered", False), ("selected", None), ("game_level", None),
+        ("game_questions", []), ("game_over", False),
+        ("timed_out", False), ("q_start_time", None), ("timeout_verse", None),
+    ]:
+        if _k not in st.session_state:
+            st.session_state[_k] = _v
+
+    # ── Level picker
+    if not st.session_state.game_active and not st.session_state.game_over:
+        st.markdown("#### 👇 Choose your level to start!")
+        _cols = st.columns(3)
+        _level_list = list(QUESTIONS.keys())
+        _icons = ["🌱", "🔥", "👑"]
+        _descs = ["Perfect for younger kids", "For teens and youth", "For Bible pros!"]
+        for _i, (_col, _level, _icon, _desc) in enumerate(zip(_cols, _level_list, _icons, _descs)):
+            _c = LEVEL_COLORS[_level]
+            with _col:
+                st.markdown(
+                    f"""
+                    <div style="background:{_c['bg']};border:3px solid {_c['border']};
+                    border-radius:20px;padding:20px;text-align:center;
+                    box-shadow:4px 4px 0 {_c['border']};margin-bottom:12px;">
+                        <div style="font-size:2rem;">{_icon}</div>
+                        <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;
+                        color:{_c['badge']};margin:6px 0 4px;">{_level}</div>
+                        <div style="font-size:0.85rem;font-weight:700;color:#777;">{_desc}</div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+                if st.button(f"Play {_level}", key=f"start_{_i}", use_container_width=True):
+                    import random as _random
+                    _qs = QUESTIONS[_level].copy()
+                    _random.shuffle(_qs)
+                    st.session_state.game_questions = _qs[:5]
+                    st.session_state.game_level     = _level
+                    st.session_state.game_active    = True
+                    st.session_state.q_index        = 0
+                    st.session_state.score          = 0
+                    st.session_state.answered       = False
+                    st.session_state.selected       = None
+                    st.session_state.game_over      = False
+                    st.session_state.q_start_time   = None
+                    st.session_state.timed_out      = False
+                    st.session_state.timeout_verse  = None
+                    st.rerun()
+
+    # ── Active game
+    elif st.session_state.game_active and not st.session_state.game_over:
+        _level = st.session_state.game_level
+        _c     = LEVEL_COLORS[_level]
+        _qi    = st.session_state.q_index
+        _qs    = st.session_state.game_questions
+        _q     = _qs[_qi]
+        _total = len(_qs)
+        _prog  = int((_qi / _total) * 100)
+        _TIME_LIMIT = 15
+
+        if st.session_state.q_start_time is None:
+            st.session_state.q_start_time = time.time()
+
+        _elapsed   = time.time() - st.session_state.q_start_time
+        _remaining = max(0, _TIME_LIMIT - int(_elapsed))
+
+        if _remaining == 0 and not st.session_state.answered and not st.session_state.timed_out:
+            import random as _rnd
+            st.session_state.timed_out    = True
+            st.session_state.game_active  = False
+            st.session_state.game_over    = True
+            st.session_state.timeout_verse = _rnd.choice(TIME_UP_VERSES)
+            st.rerun()
+
+        if _remaining > 10:
+            _tcol = "#06D6A0"
+        elif _remaining > 5:
+            _tcol = "#FF6B35"
+        else:
+            _tcol = "#FF4D6D"
+
+        _timer_pct = int((_remaining / _TIME_LIMIT) * 100)
+
+        st.markdown(
+            f"""
+            <div style="background:#eee;border-radius:50px;height:14px;margin-bottom:6px;overflow:hidden;">
+                <div style="background:linear-gradient(90deg,{_c['badge']},{_c['border']});
+                width:{_prog}%;height:100%;border-radius:50px;transition:width 0.5s;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-weight:800;color:{_c['badge']};">Question {_qi+1} of {_total}</span>
+                <span style="font-weight:800;color:#FF6B35;">Score: {st.session_state.score} ⭐</span>
+            </div>
+            <div style="margin-bottom:6px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                    <span style="font-size:0.85rem;font-weight:800;color:{_tcol};">
+                        {'⏱️' if _remaining > 5 else '🚨'} {_remaining}s remaining
+                    </span>
+                    <span style="font-size:0.75rem;font-weight:700;color:#aaa;">15 sec per question</span>
                 </div>
-                """,
-                unsafe_allow_html=True
-            )
-            if st.button(f"Play {_level}", key=f"start_{_i}", use_container_width=True):
-                import random as _random
-                _qs = QUESTIONS[_level].copy()
-                _random.shuffle(_qs)
-                st.session_state.game_questions = _qs[:5]
-                st.session_state.game_level     = _level
-                st.session_state.game_active    = True
+                <div style="background:#eee;border-radius:50px;height:10px;overflow:hidden;">
+                    <div style="background:{_tcol};width:{_timer_pct}%;height:100%;
+                    border-radius:50px;transition:width 1s linear;"></div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        st.markdown(
+            f"""
+            <div style="background:{_c['bg']};border:3px solid {_c['border']};
+            border-radius:24px;padding:28px;margin-bottom:20px;
+            box-shadow:5px 5px 0 {_c['border']};">
+                <div style="font-size:2.5rem;text-align:center;margin-bottom:12px;">{_q['emoji']}</div>
+                <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;
+                color:#333;text-align:center;line-height:1.4;">{_q['question']}</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+
+        _nav1, _nav2 = st.columns(2)
+        with _nav1:
+            if st.button("🏠 Home", key="home_mid", use_container_width=True):
+                st.session_state.game_active = False
+                st.session_state.game_over   = False
+                st.session_state.q_index     = 0
+                st.session_state.score       = 0
+                st.session_state.answered    = False
+                st.session_state.selected    = None
+                st.session_state.game_level  = None
+                st.session_state.q_start_time = None
+                st.rerun()
+        with _nav2:
+            if st.button("🔄 New Game", key="new_game_mid", use_container_width=True):
+                st.session_state.game_active = False
+                st.session_state.game_over   = False
+                st.session_state.q_index     = 0
+                st.session_state.score       = 0
+                st.session_state.answered    = False
+                st.session_state.selected    = None
+                st.session_state.game_level  = None
+                st.session_state.q_start_time = None
+                st.rerun()
+
+        if not st.session_state.answered:
+            _bcols = st.columns(2)
+            for _i, _opt in enumerate(_q["options"]):
+                with _bcols[_i % 2]:
+                    if st.button(f"  {_opt}  ", key=f"opt_{_qi}_{_i}", use_container_width=True):
+                        st.session_state.selected = _opt
+                        st.session_state.answered = True
+                        if _opt == _q["answer"]:
+                            st.session_state.score += 1
+                        st.rerun()
+        else:
+            _selected = st.session_state.selected
+            _correct  = _q["answer"]
+            _is_right = _selected == _correct
+
+            if _is_right:
+                st.markdown(
+                    f"""
+                    <div style="background:#e8fff5;border:3px solid #06D6A0;border-radius:20px;
+                    padding:20px;text-align:center;box-shadow:4px 4px 0 #06D6A0;margin-bottom:12px;">
+                        <div style="font-size:2rem;">🎉</div>
+                        <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:#06D6A0;">
+                            Correct! Well done!</div>
+                        <div style="font-size:0.9rem;font-weight:700;color:#555;margin-top:8px;">
+                            💡 {_q['fun_fact']}</div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+            else:
+                st.markdown(
+                    f"""
+                    <div style="background:#fff0f0;border:3px solid #FF4D6D;border-radius:20px;
+                    padding:20px;text-align:center;box-shadow:4px 4px 0 #FF4D6D;margin-bottom:12px;">
+                        <div style="font-size:2rem;">😅</div>
+                        <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:#FF4D6D;">
+                            Not quite! The answer was:</div>
+                        <div style="font-family:'Fredoka One',cursive;font-size:1.5rem;
+                        color:#333;margin:6px 0;">{_correct}</div>
+                        <div style="font-size:0.9rem;font-weight:700;color:#555;margin-top:4px;">
+                            💡 {_q['fun_fact']}</div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True
+                )
+
+            if _qi + 1 < _total:
+                if st.button("Next Question ➡️", use_container_width=True):
+                    st.session_state.q_index      += 1
+                    st.session_state.answered      = False
+                    st.session_state.selected      = None
+                    st.session_state.q_start_time  = None
+                    st.rerun()
+            else:
+                if st.button("See My Score! 🏆", use_container_width=True):
+                    st.session_state.game_over   = True
+                    st.session_state.game_active = False
+                    st.rerun()
+
+    # ── TIME'S UP screen
+    elif st.session_state.game_over and st.session_state.timed_out:
+        _verse  = st.session_state.timeout_verse or {"verse": "Psalm 119:11", "text": "I have hidden your word in my heart."}
+        _level  = st.session_state.game_level or "Kids (Easy)"
+        _c      = LEVEL_COLORS[_level]
+        _score  = st.session_state.score
+        _total  = len(st.session_state.game_questions) if st.session_state.game_questions else 5
+
+        st.markdown(
+            f"""
+            <div style="background:#fff0f0;border:4px solid #FF4D6D;border-radius:28px;
+            padding:36px;text-align:center;box-shadow:6px 6px 0 #FF4D6D;">
+                <div style="font-size:3.5rem;margin-bottom:8px;">⏰</div>
+                <div style="font-family:'Fredoka One',cursive;font-size:2rem;color:#FF4D6D;margin-bottom:4px;">
+                    Time's Up!
+                </div>
+                <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:#555;margin-bottom:16px;">
+                    Sorry, better luck next time! You scored {_score} out of {_total} before time ran out.
+                </div>
+                <div style="background:white;border:2.5px dashed #FF4D6D;border-radius:20px;
+                padding:20px;margin:0 auto;max-width:480px;">
+                    <div style="font-size:1.5rem;margin-bottom:8px;">📖</div>
+                    <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:#1A73E8;margin-bottom:8px;">
+                        Go and read this Bible verse:</div>
+                    <div style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#FF6B35;margin-bottom:8px;">
+                        {_verse['verse']}</div>
+                    <div style="font-style:italic;font-weight:700;color:#555;font-size:0.95rem;line-height:1.6;">
+                        "{_verse['text']}"</div>
+                </div>
+                <div style="margin-top:16px;font-family:'Fredoka One',cursive;font-size:1rem;color:#888;">
+                    Keep studying and come back stronger! 💪</div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+        st.markdown("<br>", unsafe_allow_html=True)
+        _t1, _t2, _t3 = st.columns(3)
+        with _t1:
+            if st.button("🔄 Try Again!", key="timeout_retry", use_container_width=True):
+                import random as _rnd2
+                _qs2 = QUESTIONS[_level].copy()
+                _rnd2.shuffle(_qs2)
+                st.session_state.game_questions = _qs2[:5]
                 st.session_state.q_index        = 0
                 st.session_state.score          = 0
                 st.session_state.answered       = False
                 st.session_state.selected       = None
                 st.session_state.game_over      = False
-                st.session_state.q_start_time  = None
+                st.session_state.game_active    = True
                 st.session_state.timed_out      = False
+                st.session_state.q_start_time   = None
+                st.session_state.timeout_verse  = None
+                st.rerun()
+        with _t2:
+            if st.button("🎯 Pick Level", key="timeout_level", use_container_width=True):
+                st.session_state.game_active    = False
+                st.session_state.game_over      = False
+                st.session_state.timed_out      = False
+                st.session_state.q_index        = 0
+                st.session_state.score          = 0
+                st.session_state.answered       = False
+                st.session_state.selected       = None
+                st.session_state.game_level     = None
+                st.session_state.q_start_time   = None
+                st.session_state.timeout_verse  = None
+                st.rerun()
+        with _t3:
+            if st.button("🏠 Home", key="timeout_home", use_container_width=True):
+                st.session_state.game_active    = False
+                st.session_state.game_over      = False
+                st.session_state.timed_out      = False
+                st.session_state.q_index        = 0
+                st.session_state.score          = 0
+                st.session_state.answered       = False
+                st.session_state.selected       = None
+                st.session_state.game_level     = None
+                st.session_state.q_start_time   = None
                 st.session_state.timeout_verse  = None
                 st.rerun()
 
-# ── Active game
-elif st.session_state.game_active and not st.session_state.game_over:
-    _level = st.session_state.game_level
-    _c     = LEVEL_COLORS[_level]
-    _qi    = st.session_state.q_index
-    _qs    = st.session_state.game_questions
-    _q     = _qs[_qi]
-    _total = len(_qs)
-    _prog  = int((_qi / _total) * 100)
-    _TIME_LIMIT = 15
+    # ── Game over screen (normal)
+    elif st.session_state.game_over:
+        _score = st.session_state.score
+        _level = st.session_state.game_level
+        _c     = LEVEL_COLORS[_level]
+        _total = len(st.session_state.game_questions)
+        _msg   = next(m for threshold, m in SCORE_MESSAGES if _score >= threshold)
+        _camp_msg = ""
+        if _score == _total:
+            _camp_msg = "🎉 See You at CAMP '26 — We can't wait!"
+        elif _score >= int(_total * 0.6):
+            _camp_msg = "⛺ See You at CAMP '26!"
+        _pct   = int((_score / _total) * 100)
+        _bar   = "#06D6A0" if _pct == 100 else "#1A73E8" if _pct >= 60 else "#FF6B35"
+        _trophy = "🏆" if _score == _total else "🌟" if _score >= _total * 0.6 else "📖"
 
-    # ── Start timer when new question appears
-    if st.session_state.q_start_time is None:
-        st.session_state.q_start_time = time.time()
-
-    _elapsed  = time.time() - st.session_state.q_start_time
-    _remaining = max(0, _TIME_LIMIT - int(_elapsed))
-
-    # ── Time ran out and question not yet answered → game over
-    if _remaining == 0 and not st.session_state.answered and not st.session_state.timed_out:
-        import random as _rnd
-        st.session_state.timed_out    = True
-        st.session_state.game_active  = False
-        st.session_state.game_over    = True
-        st.session_state.timeout_verse = _rnd.choice(TIME_UP_VERSES)
-        st.rerun()
-
-    # ── Timer colour: green→orange→red
-    if _remaining > 10:
-        _tcol = "#06D6A0"
-    elif _remaining > 5:
-        _tcol = "#FF6B35"
-    else:
-        _tcol = "#FF4D6D"
-
-    _timer_pct = int((_remaining / _TIME_LIMIT) * 100)
-
-    st.markdown(
-        f"""
-        <div style="background:#eee;border-radius:50px;height:14px;margin-bottom:6px;overflow:hidden;">
-            <div style="background:linear-gradient(90deg,{_c['badge']},{_c['border']});
-            width:{_prog}%;height:100%;border-radius:50px;transition:width 0.5s;"></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <span style="font-weight:800;color:{_c['badge']};">Question {_qi+1} of {_total}</span>
-            <span style="font-weight:800;color:#FF6B35;">Score: {st.session_state.score} ⭐</span>
-        </div>
-        <div style="margin-bottom:6px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
-                <span style="font-size:0.85rem;font-weight:800;color:{_tcol};">
-                    {'⏱️' if _remaining > 5 else '🚨'} {_remaining}s remaining
-                </span>
-                <span style="font-size:0.75rem;font-weight:700;color:#aaa;">15 sec per question</span>
-            </div>
-            <div style="background:#eee;border-radius:50px;height:10px;overflow:hidden;">
-                <div style="background:{_tcol};width:{_timer_pct}%;height:100%;
-                border-radius:50px;transition:width 1s linear;"></div>
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.markdown(
-        f"""
-        <div style="background:{_c['bg']};border:3px solid {_c['border']};
-        border-radius:24px;padding:28px;margin-bottom:20px;
-        box-shadow:5px 5px 0 {_c['border']};">
-            <div style="font-size:2.5rem;text-align:center;margin-bottom:12px;">{_q['emoji']}</div>
-            <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;
-            color:#333;text-align:center;line-height:1.4;">{_q['question']}</div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    # Home + New Game buttons always visible during play
-    _nav1, _nav2 = st.columns(2)
-    with _nav1:
-        if st.button("🏠 Home", key="home_mid", use_container_width=True):
-            st.session_state.game_active = False
-            st.session_state.game_over   = False
-            st.session_state.q_index     = 0
-            st.session_state.score       = 0
-            st.session_state.answered    = False
-            st.session_state.selected    = None
-            st.session_state.game_level  = None
-            st.rerun()
-    with _nav2:
-        if st.button("🔄 New Game", key="new_game_mid", use_container_width=True):
-            st.session_state.game_active = False
-            st.session_state.game_over   = False
-            st.session_state.q_index     = 0
-            st.session_state.score       = 0
-            st.session_state.answered    = False
-            st.session_state.selected    = None
-            st.session_state.game_level  = None
-            st.rerun()
-
-    if not st.session_state.answered:
-        _bcols = st.columns(2)
-        for _i, _opt in enumerate(_q["options"]):
-            with _bcols[_i % 2]:
-                if st.button(f"  {_opt}  ", key=f"opt_{_qi}_{_i}", use_container_width=True):
-                    st.session_state.selected = _opt
-                    st.session_state.answered = True
-                    if _opt == _q["answer"]:
-                        st.session_state.score += 1
-                    st.rerun()
-    else:
-        _selected = st.session_state.selected
-        _correct  = _q["answer"]
-        _is_right = _selected == _correct
-
-        if _is_right:
-            st.markdown(
-                f"""
-                <div style="background:#e8fff5;border:3px solid #06D6A0;border-radius:20px;
-                padding:20px;text-align:center;box-shadow:4px 4px 0 #06D6A0;margin-bottom:12px;">
-                    <div style="font-size:2rem;">🎉</div>
-                    <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:#06D6A0;">
-                        Correct! Well done!</div>
-                    <div style="font-size:0.9rem;font-weight:700;color:#555;margin-top:8px;">
-                        💡 {_q['fun_fact']}</div>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-        else:
-            st.markdown(
-                f"""
-                <div style="background:#fff0f0;border:3px solid #FF4D6D;border-radius:20px;
-                padding:20px;text-align:center;box-shadow:4px 4px 0 #FF4D6D;margin-bottom:12px;">
-                    <div style="font-size:2rem;">😅</div>
-                    <div style="font-family:'Fredoka One',cursive;font-size:1.3rem;color:#FF4D6D;">
-                        Not quite! The answer was:</div>
-                    <div style="font-family:'Fredoka One',cursive;font-size:1.5rem;
-                    color:#333;margin:6px 0;">{_correct}</div>
-                    <div style="font-size:0.9rem;font-weight:700;color:#555;margin-top:4px;">
-                        💡 {_q['fun_fact']}</div>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
-
-        if _qi + 1 < _total:
-            if st.button("Next Question ➡️", use_container_width=True):
-                st.session_state.q_index      += 1
-                st.session_state.answered      = False
-                st.session_state.selected      = None
-                st.session_state.q_start_time  = None
-                st.rerun()
-        else:
-            if st.button("See My Score! 🏆", use_container_width=True):
-                st.session_state.game_over   = True
-                st.session_state.game_active = False
-                st.rerun()
-
-# ── TIME'S UP screen
-elif st.session_state.game_over and st.session_state.timed_out:
-    _verse  = st.session_state.timeout_verse or {"verse": "Psalm 119:11", "text": "I have hidden your word in my heart."}
-    _level  = st.session_state.game_level or "Kids (Easy)"
-    _c      = LEVEL_COLORS[_level]
-    _score  = st.session_state.score
-    _total  = len(st.session_state.game_questions) if st.session_state.game_questions else 5
-
-    st.markdown(
-        f"""
-        <div style="background:#fff0f0;border:4px solid #FF4D6D;border-radius:28px;
-        padding:36px;text-align:center;box-shadow:6px 6px 0 #FF4D6D;">
-            <div style="font-size:3.5rem;margin-bottom:8px;">⏰</div>
-            <div style="font-family:'Fredoka One',cursive;font-size:2rem;color:#FF4D6D;margin-bottom:4px;">
-                Time's Up!
-            </div>
-            <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;color:#555;margin-bottom:16px;">
-                Sorry, better luck next time! You scored {_score} out of {_total} before time ran out.
-            </div>
-            <div style="background:white;border:2.5px dashed #FF4D6D;border-radius:20px;
-            padding:20px;margin:0 auto;max-width:480px;">
-                <div style="font-size:1.5rem;margin-bottom:8px;">📖</div>
-                <div style="font-family:'Fredoka One',cursive;font-size:1rem;color:#1A73E8;
-                margin-bottom:8px;">Go and read this Bible verse:</div>
-                <div style="font-family:'Fredoka One',cursive;font-size:1.4rem;color:#FF6B35;
-                margin-bottom:8px;">{_verse['verse']}</div>
-                <div style="font-style:italic;font-weight:700;color:#555;font-size:0.95rem;
-                line-height:1.6;">"{_verse['text']}"</div>
-            </div>
-            <div style="margin-top:16px;font-family:'Fredoka One',cursive;font-size:1rem;
-            color:#888;">Keep studying and come back stronger! 💪</div>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.markdown("<br>", unsafe_allow_html=True)
-    _t1, _t2, _t3 = st.columns(3)
-    with _t1:
-        if st.button("🔄 Try Again!", key="timeout_retry", use_container_width=True):
-            import random as _rnd2
-            _qs2 = QUESTIONS[_level].copy()
-            _rnd2.shuffle(_qs2)
-            st.session_state.game_questions = _qs2[:5]
-            st.session_state.q_index        = 0
-            st.session_state.score          = 0
-            st.session_state.answered       = False
-            st.session_state.selected       = None
-            st.session_state.game_over      = False
-            st.session_state.game_active    = True
-            st.session_state.timed_out      = False
-            st.session_state.q_start_time   = None
-            st.session_state.timeout_verse  = None
-            st.rerun()
-    with _t2:
-        if st.button("🎯 Pick Level", key="timeout_level", use_container_width=True):
-            st.session_state.game_active    = False
-            st.session_state.game_over      = False
-            st.session_state.timed_out      = False
-            st.session_state.q_index        = 0
-            st.session_state.score          = 0
-            st.session_state.answered       = False
-            st.session_state.selected       = None
-            st.session_state.game_level     = None
-            st.session_state.q_start_time   = None
-            st.session_state.timeout_verse  = None
-            st.rerun()
-    with _t3:
-        if st.button("🏠 Home", key="timeout_home", use_container_width=True):
-            st.session_state.game_active    = False
-            st.session_state.game_over      = False
-            st.session_state.timed_out      = False
-            st.session_state.q_index        = 0
-            st.session_state.score          = 0
-            st.session_state.answered       = False
-            st.session_state.selected       = None
-            st.session_state.game_level     = None
-            st.session_state.q_start_time   = None
-            st.session_state.timeout_verse  = None
-            st.rerun()
-
-# ── Game over screen (normal — all 5 questions answered)
-elif st.session_state.game_over:
-    _score = st.session_state.score
-    _level = st.session_state.game_level
-    _c     = LEVEL_COLORS[_level]
-    _total = len(st.session_state.game_questions)
-    _msg   = next(m for threshold, m in SCORE_MESSAGES if _score >= threshold)
-    _camp_msg = ""
-    if _score == _total:
-        _camp_msg = "🎉 See You at CAMP '26 — We can't wait!"
-    elif _score >= int(_total * 0.6):
-        _camp_msg = "⛺ See You at CAMP '26!"
-    _pct   = int((_score / _total) * 100)
-    _bar   = "#06D6A0" if _pct == 100 else "#1A73E8" if _pct >= 60 else "#FF6B35"
-    _trophy = "🏆" if _score == _total else "🌟" if _score >= _total * 0.6 else "📖"
-
-    st.markdown(
-        f"""
-        <div style="background:{_c['bg']};border:4px solid {_c['border']};
-        border-radius:28px;padding:36px;text-align:center;
-        box-shadow:6px 6px 0 {_c['border']};">
-            <div style="font-size:3.5rem;margin-bottom:8px;">{_trophy}</div>
-            <div style="font-family:'Fredoka One',cursive;font-size:2.5rem;color:{_c['badge']};">
-                {_score} / {_total}
-            </div>
-            <div style="background:#eee;border-radius:50px;height:18px;
-            margin:12px auto;max-width:300px;overflow:hidden;">
-                <div style="background:linear-gradient(90deg,{_bar},{_c['border']});
-                width:{_pct}%;height:100%;border-radius:50px;"></div>
-            </div>
-            <div style="font-family:'Fredoka One',cursive;font-size:1.2rem;
-            color:#444;margin-top:8px;">{_msg}</div>
-            <div style="font-size:0.9rem;font-weight:700;color:#888;margin-top:8px;">
-                Level played: {_level}
-            </div>
-            {('<div style="font-family:Fredoka One,cursive;font-size:1.1rem;color:#FF6B35;font-weight:800;margin-top:12px;padding:10px 20px;background:#FFF8F0;border:2.5px solid #FF6B35;border-radius:50px;display:inline-block;">' + _camp_msg + '</div>') if _camp_msg else ""}
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
-
-    st.markdown("<br>", unsafe_allow_html=True)
-    _rc1, _rc2, _rc3 = st.columns(3)
-    with _rc1:
-        if st.button("🔄 Play Again", use_container_width=True):
-            import random as _random
-            _qs = QUESTIONS[_level].copy()
-            _random.shuffle(_qs)
-            st.session_state.game_questions = _qs[:5]
-            st.session_state.q_index        = 0
-            st.session_state.score          = 0
-            st.session_state.answered       = False
-            st.session_state.selected       = None
-            st.session_state.game_over      = False
-            st.session_state.game_active    = True
-            st.session_state.q_start_time   = None
-            st.session_state.timed_out      = False
-            st.session_state.timeout_verse  = None
-            st.rerun()
-    with _rc2:
-        if st.button("🎯 Try Different Level", use_container_width=True):
-            st.session_state.game_active = False
-            st.session_state.game_over   = False
-            st.session_state.q_index     = 0
-            st.session_state.score       = 0
-            st.session_state.answered    = False
-            st.session_state.selected    = None
-            st.session_state.game_level  = None
-            st.rerun()
-    with _rc3:
-        if st.button("🏠 Home", key="home_end", use_container_width=True):
-            st.session_state.game_active = False
-            st.session_state.game_over   = False
-            st.session_state.q_index     = 0
-            st.session_state.score       = 0
-            st.session_state.answered    = False
-            st.session_state.selected    = None
-            st.session_state.game_level  = None
-            st.rerun()
-
-
-st.markdown('<div class="fun-divider">🎨 🎨 🎨</div>', unsafe_allow_html=True)
-
-# ------------------------------------
-# FLYER GENERATOR
-# ------------------------------------
-
-st.markdown("### 🎨 Make Your 'I Will Be Attending' Flyer!")
-
-st.markdown('<div class="flyer-form">', unsafe_allow_html=True)
-
-col_left, col_right = st.columns([1, 1])
-
-with col_left:
-    name = st.text_input("✏️ Enter your name", placeholder="e.g. Favour")
-    template_choice = st.selectbox(
-        "🖼️ Choose a flyer version",
-        list(THEMES.keys())
-    )
-
-    badge_choice = st.selectbox(
-        "💬 Choose your flyer message",
-        [
-            "I Will Be Attending!",
-            "I Look Forward to Camp '26!",
-            "I Can't Wait to See You at Camp '26!",
-        ]
-    )
-
-with col_right:
-    uploaded_file = st.file_uploader(
-        "📸 Upload your photo here!",
-        type=["jpg", "jpeg", "png"]
-    )
-    if not uploaded_file:
-        st.markdown("""
-        <div style="
-            background: linear-gradient(135deg,#fff0f7,#f0f4ff);
-            border-radius:16px;padding:20px;
-            text-align:center;
-            border:3px dashed #C77DFF;
-            animation: pulse-border 2s ease-in-out infinite;">
-            <div style="font-size:2.5rem;margin-bottom:8px;">📸</div>
-            <div style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:#FF6B35;margin-bottom:4px;">
-                Drop Your Best Smile Here!
-            </div>
-            <div style="font-weight:800;color:#C77DFF;font-size:0.9rem;">
-                JPG, JPEG or PNG • Max 200MB
-            </div>
-            <div style="margin-top:8px;font-size:0.85rem;font-weight:700;color:#aaa;">
-                Your photo goes right on the flyer!
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-st.markdown('</div>', unsafe_allow_html=True)
-
-# ------------------------------------
-# FLYER GENERATION
-# ------------------------------------
-
-if "flyer_png" not in st.session_state:
-    st.session_state.flyer_png = None
-if "flyer_name" not in st.session_state:
-    st.session_state.flyer_name = ""
-
-if st.button("🎨 Generate My Flyer!"):
-    photo_img = None
-    if uploaded_file:
-        photo_img = Image.open(uploaded_file).convert("RGBA")
-
-    with st.spinner("Creating your flyer... 🎉"):
-        try:
-            flyer_buf = generate_flyer(
-                theme_name=template_choice,
-                attendee_name=name,
-                photo_img=photo_img,
-                badge_text=badge_choice
-            )
-            flyer_buf.seek(0)
-            st.session_state.flyer_png = flyer_buf.read()
-            st.session_state.flyer_name = name or "attendee"
-        except Exception as e:
-            st.error(f"Oops! Something went wrong: {e}")
-
-if st.session_state.flyer_png:
-    png_bytes = st.session_state.flyer_png
-    flyer_name = st.session_state.flyer_name
-
-    st.markdown("### 🎉 Your Flyer is Ready!")
-    st.image(png_bytes, use_column_width=True)
-
-    dl_col1, dl_col2, dl_col3 = st.columns(3)
-
-    # PNG DOWNLOAD
-    with dl_col1:
-        st.download_button(
-            "⬇️ Download PNG",
-            png_bytes,
-            f"camp26_flyer_{flyer_name}.png",
-            "image/png"
-        )
-
-    # PDF DOWNLOAD
-    with dl_col2:
-        pdf_buffer = io.BytesIO()
-        c = canvas.Canvas(pdf_buffer, pagesize=(540, 780))
-        temp_path = "/tmp/flyer_temp.png"
-        with open(temp_path, "wb") as f:
-            f.write(png_bytes)
-        c.drawImage(temp_path, 0, 0, 540, 780)
-        c.save()
-        st.download_button(
-            "⬇️ Download PDF",
-            pdf_buffer.getvalue(),
-            f"camp26_flyer_{flyer_name}.pdf",
-            "application/pdf"
-        )
-
-    # WHATSAPP SHARE
-    with dl_col3:
         st.markdown(
-            """
-            <a href="https://wa.me/?text=I%20will%20be%20attending%20Sunday%20School%20Camp%2026!%20%F0%9F%8E%89%20God%20Answers%20Prayers!"
-            target="_blank"
-            style="
-                display:inline-block;
-                background:linear-gradient(135deg,#25D366,#128C7E);
-                color:white;
-                font-family:'Fredoka One',cursive;
-                font-size:1rem;
-                border-radius:50px;
-                padding:12px 24px;
-                text-decoration:none;
-                box-shadow:0 6px 20px rgba(37,211,102,0.35);
-                letter-spacing:1px;
-            ">
-                📲 Share on WhatsApp
-            </a>
+            f"""
+            <div style="background:{_c['bg']};border:4px solid {_c['border']};
+            border-radius:28px;padding:36px;text-align:center;
+            box-shadow:6px 6px 0 {_c['border']};">
+                <div style="font-size:3.5rem;margin-bottom:8px;">{_trophy}</div>
+                <div style="font-family:'Fredoka One',cursive;font-size:2.5rem;color:{_c['badge']};">
+                    {_score} / {_total}
+                </div>
+                <div style="background:#eee;border-radius:50px;height:18px;
+                margin:12px auto;max-width:300px;overflow:hidden;">
+                    <div style="background:linear-gradient(90deg,{_bar},{_c['border']});
+                    width:{_pct}%;height:100%;border-radius:50px;"></div>
+                </div>
+                <div style="font-family:'Fredoka One',cursive;font-size:1.2rem;
+                color:#444;margin-top:8px;">{_msg}</div>
+                <div style="font-size:0.9rem;font-weight:700;color:#888;margin-top:8px;">
+                    Level played: {_level}
+                </div>
+                {('<div style="font-family:Fredoka One,cursive;font-size:1.1rem;color:#FF6B35;font-weight:800;margin-top:12px;padding:10px 20px;background:#FFF8F0;border:2.5px solid #FF6B35;border-radius:50px;display:inline-block;">' + _camp_msg + '</div>') if _camp_msg else ""}
+            </div>
             """,
             unsafe_allow_html=True
         )
+        st.markdown("<br>", unsafe_allow_html=True)
+        _rc1, _rc2, _rc3 = st.columns(3)
+        with _rc1:
+            if st.button("🔄 Play Again", use_container_width=True):
+                import random as _random
+                _qs = QUESTIONS[_level].copy()
+                _random.shuffle(_qs)
+                st.session_state.game_questions = _qs[:5]
+                st.session_state.q_index        = 0
+                st.session_state.score          = 0
+                st.session_state.answered       = False
+                st.session_state.selected       = None
+                st.session_state.game_over      = False
+                st.session_state.game_active    = True
+                st.session_state.q_start_time   = None
+                st.session_state.timed_out      = False
+                st.session_state.timeout_verse  = None
+                st.rerun()
+        with _rc2:
+            if st.button("🎯 Try Different Level", use_container_width=True):
+                st.session_state.game_active = False
+                st.session_state.game_over   = False
+                st.session_state.q_index     = 0
+                st.session_state.score       = 0
+                st.session_state.answered    = False
+                st.session_state.selected    = None
+                st.session_state.game_level  = None
+                st.session_state.q_start_time = None
+                st.rerun()
+        with _rc3:
+            if st.button("🏠 Home", key="home_end", use_container_width=True):
+                st.session_state.game_active = False
+                st.session_state.game_over   = False
+                st.session_state.q_index     = 0
+                st.session_state.score       = 0
+                st.session_state.answered    = False
+                st.session_state.selected    = None
+                st.session_state.game_level  = None
+                st.session_state.q_start_time = None
+                st.rerun()
 
-# ------------------------------------
-# FOOTER
-# ------------------------------------
+# ─────────────────────────────────────────
+# TAB 6 — MY FLYER
+# ─────────────────────────────────────────
+with tab6:
+    st.markdown("### 🎨 Make Your 'I Will Be Attending' Flyer!")
 
+    st.markdown('<div class="flyer-form">', unsafe_allow_html=True)
+
+    col_left, col_right = st.columns([1, 1])
+
+    with col_left:
+        name = st.text_input("✏️ Enter your name", placeholder="e.g. Favour")
+        template_choice = st.selectbox(
+            "🖼️ Choose a flyer version",
+            list(THEMES.keys())
+        )
+        badge_choice = st.selectbox(
+            "💬 Choose your flyer message",
+            [
+                "I Will Be Attending!",
+                "I Look Forward to Camp '26!",
+                "I Can't Wait to See You at Camp '26!",
+            ]
+        )
+
+    with col_right:
+        uploaded_file = st.file_uploader(
+            "📸 Upload your photo here!",
+            type=["jpg", "jpeg", "png"]
+        )
+        if not uploaded_file:
+            st.markdown("""
+            <div style="
+                background: linear-gradient(135deg,#fff0f7,#f0f4ff);
+                border-radius:16px;padding:20px;
+                text-align:center;
+                border:3px dashed #C77DFF;
+                animation: pulse-border 2s ease-in-out infinite;">
+                <div style="font-size:2.5rem;margin-bottom:8px;">📸</div>
+                <div style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:#FF6B35;margin-bottom:4px;">
+                    Drop Your Best Smile Here!
+                </div>
+                <div style="font-weight:800;color:#C77DFF;font-size:0.9rem;">
+                    JPG, JPEG or PNG • Max 200MB
+                </div>
+                <div style="margin-top:8px;font-size:0.85rem;font-weight:700;color:#aaa;">
+                    Your photo goes right on the flyer!
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    if "flyer_png" not in st.session_state:
+        st.session_state.flyer_png = None
+    if "flyer_name" not in st.session_state:
+        st.session_state.flyer_name = ""
+
+    if st.button("🎨 Generate My Flyer!"):
+        photo_img = None
+        if uploaded_file:
+            photo_img = Image.open(uploaded_file).convert("RGBA")
+        with st.spinner("Creating your flyer... 🎉"):
+            try:
+                flyer_buf = generate_flyer(
+                    theme_name=template_choice,
+                    attendee_name=name,
+                    photo_img=photo_img,
+                    badge_text=badge_choice
+                )
+                flyer_buf.seek(0)
+                st.session_state.flyer_png = flyer_buf.read()
+                st.session_state.flyer_name = name or "attendee"
+            except Exception as e:
+                st.error(f"Oops! Something went wrong: {e}")
+
+    if st.session_state.flyer_png:
+        png_bytes  = st.session_state.flyer_png
+        flyer_name = st.session_state.flyer_name
+
+        st.markdown("### 🎉 Your Flyer is Ready!")
+        st.image(png_bytes, use_column_width=True)
+
+        dl_col1, dl_col2, dl_col3 = st.columns(3)
+
+        with dl_col1:
+            st.download_button(
+                "⬇️ Download PNG",
+                png_bytes,
+                f"camp26_flyer_{flyer_name}.png",
+                "image/png"
+            )
+        with dl_col2:
+            pdf_buffer = io.BytesIO()
+            c = canvas.Canvas(pdf_buffer, pagesize=(540, 780))
+            temp_path = "/tmp/flyer_temp.png"
+            with open(temp_path, "wb") as f:
+                f.write(png_bytes)
+            c.drawImage(temp_path, 0, 0, 540, 780)
+            c.save()
+            st.download_button(
+                "⬇️ Download PDF",
+                pdf_buffer.getvalue(),
+                f"camp26_flyer_{flyer_name}.pdf",
+                "application/pdf"
+            )
+        with dl_col3:
+            st.markdown(
+                """
+                <a href="https://wa.me/?text=I%20will%20be%20attending%20Sunday%20School%20Camp%2026!%20%F0%9F%8E%89%20God%20Answers%20Prayers!"
+                target="_blank"
+                style="
+                    display:inline-block;
+                    background:linear-gradient(135deg,#25D366,#128C7E);
+                    color:white;
+                    font-family:'Fredoka One',cursive;
+                    font-size:1rem;
+                    border-radius:50px;
+                    padding:12px 24px;
+                    text-decoration:none;
+                    box-shadow:0 6px 20px rgba(37,211,102,0.35);
+                    letter-spacing:1px;
+                ">
+                    📲 Share on WhatsApp
+                </a>
+                """,
+                unsafe_allow_html=True
+            )
+
+# ─────────────────────────────────────────
+# FOOTER (always visible)
+# ─────────────────────────────────────────
 st.markdown('<div class="fun-divider">🙏 🙏 🙏</div>', unsafe_allow_html=True)
 st.markdown("""
 <div style="
