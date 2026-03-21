@@ -423,6 +423,57 @@ div[data-baseweb="select"] * {
 [data-testid="stSidebar"] {
     background: linear-gradient(180deg, #fff3e0, #fce4ff) !important;
 }
+
+/* ======== RESPONSIVE / MOBILE ======== */
+@media (max-width: 768px) {
+    .rainbow-banner h1 { font-size: 1.6rem !important; }
+    .rainbow-banner h2 { font-size: 0.85rem !important; letter-spacing: 1px !important; }
+    .countdown-container { gap: 8px !important; }
+    .countdown-box { padding: 12px 16px !important; min-width: 70px !important; }
+    .countdown-box .num { font-size: 2rem !important; }
+    .event-card { grid-template-columns: 1fr !important; padding: 16px !important; }
+    .testimony-grid { grid-template-columns: 1fr !important; }
+    .about-card { padding: 18px !important; }
+    .flyer-form { padding: 16px !important; }
+    [data-testid="stImage"] img { border-radius: 12px !important; }
+    .sticker-row { font-size: 1.4rem !important; gap: 6px !important; }
+    h2, h3 { font-size: 1.3rem !important; }
+}
+@media (max-width: 480px) {
+    .rainbow-banner { padding: 20px 12px 16px !important; border-radius: 14px !important; }
+    .rainbow-banner h1 { font-size: 1.3rem !important; }
+    .countdown-box { min-width: 60px !important; padding: 10px 12px !important; }
+    .countdown-box .num { font-size: 1.6rem !important; }
+    .fun-divider { font-size: 1rem !important; letter-spacing: 6px !important; }
+}
+
+/* ---- MAIN CONTENT MAX-WIDTH FOR LARGE SCREENS ---- */
+.block-container {
+    max-width: 900px !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+}
+
+/* ---- GAME LEVEL CARDS — centre button under card ---- */
+.game-level-col {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+/* ---- CAMP 26 BADGE TEXT FIX ---- */
+.camp26-badge {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.1rem;
+    color: #FF6B35 !important;
+    margin-top: 12px;
+    padding: 8px 20px;
+    background: #fff8f0;
+    border: 2px solid #FF6B35;
+    border-radius: 50px;
+    display: inline-block;
+    font-weight: 700;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -716,7 +767,7 @@ if not st.session_state.game_active and not st.session_state.game_over:
                 f"""
                 <div style="background:{_c['bg']};border:3px solid {_c['border']};
                 border-radius:20px;padding:20px;text-align:center;
-                box-shadow:4px 4px 0 {_c['border']};">
+                box-shadow:4px 4px 0 {_c['border']};margin-bottom:12px;">
                     <div style="font-size:2rem;">{_icon}</div>
                     <div style="font-family:'Fredoka One',cursive;font-size:1.1rem;
                     color:{_c['badge']};margin:6px 0 4px;">{_level}</div>
@@ -725,7 +776,7 @@ if not st.session_state.game_active and not st.session_state.game_over:
                 """,
                 unsafe_allow_html=True
             )
-            if st.button(f"Play {_level}", key=f"start_{_i}"):
+            if st.button(f"Play {_level}", key=f"start_{_i}", use_container_width=True):
                 import random as _random
                 _qs = QUESTIONS[_level].copy()
                 _random.shuffle(_qs)
@@ -776,16 +827,28 @@ elif st.session_state.game_active and not st.session_state.game_over:
         unsafe_allow_html=True
     )
 
-    # New Game button always visible during play
-    if st.button("🔄 New Game", key="new_game_mid"):
-        st.session_state.game_active = False
-        st.session_state.game_over   = False
-        st.session_state.q_index     = 0
-        st.session_state.score       = 0
-        st.session_state.answered    = False
-        st.session_state.selected    = None
-        st.session_state.game_level  = None
-        st.rerun()
+    # Home + New Game buttons always visible during play
+    _nav1, _nav2 = st.columns(2)
+    with _nav1:
+        if st.button("🏠 Home", key="home_mid", use_container_width=True):
+            st.session_state.game_active = False
+            st.session_state.game_over   = False
+            st.session_state.q_index     = 0
+            st.session_state.score       = 0
+            st.session_state.answered    = False
+            st.session_state.selected    = None
+            st.session_state.game_level  = None
+            st.rerun()
+    with _nav2:
+        if st.button("🔄 New Game", key="new_game_mid", use_container_width=True):
+            st.session_state.game_active = False
+            st.session_state.game_over   = False
+            st.session_state.q_index     = 0
+            st.session_state.score       = 0
+            st.session_state.answered    = False
+            st.session_state.selected    = None
+            st.session_state.game_level  = None
+            st.rerun()
 
     if not st.session_state.answered:
         _bcols = st.columns(2)
@@ -880,16 +943,16 @@ elif st.session_state.game_over:
             <div style="font-size:0.9rem;font-weight:700;color:#888;margin-top:8px;">
                 Level played: {_level}
             </div>
-            {('<div style="font-family:Fredoka One,cursive;font-size:1.1rem;margin-top:12px;padding:8px 16px;background:white;border-radius:50px;display:inline-block;">' + _camp_msg + '</div>') if _camp_msg else ""}
+            {('<div style="font-family:Fredoka One,cursive;font-size:1.1rem;color:#FF6B35;font-weight:800;margin-top:12px;padding:10px 20px;background:#FFF8F0;border:2.5px solid #FF6B35;border-radius:50px;display:inline-block;">' + _camp_msg + '</div>') if _camp_msg else ""}
         </div>
         """,
         unsafe_allow_html=True
     )
 
     st.markdown("<br>", unsafe_allow_html=True)
-    _rc1, _rc2 = st.columns(2)
+    _rc1, _rc2, _rc3 = st.columns(3)
     with _rc1:
-        if st.button("🔄 Play Again — Same Level", use_container_width=True):
+        if st.button("🔄 Play Again", use_container_width=True):
             import random as _random
             _qs = QUESTIONS[_level].copy()
             _random.shuffle(_qs)
@@ -902,7 +965,17 @@ elif st.session_state.game_over:
             st.session_state.game_active    = True
             st.rerun()
     with _rc2:
-        if st.button("🎯 Try a Different Level", use_container_width=True):
+        if st.button("🎯 Try Different Level", use_container_width=True):
+            st.session_state.game_active = False
+            st.session_state.game_over   = False
+            st.session_state.q_index     = 0
+            st.session_state.score       = 0
+            st.session_state.answered    = False
+            st.session_state.selected    = None
+            st.session_state.game_level  = None
+            st.rerun()
+    with _rc3:
+        if st.button("🏠 Home", key="home_end", use_container_width=True):
             st.session_state.game_active = False
             st.session_state.game_over   = False
             st.session_state.q_index     = 0
