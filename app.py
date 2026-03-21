@@ -65,11 +65,18 @@ html, body, [class*="css"] {
 }
 .rainbow-banner h1 {
     font-family: 'Fredoka One', cursive !important;
-    font-size: clamp(2rem, 6vw, 3.6rem) !important;
+    font-size: clamp(1.2rem, 4vw, 3.6rem) !important;
     color: white !important;
     text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
     margin: 16px 0 8px;
     letter-spacing: 1px;
+}
+.banner-logo {
+    height: clamp(28px, 4vw, 56px);
+    vertical-align: middle;
+    flex-shrink: 0;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+    border-radius: 8px;
 }
 .rainbow-banner h2 {
     font-family: 'Nunito', sans-serif !important;
@@ -427,9 +434,8 @@ div[data-baseweb="select"] * {
 
 /* ======== RESPONSIVE / MOBILE ======== */
 @media (max-width: 768px) {
-    .rainbow-banner h1 { font-size: 1.6rem !important; }
+    .rainbow-banner h1 { font-size: clamp(1.2rem, 4vw, 3.6rem) !important; }
     .rainbow-banner h2 { font-size: 0.85rem !important; letter-spacing: 1px !important; }
-    .rainbow-banner img { height: 38px !important; margin-bottom: 6px !important; }
     .countdown-container { gap: 8px !important; }
     .countdown-box { padding: 12px 16px !important; min-width: 70px !important; }
     .countdown-box .num { font-size: 2rem !important; }
@@ -443,8 +449,7 @@ div[data-baseweb="select"] * {
 }
 @media (max-width: 480px) {
     .rainbow-banner { padding: 20px 12px 16px !important; border-radius: 14px !important; }
-    .rainbow-banner h1 { font-size: 1.3rem !important; }
-    .rainbow-banner img { height: 30px !important; margin-bottom: 4px !important; }
+    .rainbow-banner h1 { font-size: clamp(1rem, 3.5vw, 1.4rem) !important; gap: 6px !important; }
     .countdown-box { min-width: 60px !important; padding: 10px 12px !important; }
     .countdown-box .num { font-size: 1.6rem !important; }
     .fun-divider { font-size: 1rem !important; letter-spacing: 6px !important; }
@@ -492,12 +497,13 @@ if os.path.exists("logo.png"):
     with open("logo.png", "rb") as f:
         logo_b64 = base64.b64encode(f.read()).decode()
 
-logo_html = f'<img src="data:image/png;base64,{logo_b64}" style="height:52px;display:block;margin:0 auto 10px;filter:drop-shadow(0 2px 6px rgba(0,0,0,0.3));border-radius:8px;">' if logo_b64 else ""
+logo_html = f'<img src="data:image/png;base64,{logo_b64}" class="banner-logo">' if logo_b64 else ""
 
 st.markdown(f"""
 <div class="rainbow-banner">
-    {logo_html}
-    <h1>Sunday School Camp &#39;26</h1>
+    <h1 style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:nowrap;white-space:nowrap;">
+        {logo_html} Sunday School Camp &#39;26 {logo_html}
+    </h1>
     <h2>&#128591; Theme: God Answers Prayers &#128591;</h2>
 </div>
 """, unsafe_allow_html=True)
