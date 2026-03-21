@@ -455,11 +455,11 @@ div[data-baseweb="select"] * {
     .fun-divider { font-size: 1rem !important; letter-spacing: 6px !important; }
 }
 
-/* ---- MAIN CONTENT MAX-WIDTH FOR LARGE SCREENS ---- */
+/* ---- MAIN CONTENT FULL WIDTH ---- */
 .block-container {
-    max-width: 900px !important;
-    padding-left: 1.5rem !important;
-    padding-right: 1.5rem !important;
+    max-width: 100% !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
 }
 
 /* ---- GAME LEVEL CARDS — centre button under card ---- */
