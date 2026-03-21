@@ -301,7 +301,10 @@ div[data-baseweb="select"] > div {
     padding-bottom: 8px !important;
 }
 div[data-baseweb="select"] span,
-div[data-baseweb="select"] div[class*="ValueContainer"] {
+div[data-baseweb="select"] div[class*="ValueContainer"],
+div[data-baseweb="select"] div[class*="singleValue"],
+div[data-baseweb="select"] div[class*="placeholder"],
+div[data-baseweb="select"] * {
     color: #333333 !important;
     -webkit-text-fill-color: #333333 !important;
     font-family: 'Nunito', sans-serif !important;
@@ -310,6 +313,48 @@ div[data-baseweb="select"] div[class*="ValueContainer"] {
     white-space: normal !important;
     overflow: visible !important;
     line-height: 1.4 !important;
+}
+
+/* ---- FILE UPLOADER — FUN STYLE ---- */
+[data-testid="stFileUploader"] {
+    border-radius: 20px !important;
+    padding: 4px !important;
+}
+[data-testid="stFileUploader"] > div {
+    border: 3px dashed var(--pink) !important;
+    border-radius: 20px !important;
+    background: linear-gradient(135deg, #fff0f7, #f0f4ff) !important;
+    padding: 20px !important;
+    text-align: center !important;
+    transition: all 0.3s !important;
+    animation: pulse-border 2s ease-in-out infinite !important;
+}
+[data-testid="stFileUploader"] > div:hover {
+    border-color: var(--orange) !important;
+    background: linear-gradient(135deg, #fff4e6, #fff0f7) !important;
+    transform: scale(1.01) !important;
+}
+[data-testid="stFileUploader"] label,
+[data-testid="stFileUploader"] span,
+[data-testid="stFileUploader"] p,
+[data-testid="stFileUploader"] small {
+    color: #FF6B35 !important;
+    font-family: 'Nunito', sans-serif !important;
+    font-weight: 800 !important;
+}
+[data-testid="stFileUploader"] button {
+    background: linear-gradient(135deg, var(--orange), var(--pink)) !important;
+    color: white !important;
+    font-family: 'Fredoka One', cursive !important;
+    border-radius: 50px !important;
+    border: none !important;
+    padding: 8px 24px !important;
+    font-size: 0.95rem !important;
+    box-shadow: 0 4px 12px rgba(255,107,53,0.3) !important;
+}
+@keyframes pulse-border {
+    0%,100% { border-color: var(--pink) !important; }
+    50%      { border-color: var(--purple) !important; }
 }
 
 /* ---- BUTTONS ---- */
@@ -657,10 +702,18 @@ with col_right:
             background: linear-gradient(135deg,#fff0f7,#f0f4ff);
             border-radius:16px;padding:20px;
             text-align:center;
-            border:2px dashed #C77DFF;
-            color:#888;font-weight:700;">
-            🌟 Upload your best smile photo!<br>
-            <small>We'll put it on your awesome flyer 🎉</small>
+            border:3px dashed #C77DFF;
+            animation: pulse-border 2s ease-in-out infinite;">
+            <div style="font-size:2.5rem;margin-bottom:8px;">📸</div>
+            <div style="font-family:'Fredoka One',cursive;font-size:1.2rem;color:#FF6B35;margin-bottom:4px;">
+                Drop Your Best Smile Here!
+            </div>
+            <div style="font-weight:800;color:#C77DFF;font-size:0.9rem;">
+                JPG, JPEG or PNG • Max 200MB
+            </div>
+            <div style="margin-top:8px;font-size:0.85rem;font-weight:700;color:#aaa;">
+                Your photo goes right on the flyer!
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
