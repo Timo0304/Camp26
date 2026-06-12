@@ -919,121 +919,76 @@ with tab5:
 # ─────────────────────────────────────────
 with tab6:
     st.markdown("### 📜 Camp Rules & Regulations")
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, #fff9e6, #fff0fb); border-radius: 24px; padding: 32px; border: 3px solid #FF6B35; margin-bottom: 24px;">
-        <div style="text-align: center; margin-bottom: 24px;">
-            <div style="font-size: 3rem;">📜⚖️</div>
-            <h2 style="color: #FF6B35;">Camp Rules & Regulations</h2>
-            <p style="color: #666; font-size: 1.1rem;">All campers must abide by these rules for a safe and enjoyable experience</p>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 12px;">
-            <div style="background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;">
-                <span style="font-weight: 700;">⚠️</span> Each camper is required to stay in his/her allotted room. There would be room heads assigned to each room.
-            </div>
-            <div style="background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;">
-                <span style="font-weight: 700;">⚠️</span> Rooms should be cleaned daily by campers. There would be daily inspections by camp commandants.
-            </div>
-            <div style="background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;">
-                <span style="font-weight: 700;">⚠️</span> Each camper will remain with his assigned group during all daytime activities. All campers must participate in all activities.
-            </div>
-            <div style="background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;">
-                <span style="font-weight: 700;">⚠️</span> Each camper must be on time for all activities.
-            </div>
-            <div style="background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;">
-                <span style="font-weight: 700;">⚠️</span> No food or drink will be allowed in the room.
-            </div>
-            <div style="background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;">
-                <span style="font-weight: 700;">⚠️</span> Sickness and accidents must be reported immediately.
-            </div>
-            <div style="background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;">
-                <span style="font-weight: 700;">⚠️</span> Campers are not to leave the campgrounds without permission of the camp commandants.
-            </div>
-            <div style="background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;">
-                <span style="font-weight: 700;">⚠️</span> A good character, proper language use and proper behaviour must be evidenced at all times.
-            </div>
-            <div style="background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;">
-                <span style="font-weight: 700;">⚠️</span> Modest and decent dress is expected at all times.
-            </div>
-            <div style="background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;">
-                <span style="font-weight: 700;">⚠️</span> Off limits areas are to be observed by both boys and girls.
-            </div>
-            <div style="background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;">
-                <span style="font-weight: 700;">⚠️</span> Campers must stay in their rooms after lights out, except for going to the bathroom.
-            </div>
-            <div style="background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;">
-                <span style="font-weight: 700;">⚠️</span> Be at the right place at the right time.
-            </div>
-            <div style="background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;">
-                <span style="font-weight: 700;">⚠️</span> No visitor is allowed at the camp.
-            </div>
-            <div style="background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;">
-                <span style="font-weight: 700;">⚠️</span> Have fun.
-            </div>
-        </div>
-        
-        <div style="margin-top: 24px; padding: 16px; background: #fff0f0; border-radius: 12px; text-align: center; border-left: 5px solid #FF4D6D;">
-            <p style="color: #FF4D6D; font-weight: 700; margin: 0;">
-                ⚠️ NO ONE IS ALLOWED INTO THE ROOMS UNTIL EVENING, SO REMEMBER TO PICK UP EVERY NECESSARY ITEM WHEN LEAVING THE ROOM.<br>
-                VIOLATION OF ANY OF THE ABOVE RULES COULD RESULT IN DISCIPLINARY ACTION ⚠️
-            </p>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("All campers must abide by these rules for a safe and enjoyable experience")
+    st.markdown("---")
+    
+    # Create two columns for the rules
+    col1, col2 = st.columns(2)
+    
+    rules = [
+        "⚠️ Each camper is required to stay in his/her allotted room. There would be room heads assigned to each room.",
+        "⚠️ Rooms should be cleaned daily by campers. There would be daily inspections by camp commandants.",
+        "⚠️ Each camper will remain with his assigned group during all daytime activities. All campers must participate in all activities.",
+        "⚠️ Each camper must be on time for all activities.",
+        "⚠️ No food or drink will be allowed in the room.",
+        "⚠️ Sickness and accidents must be reported immediately.",
+        "⚠️ Campers are not to leave the campgrounds without permission of the camp commandants.",
+        "⚠️ A good character, proper language use and proper behaviour must be evidenced at all times.",
+        "⚠️ Modest and decent dress is expected at all times.",
+        "⚠️ Off limits areas are to be observed by both boys and girls.",
+        "⚠️ Campers must stay in their rooms after lights out, except for going to the bathroom.",
+        "⚠️ Be at the right place at the right time.",
+        "⚠️ No visitor is allowed at the camp.",
+        "⚠️ Have fun."
+    ]
+    
+    # Split rules between two columns
+    mid_point = len(rules) // 2
+    for i, rule in enumerate(rules):
+        if i < mid_point:
+            with col1:
+                st.markdown(f"<p style='background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;'>{rule}</p>", unsafe_allow_html=True)
+        else:
+            with col2:
+                st.markdown(f"<p style='background: white; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px;'>{rule}</p>", unsafe_allow_html=True)
+    
+    st.markdown("---")
+    st.warning("⚠️ **NO ONE IS ALLOWED INTO THE ROOMS UNTIL EVENING**, SO REMEMBER TO PICK UP EVERY NECESSARY ITEM WHEN LEAVING THE ROOM.\n\n**VIOLATION OF ANY OF THE ABOVE RULES COULD RESULT IN DISCIPLINARY ACTION**")
 
 # ─────────────────────────────────────────
 # TAB 7 — CAMP REQUIREMENTS
 # ─────────────────────────────────────────
 with tab7:
     st.markdown("### 🎒 Camp Requirements")
-    st.markdown("""
-    <div style="background: linear-gradient(135deg, #fff9e6, #fff0fb); border-radius: 24px; padding: 32px; border: 3px solid #06D6A0; margin-bottom: 24px;">
-        <div style="text-align: center; margin-bottom: 24px;">
-            <div style="font-size: 3rem;">🎒✅❌</div>
-            <h2 style="color: #06D6A0;">Camp Requirements</h2>
-            <p style="color: #666; font-size: 1.1rem;">What to bring and what NOT to bring to camp</p>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-            <div style="background: white; border-radius: 16px; padding: 24px; border: 2px solid #06D6A0;">
-                <h3 style="color: #06D6A0; text-align: center; margin-bottom: 20px;">✅ Things to Bring</h3>
-                <ul style="list-style: none; padding: 0; margin: 0;">
-                    <li style="padding: 8px 0; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; gap: 10px;"><span style="font-size: 1.2rem;">📖</span> Bible (Hard copy)</li>
-                    <li style="padding: 8px 0; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; gap: 10px;"><span style="font-size: 1.2rem;">🧼</span> Toiletries (sponge, soap, tooth brush, tooth paste, towel, body cream, hair cream and comb)</li>
-                    <li style="padding: 8px 0; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; gap: 10px;"><span style="font-size: 1.2rem;">🪣</span> Bucket and bowl for bathing</li>
-                    <li style="padding: 8px 0; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; gap: 10px;"><span style="font-size: 1.2rem;">🧥</span> Cardigan & Socks</li>
-                    <li style="padding: 8px 0; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; gap: 10px;"><span style="font-size: 1.2rem;">👡</span> Slippers and change of footwear</li>
-                    <li style="padding: 8px 0; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; gap: 10px;"><span style="font-size: 1.2rem;">👕</span> Sports vest/Easter vest & sports shoe</li>
-                    <li style="padding: 8px 0; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; gap: 10px;"><span style="font-size: 1.2rem;">👖</span> Change of clothes</li>
-                    <li style="padding: 8px 0; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; gap: 10px;"><span style="font-size: 1.2rem;">🛏️</span> Bed sheet & cover cloth</li>
-                    <li style="padding: 8px 0; border-bottom: 1px solid #e0e0e0; display: flex; align-items: center; gap: 10px;"><span style="font-size: 1.2rem;">👔</span> Sunday wear</li>
-                    <li style="padding: 8px 0; display: flex; align-items: center; gap: 10px;"><span style="font-size: 1.2rem;">💊</span> Special medical needs (If any)</li>
-                </ul>
-            </div>
-            
-            <div style="background: white; border-radius: 16px; padding: 24px; border: 2px solid #FF4D6D;">
-                <h3 style="color: #FF4D6D; text-align: center; margin-bottom: 20px;">❌ Things NOT to Bring</h3>
-                <ul style="list-style: none; padding: 0; margin: 0;">
-                    <li style="padding: 12px 0; background: #fff0f0; border-radius: 12px; text-align: center; margin-bottom: 20px;">
-                        <span style="font-size: 1.2rem;">📱🚫</span> Phone and gadgets
-                    </li>
-                </ul>
-                <div style="margin-top: 20px; padding: 16px; background: #fff0f0; border-radius: 12px; text-align: center; border: 1px solid #FF4D6D;">
-                    <p style="color: #FF4D6D; font-weight: 700; margin: 0;">
-                        ⚠️ Please leave all electronic devices at home! ⚠️
-                    </p>
-                </div>
-            </div>
-        </div>
-        
-        <div style="margin-top: 24px; padding: 16px; background: #f0f8ff; border-radius: 12px; text-align: center; border: 1px solid #4CC9F0;">
-            <p style="color: #333; font-weight: 700; margin: 0;">
-                💡 <strong>Pro Tip:</strong> Label all your belongings with your name to avoid mix-ups!
-            </p>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-# ─────────────────────────────────────────
+    st.markdown("What to bring and what NOT to bring to camp")
+    st.markdown("---")
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        st.markdown("#### ✅ Things to Bring")
+        items_to_bring = [
+            "📖 Bible (Hard copy)",
+            "🧼 Toiletries (sponge, soap, tooth brush, tooth paste, towel, body cream, hair cream and comb)",
+            "🪣 Bucket and bowl for bathing",
+            "🧥 Cardigan & Socks",
+            "👡 Slippers and change of footwear",
+            "👕 Sports vest/Easter vest & sports shoe",
+            "👖 Change of clothes",
+            "🛏️ Bed sheet & cover cloth",
+            "👔 Sunday wear",
+            "💊 Special medical needs (If any)"
+        ]
+        for item in items_to_bring:
+            st.markdown(f"<p style='background: white; border-radius: 12px; padding: 10px 16px; border: 1px solid #06D6A0; margin-bottom: 8px;'>{item}</p>", unsafe_allow_html=True)
+    
+    with col2:
+        st.markdown("#### ❌ Things NOT to Bring")
+        st.markdown("<p style='background: #fff0f0; border-radius: 12px; padding: 12px 16px; border: 2px solid #FF4D6D; text-align: center; font-weight: bold;'>📱🚫 Phone and gadgets</p>", unsafe_allow_html=True)
+        st.error("⚠️ Please leave all electronic devices at home!")
+    
+    st.markdown("---")
+    st.info("💡 **Pro Tip:** Label all your belongings with your name to avoid mix-ups!")# ─────────────────────────────────────────
 # TAB 8 — BIBLE QUIZ
 # ─────────────────────────────────────────
 with tab8:
