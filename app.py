@@ -16,6 +16,55 @@ try:
 except ImportError:
     pass
 
+# Add this after your other imports and before st.set_page_config
+import os
+import json
+from datetime import datetime, timedelta
+
+# Initialize leaderboard file if it doesn't exist or is corrupted
+def init_leaderboard_file():
+    """Create a fresh leaderboard file with current week info"""
+    from datetime import datetime, timedelta
+    
+    # Get current week info
+    today = datetime.now()
+    start_of_week = today - timedelta(days=today.weekday())
+    week_key = start_of_week.strftime("%Y-W%W")
+    
+    fresh_data = {
+        "current_week": week_key,
+        "scores": {},
+        "week_start": start_of_week.strftime("%Y-%m-%d"),
+        "week_end": (start_of_week + timedelta(days=6)).strftime("%Y-%m-%d")
+    }
+    
+    try:
+        with open("quiz_leaderboard.json", "w") as f:
+            json.dump(fresh_data, f, indent=2)
+        print("Leaderboard file initialized successfully")
+    except Exception as e:
+        print(f"Error initializing leaderboard: {e}")
+
+# Check if leaderboard file exists and is valid
+if os.path.exists("quiz_leaderboard.json"):
+    try:
+        with open("quiz_leaderboard.json", "r") as f:
+            content = f.read()
+            if not content.strip():
+                # File is empty
+                init_leaderboard_file()
+            else:
+                data = json.loads(content)
+                # Check if required keys exist
+                if "current_week" not in data or "scores" not in data:
+                    init_leaderboard_file()
+    except (json.JSONDecodeError, ValueError):
+        # File is corrupted
+        init_leaderboard_file()
+else:
+    # File doesn't exist
+    init_leaderboard_file()
+
 st.set_page_config(page_title="Camp '26 🎉", layout="wide", page_icon="⛺")
 
 # ------------------------------------
