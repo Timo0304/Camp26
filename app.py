@@ -899,7 +899,7 @@ with tab5:
             Don't miss out on this amazing experience! Click the button below to register online.<br>
             <strong>Early registration is encouraged as spaces are limited.</strong>
         </p>
-        <a href="https://forms.gle/YOUR_REGISTRATION_LINK_HERE" target="_blank" style="
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeWqKJroOboLhPNF0v20x43ImY90_gx5RslsVz2MVavM5D3gQ/viewform" target="_blank" style="
             display: inline-block;
             background: linear-gradient(135deg, #FFD93D, #FF6B35);
             color: #333;
