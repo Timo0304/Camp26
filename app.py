@@ -881,39 +881,126 @@ padding:32px; border:3px dashed #FFD93D; text-align:center; width:100%;">
 with tab5:
     st.markdown("### 📝 Register for Camp '26!")
     
+    # Hero section with gradient background
     st.markdown("""
-    <div class="register-card">
-        <div style="font-size: 3rem; margin-bottom: 16px;">📋✨</div>
-        <h2 style="color: #06D6A0; margin-bottom: 16px;">Secure Your Spot Today!</h2>
-        <p style="font-size: 1.1rem; color: #555; margin-bottom: 24px; line-height: 1.6;">
+    <div style="
+        background: linear-gradient(135deg, #06D6A0 0%, #1A73E8 100%);
+        border-radius: 28px;
+        padding: 48px 32px;
+        text-align: center;
+        margin-bottom: 24px;
+        box-shadow: 0 20px 40px rgba(6,214,160,0.3);
+    ">
+        <div style="font-size: 4rem; margin-bottom: 16px;">🎪✨</div>
+        <h2 style="color: white; font-size: 2rem; margin-bottom: 12px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">
+            Secure Your Spot Today!
+        </h2>
+        <p style="color: white; font-size: 1.1rem; margin-bottom: 24px; opacity: 0.95;">
             Don't miss out on this amazing experience! Click the button below to register online.<br>
-            Early registration is encouraged as spaces are limited.
+            <strong>Early registration is encouraged as spaces are limited.</strong>
         </p>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeWqKJroOboLhPNF0v20x43ImY90_gx5RslsVz2MVavM5D3gQ/viewform" target="_blank" class="register-big-btn">
-            🚀 Register Now! 🚀
+        <a href="https://forms.gle/YOUR_REGISTRATION_LINK_HERE" target="_blank" style="
+            display: inline-block;
+            background: linear-gradient(135deg, #FFD93D, #FF6B35);
+            color: #333;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            font-weight: bold;
+            padding: 18px 48px;
+            border-radius: 60px;
+            text-decoration: none;
+            margin: 16px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 3px solid white;
+            animation: pulse 2s infinite;
+        "
+        onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 15px 40px rgba(0,0,0,0.4)';"
+        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';">
+            🚀 REGISTER NOW! 🚀
         </a>
-        <p style="margin-top: 24px; font-size: 0.9rem; color: #888;">
-            ⏰ Registration closes July 31, 2026<br>
-            💰 Camp Fee: N15,000 (includes meals, materials, and camp T-shirt)
+        <div style="margin-top: 24px; display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;">
+            <div style="background: rgba(255,255,255,0.2); border-radius: 16px; padding: 12px 24px; backdrop-filter: blur(10px);">
+                <span style="font-size: 1.5rem;">⏰</span>
+                <span style="color: white; font-weight: bold; margin-left: 8px;">Registration closes August 04, 2026</span>
+            </div>
+            <div style="background: rgba(255,255,255,0.2); border-radius: 16px; padding: 12px 24px; backdrop-filter: blur(10px);">
+                <span style="font-size: 1.5rem;">💰</span>
+                <span style="color: white; font-weight: bold; margin-left: 8px;">Registration is Free</span>
+            </div>
+        </div>
+        <p style="color: white; font-size: 0.9rem; margin-top: 16px; opacity: 0.85;">
+            (Includes meals, materials, and camp T-shirt)
         </p>
     </div>
+    
+    <style>
+    @keyframes pulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+    }
+    </style>
     """, unsafe_allow_html=True)
     
+    # What's Included section
     st.markdown("""
-    <div style="background: linear-gradient(135deg, #fff9e6, #fff0fb); border-radius: 20px; padding: 24px; margin-top: 20px; border: 2px solid #FFD93D;">
-        <h3 style="color: #FF6B35; text-align: center;">📌 What's Included?</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px;">
-            <div style="text-align: center; padding: 12px;">🍽️ <strong>Meals</strong><br>3 meals daily</div>
-            <div style="text-align: center; padding: 12px;">👕 <strong>Camp T-Shirt</strong><br>Free souvenir</div>
-            <div style="text-align: center; padding: 12px;">📚 <strong>Materials</strong><br>Workbook & stationery</div>
-            <div style="text-align: center; padding: 12px;">🏆 <strong>Awards</strong><br>For outstanding campers</div>
-            <div style="text-align: center; padding: 12px;">🎯 <strong>Activities</strong><br>Games, crafts, and more!</div>
+    <div style="
+        background: linear-gradient(135deg, #fff9e6, #fff0fb);
+        border-radius: 24px;
+        padding: 32px;
+        margin-top: 20px;
+        border: 3px solid #FFD93D;
+    ">
+        <h3 style="color: #FF6B35; text-align: center; margin-bottom: 24px; font-size: 1.8rem;">
+            🎁 What's Included in Your Registration?
+        </h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
+            <div style="text-align: center; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="font-size: 2.5rem;">🍽️</div>
+                <div style="font-weight: 800; color: #06D6A0; margin-top: 8px;">Meals</div>
+                <div style="font-size: 0.85rem; color: #666;">3 meals daily</div>
+            </div>
+            <div style="text-align: center; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="font-size: 2.5rem;">👕</div>
+                <div style="font-weight: 800; color: #06D6A0; margin-top: 8px;">Camp T-Shirt</div>
+                <div style="font-size: 0.85rem; color: #666;">Free souvenir</div>
+            </div>
+            <div style="text-align: center; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="font-size: 2.5rem;">📚</div>
+                <div style="font-weight: 800; color: #06D6A0; margin-top: 8px;">Materials</div>
+                <div style="font-size: 0.85rem; color: #666;">Workbook & stationery</div>
+            </div>
+            <div style="text-align: center; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="font-size: 2.5rem;">🏆</div>
+                <div style="font-weight: 800; color: #06D6A0; margin-top: 8px;">Awards</div>
+                <div style="font-size: 0.85rem; color: #666;">For outstanding campers</div>
+            </div>
+            <div style="text-align: center; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                <div style="font-size: 2.5rem;">🎯</div>
+                <div style="font-weight: 800; color: #06D6A0; margin-top: 8px;">Activities</div>
+                <div style="font-size: 0.85rem; color: #666;">Games, crafts, and more!</div>
+            </div>
         </div>
     </div>
     """, unsafe_allow_html=True)
     
-    st.info("💡 **Note:** Replace the registration link with your actual Google Form or registration page URL!")
-
+    # Countdown to registration deadline
+    reg_deadline = datetime(2026, 8, 04)
+    now = datetime.now()
+    days_left = (reg_deadline - now).days
+    
+    if days_left > 0:
+        st.info(f"⏰ **Only {days_left} days left to register!** Don't wait until the last minute!")
+    elif days_left == 0:
+        st.warning("⚠️ **Today is the last day to register!** Hurry and secure your spot!")
+    else:
+        st.error("❌ **Registration is now closed.** Please contact the camp organizers for assistance.")
+    
+    st.caption("💡 **Note:** Replace the registration link with your actual Google Form or registration page URL!")
 # ─────────────────────────────────────────
 # TAB 6 — CAMP RULES
 # ─────────────────────────────────────────
