@@ -922,11 +922,11 @@ with tab5:
         <div style="margin-top: 24px; display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;">
             <div style="background: rgba(255,255,255,0.2); border-radius: 16px; padding: 12px 24px; backdrop-filter: blur(10px);">
                 <span style="font-size: 1.5rem;">⏰</span>
-                <span style="color: white; font-weight: bold; margin-left: 8px;">Registration closes July 31, 2026</span>
+                <span style="color: white; font-weight: bold; margin-left: 8px;">Registration closes August 4, 2026</span>
             </div>
             <div style="background: rgba(255,255,255,0.2); border-radius: 16px; padding: 12px 24px; backdrop-filter: blur(10px);">
                 <span style="font-size: 1.5rem;">💰</span>
-                <span style="color: white; font-weight: bold; margin-left: 8px;">Camp Fee: N15,000</span>
+                <span style="color: white; font-weight: bold; margin-left: 8px;">Camp is Free</span>
             </div>
         </div>
         <p style="color: white; font-size: 0.9rem; margin-top: 16px; opacity: 0.85;">
@@ -989,7 +989,7 @@ with tab5:
     """, unsafe_allow_html=True)
     
     # Countdown to registration deadline
-    reg_deadline = datetime(2026, 7, 31)
+    reg_deadline = datetime(2026, 8, 4)
     now = datetime.now()
     days_left = (reg_deadline - now).days
     
