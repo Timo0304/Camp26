@@ -683,7 +683,7 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
     "📞 Contact",
     "📝 Register",
     "📜 Camp Rules",
-    "🎒 Requirements",
+    "🎒 Camp Requirements",
     "🎮 Bible Quiz",
     "🎨 My Flyer",
 ])
@@ -930,7 +930,7 @@ with tab5:
             </div>
         </div>
         <p style="color: white; font-size: 0.9rem; margin-top: 16px; opacity: 0.85;">
-            (Includes meals, materials, and camp T-shirt)
+            (Includes Meals adn Camp Materials)
         </p>
     </div>
     
