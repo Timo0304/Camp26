@@ -930,7 +930,7 @@ with tab5:
             </div>
         </div>
         <p style="color: white; font-size: 0.9rem; margin-top: 16px; opacity: 0.85;">
-            (Includes Meals adn Camp Materials)
+            (Includes Meals and Camp Materials)
         </p>
     </div>
     
