@@ -1073,17 +1073,121 @@ with tab7:
     st.markdown("---")
     st.info("💡 **Pro Tip:** Label all your belongings with your name to avoid mix-ups!")
 # ─────────────────────────────────────────
-# TAB 8 — BIBLE QUIZ
+# TAB 8 — BIBLE QUIZ (with Leaderboard)
 # ─────────────────────────────────────────
 with tab8:
     st.markdown("### 🎮 Bible Quiz Challenge!")
+    
+    # Import leaderboard functions
+    from leaderboard import add_score, get_top_scores, get_weekly_stats, get_player_rank, check_and_reset_week
+    
+    # Check for week reset
+    was_reset = check_and_reset_week()
+    if was_reset:
+        st.success("🎉 **New Week, New Challenge!** The leaderboard has been reset. Everyone starts fresh!")
+    
+    # Display weekly stats
+    stats = get_weekly_stats()
+    
+    # Show current week banner
+    st.markdown(f"""
+    <div style="background: linear-gradient(135deg, #FFD93D, #FF6B35); border-radius: 20px; padding: 16px; text-align: center; margin-bottom: 20px;">
+        <div style="font-size: 1.2rem; font-weight: bold; color: white;">
+            📅 Week of {stats.get('week_start', 'N/A')} to {stats.get('week_end', 'N/A')}
+        </div>
+        <div style="font-size: 0.9rem; color: white; margin-top: 4px;">
+            🏆 {stats['total_players']} players • ⭐ Avg Score: {stats['average_score']}/5 • 🎯 Perfect Scores: {stats['perfect_scores']}
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Name input for leaderboard
+    col_name1, col_name2 = st.columns([2, 1])
+    with col_name1:
+        player_name = st.text_input("🏆 **Enter your name to appear on the leaderboard!**", 
+                                    placeholder="e.g., John, Mary, David", 
+                                    key="player_name_input",
+                                    help="Your name will be saved with your best score this week!")
+    with col_name2:
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("📊 View Leaderboard", key="view_leaderboard", use_container_width=True):
+            st.session_state.show_leaderboard = not st.session_state.get("show_leaderboard", False)
+    
+    # Show leaderboard toggle
+    if st.session_state.get("show_leaderboard", False):
+        st.markdown("---")
+        st.markdown("### 🏆 Weekly Leaderboard 🏆")
+        
+        top_scores, week_info = get_top_scores(limit=10)
+        
+        if top_scores:
+            # Create medal emojis for top 3
+            medal_emojis = ["🥇", "🥈", "🥉"]
+            
+            leaderboard_html = """
+            <div style="background: #FFF8F0; border-radius: 20px; padding: 20px; border: 3px solid #FFD93D;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr><th style="padding: 12px; text-align: center; background: #FF6B35; color: white; border-radius: 10px 0 0 0;">Rank</th>
+                            <th style="padding: 12px; text-align: left; background: #FF6B35; color: white;">Player</th>
+                            <th style="padding: 12px; text-align: center; background: #FF6B35; color: white;">Score</th>
+                            <th style="padding: 12px; text-align: center; background: #FF6B35; color: white; border-radius: 0 10px 0 0;">Level</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            """
+            
+            for idx, player in enumerate(top_scores):
+                rank = idx + 1
+                medal = medal_emojis[idx] if idx < 3 else f"#{rank}"
+                row_style = "background: #FFF8E1;" if idx % 2 == 0 else "background: white;"
+                
+                leaderboard_html += f"""
+                    <tr style="{row_style}">
+                        <td style="padding: 12px; text-align: center; font-weight: bold; font-size: 1.2rem;">{medal}</td>
+                        <td style="padding: 12px; text-align: left; font-weight: bold; color: #333;">{player['name']}</td>
+                        <td style="padding: 12px; text-align: center; font-weight: bold; color: #06D6A0; font-size: 1.3rem;">{player['score']}/5</td>
+                        <td style="padding: 12px; text-align: center; font-size: 0.85rem;">{player['level']}</td>
+                    </tr>
+                """
+            
+            leaderboard_html += """
+                    </tbody>
+                </table>
+            </div>
+            """
+            st.markdown(leaderboard_html, unsafe_allow_html=True)
+            
+            # Show stats summary
+            st.markdown(f"""
+            <div style="display: flex; justify-content: space-around; margin-top: 16px; flex-wrap: wrap; gap: 12px;">
+                <div style="background: #06D6A0; border-radius: 16px; padding: 12px 24px; text-align: center; color: white;">
+                    <div style="font-size: 1.5rem; font-weight: bold;">{stats['total_players']}</div>
+                    <div style="font-size: 0.85rem;">Total Players</div>
+                </div>
+                <div style="background: #4CC9F0; border-radius: 16px; padding: 12px 24px; text-align: center; color: white;">
+                    <div style="font-size: 1.5rem; font-weight: bold;">{stats['average_score']}/5</div>
+                    <div style="font-size: 0.85rem;">Average Score</div>
+                </div>
+                <div style="background: #FFD93D; border-radius: 16px; padding: 12px 24px; text-align: center; color: #333;">
+                    <div style="font-size: 1.5rem; font-weight: bold;">{stats['perfect_scores']}</div>
+                    <div style="font-size: 0.85rem;">Perfect Scores</div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.info("📊 No scores yet this week! Be the first to play and get on the leaderboard!")
+        
+        st.markdown("---")
+    
+    # Game intro
     st.markdown(
         """
         <div style="background:linear-gradient(135deg,#fff9e6,#f0f4ff);border-radius:24px;
         padding:20px 28px;border:3px solid #FFD93D;margin-bottom:16px;">
             <p style="font-size:1.05rem;font-weight:700;color:#555;margin:0;">
                 🌟 Test your Bible knowledge! Pick your level, answer 5 questions,
-                and see how many you get right. Can you score 5 out of 5? 🏆
+                and see how many you get right. Your best score this week will be saved to the leaderboard! 🏆
             </p>
         </div>
         """,
@@ -1094,15 +1198,20 @@ with tab8:
     for _k, _v in [
         ("game_active", False), ("q_index", 0), ("score", 0),
         ("answered", False), ("selected", None), ("game_level", None),
-        ("game_questions", []), ("game_over", False),
+        ("game_questions", []), ("game_over", False), ("submitted_score", False),
         ("timed_out", False), ("q_start_time", None), ("timeout_verse", None),
     ]:
         if _k not in st.session_state:
             st.session_state[_k] = _v
 
-    # ── Level picker
+    # ── Level picker (with player name validation)
     if not st.session_state.game_active and not st.session_state.game_over:
         st.markdown("#### 👇 Choose your level to start!")
+        
+        # Only allow play if name is entered
+        if not player_name or player_name.strip() == "":
+            st.warning("⚠️ **Please enter your name above** to play and appear on the leaderboard!")
+        
         _cols = st.columns(3)
         _level_list = list(QUESTIONS.keys())
         _icons = ["🌱", "🔥", "👑"]
@@ -1123,24 +1232,29 @@ with tab8:
                     """,
                     unsafe_allow_html=True
                 )
-                if st.button(f"Play {_level}", key=f"start_{_i}", use_container_width=True):
-                    import random as _random
-                    _qs = QUESTIONS[_level].copy()
-                    _random.shuffle(_qs)
-                    st.session_state.game_questions = _qs[:5]
-                    st.session_state.game_level     = _level
-                    st.session_state.game_active    = True
-                    st.session_state.q_index        = 0
-                    st.session_state.score          = 0
-                    st.session_state.answered       = False
-                    st.session_state.selected       = None
-                    st.session_state.game_over      = False
-                    st.session_state.q_start_time   = None
-                    st.session_state.timed_out      = False
-                    st.session_state.timeout_verse  = None
-                    st.rerun()
+                # Disable button if no name entered
+                if not player_name or player_name.strip() == "":
+                    st.button(f"Play {_level}", key=f"start_{_i}_disabled", use_container_width=True, disabled=True)
+                else:
+                    if st.button(f"Play {_level}", key=f"start_{_i}", use_container_width=True):
+                        import random as _random
+                        _qs = QUESTIONS[_level].copy()
+                        _random.shuffle(_qs)
+                        st.session_state.game_questions = _qs[:5]
+                        st.session_state.game_level     = _level
+                        st.session_state.game_active    = True
+                        st.session_state.q_index        = 0
+                        st.session_state.score          = 0
+                        st.session_state.answered       = False
+                        st.session_state.selected       = None
+                        st.session_state.game_over      = False
+                        st.session_state.submitted_score = False
+                        st.session_state.q_start_time   = None
+                        st.session_state.timed_out      = False
+                        st.session_state.timeout_verse  = None
+                        st.rerun()
 
-    # ── Active game (keep the rest of the game logic same)
+    # ── Active game (same as before, but store the player name)
     elif st.session_state.game_active and not st.session_state.game_over:
         _level = st.session_state.game_level
         _c     = LEVEL_COLORS[_level]
@@ -1376,7 +1490,7 @@ with tab8:
                 st.session_state.timeout_verse  = None
                 st.rerun()
 
-    # ── Game over screen (normal)
+    # ── Game over screen (normal) with leaderboard submission
     elif st.session_state.game_over:
         _score = st.session_state.score
         _level = st.session_state.game_level
@@ -1391,6 +1505,19 @@ with tab8:
         _pct   = int((_score / _total) * 100)
         _bar   = "#06D6A0" if _pct == 100 else "#1A73E8" if _pct >= 60 else "#FF6B35"
         _trophy = "🏆" if _score == _total else "🌟" if _score >= _total * 0.6 else "📖"
+
+        # Submit score to leaderboard if not already submitted
+        if not st.session_state.submitted_score and player_name and player_name.strip():
+            was_added = add_score(player_name, _score, _level, _total)
+            if was_added:
+                st.session_state.submitted_score = True
+                # Check player's rank
+                rank = get_player_rank(player_name)
+                if rank:
+                    st.balloons()
+                    st.success(f"🎉 **{player_name}**, your score of {_score}/5 has been saved! You're currently #{rank} on the leaderboard!")
+                else:
+                    st.success(f"🎉 **{player_name}**, your score of {_score}/5 has been saved!")
 
         st.markdown(
             f"""
@@ -1430,6 +1557,7 @@ with tab8:
                 st.session_state.selected       = None
                 st.session_state.game_over      = False
                 st.session_state.game_active    = True
+                st.session_state.submitted_score = False
                 st.session_state.q_start_time   = None
                 st.session_state.timed_out      = False
                 st.session_state.timeout_verse  = None
@@ -1443,6 +1571,7 @@ with tab8:
                 st.session_state.answered    = False
                 st.session_state.selected    = None
                 st.session_state.game_level  = None
+                st.session_state.submitted_score = False
                 st.session_state.q_start_time = None
                 st.rerun()
         with _rc3:
@@ -1454,9 +1583,10 @@ with tab8:
                 st.session_state.answered    = False
                 st.session_state.selected    = None
                 st.session_state.game_level  = None
+                st.session_state.submitted_score = False
                 st.session_state.q_start_time = None
                 st.rerun()
-
+                
 # ─────────────────────────────────────────
 # TAB 9 — MY FLYER
 # ─────────────────────────────────────────
