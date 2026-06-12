@@ -4,6 +4,7 @@ import io
 from reportlab.pdfgen import canvas
 from datetime import datetime
 import os
+from leaderboard import add_score, get_top_scores, get_weekly_stats, get_player_rank, check_and_reset_week
 
 from flyer_generator import generate_flyer, THEMES
 from bible_game import QUESTIONS, LEVEL_COLORS, SCORE_MESSAGES, TIME_UP_VERSES
