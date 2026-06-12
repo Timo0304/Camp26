@@ -1163,72 +1163,72 @@ with tab8:
         if st.button("📊 View Leaderboard", key="view_leaderboard", use_container_width=True):
             st.session_state.show_leaderboard = not st.session_state.get("show_leaderboard", False)
     
-    # Show leaderboard toggle
-    if st.session_state.get("show_leaderboard", False):
-        st.markdown("---")
-        st.markdown("### 🏆 Weekly Leaderboard 🏆")
+    # In the Bible Quiz tab (TAB 8), find the section that displays the leaderboard
+# and replace it with this corrected code:
+
+# Show leaderboard toggle
+if st.session_state.get("show_leaderboard", False):
+    st.markdown("---")
+    st.markdown("### 🏆 Weekly Leaderboard 🏆")
+    
+    top_scores, week_info = get_top_scores(limit=10)
+    
+    if top_scores:
+        # Display as a simple Streamlit dataframe first (cleanest approach)
+        import pandas as pd
         
-        top_scores, week_info = get_top_scores(limit=10)
+        # Create DataFrame for display
+        df_display = pd.DataFrame(top_scores)
+        df_display = df_display[["name", "score", "level", "percentage"]]
+        df_display.columns = ["Player", "Score", "Level", "Score %"]
+        df_display["Score"] = df_display["Score"].astype(str) + "/5"
+        df_display["Score %"] = df_display["Score %"].astype(str) + "%"
         
-        if top_scores:
-            # Create medal emojis for top 3
-            medal_emojis = ["🥇", "🥈", "🥉"]
-            
-            leaderboard_html = """
-            <div style="background: #FFF8F0; border-radius: 20px; padding: 20px; border: 3px solid #FFD93D;">
-                <table style="width: 100%; border-collapse: collapse;">
-                    <thead>
-                        <tr><th style="padding: 12px; text-align: center; background: #FF6B35; color: white; border-radius: 10px 0 0 0;">Rank</th>
-                            <th style="padding: 12px; text-align: left; background: #FF6B35; color: white;">Player</th>
-                            <th style="padding: 12px; text-align: center; background: #FF6B35; color: white;">Score</th>
-                            <th style="padding: 12px; text-align: center; background: #FF6B35; color: white; border-radius: 0 10px 0 0;">Level</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            """
-            
-            for idx, player in enumerate(top_scores):
-                rank = idx + 1
-                medal = medal_emojis[idx] if idx < 3 else f"#{rank}"
-                row_style = "background: #FFF8E1;" if idx % 2 == 0 else "background: white;"
-                
-                leaderboard_html += f"""
-                    <tr style="{row_style}">
-                        <td style="padding: 12px; text-align: center; font-weight: bold; font-size: 1.2rem;">{medal}</td>
-                        <td style="padding: 12px; text-align: left; font-weight: bold; color: #333;">{player['name']}</td>
-                        <td style="padding: 12px; text-align: center; font-weight: bold; color: #06D6A0; font-size: 1.3rem;">{player['score']}/5</td>
-                        <td style="padding: 12px; text-align: center; font-size: 0.85rem;">{player['level']}</td>
-                    </tr>
-                """
-            
-            leaderboard_html += """
-                    </tbody>
-                </table>
+        # Add rank column
+        df_display.insert(0, "Rank", range(1, len(df_display) + 1))
+        
+        # Display the dataframe
+        st.dataframe(df_display, use_container_width=True, hide_index=True)
+        
+        # Also show a nice visual representation with emojis for top 3
+        st.markdown("### 🎖️ Top Performers 🎖️")
+        
+        medal_cols = st.columns(3)
+        for idx, player in enumerate(top_scores[:3]):
+            medals = ["🥇", "🥈", "🥉"]
+            colors = ["#FFD700", "#C0C0C0", "#CD7F32"]
+            with medal_cols[idx]:
+                st.markdown(f"""
+                <div style="text-align: center; padding: 16px; background: linear-gradient(135deg, {colors[idx]}, {colors[idx]}88); border-radius: 16px; margin: 8px;">
+                    <div style="font-size: 3rem;">{medals[idx]}</div>
+                    <div style="font-size: 1.3rem; font-weight: bold; color: white;">{player['name']}</div>
+                    <div style="font-size: 1.1rem; color: white;">{player['score']}/5</div>
+                    <div style="font-size: 0.8rem; color: white;">{player['level']}</div>
+                </div>
+                """, unsafe_allow_html=True)
+        
+        # Show stats summary
+        stats = get_weekly_stats()
+        st.markdown(f"""
+        <div style="display: flex; justify-content: space-around; margin-top: 20px; flex-wrap: wrap; gap: 12px;">
+            <div style="background: #06D6A0; border-radius: 16px; padding: 16px 24px; text-align: center; color: white; flex: 1; min-width: 120px;">
+                <div style="font-size: 2rem; font-weight: bold;">{stats['total_players']}</div>
+                <div style="font-size: 0.9rem;">Total Players</div>
             </div>
-            """
-            st.markdown(leaderboard_html, unsafe_allow_html=True)
-            
-            # Show stats summary
-            st.markdown(f"""
-            <div style="display: flex; justify-content: space-around; margin-top: 16px; flex-wrap: wrap; gap: 12px;">
-                <div style="background: #06D6A0; border-radius: 16px; padding: 12px 24px; text-align: center; color: white;">
-                    <div style="font-size: 1.5rem; font-weight: bold;">{stats['total_players']}</div>
-                    <div style="font-size: 0.85rem;">Total Players</div>
-                </div>
-                <div style="background: #4CC9F0; border-radius: 16px; padding: 12px 24px; text-align: center; color: white;">
-                    <div style="font-size: 1.5rem; font-weight: bold;">{stats['average_score']}/5</div>
-                    <div style="font-size: 0.85rem;">Average Score</div>
-                </div>
-                <div style="background: #FFD93D; border-radius: 16px; padding: 12px 24px; text-align: center; color: #333;">
-                    <div style="font-size: 1.5rem; font-weight: bold;">{stats['perfect_scores']}</div>
-                    <div style="font-size: 0.85rem;">Perfect Scores</div>
-                </div>
+            <div style="background: #4CC9F0; border-radius: 16px; padding: 16px 24px; text-align: center; color: white; flex: 1; min-width: 120px;">
+                <div style="font-size: 2rem; font-weight: bold;">{stats['average_score']}/5</div>
+                <div style="font-size: 0.9rem;">Average Score</div>
             </div>
-            """, unsafe_allow_html=True)
-        else:
-            st.info("📊 No scores yet this week! Be the first to play and get on the leaderboard!")
-        
-        st.markdown("---")
+            <div style="background: #FFD93D; border-radius: 16px; padding: 16px 24px; text-align: center; color: #333; flex: 1; min-width: 120px;">
+                <div style="font-size: 2rem; font-weight: bold;">{stats['perfect_scores']}</div>
+                <div style="font-size: 0.9rem;">Perfect Scores</div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.info("📊 No scores yet this week! Be the first to play and get on the leaderboard!")
+    
+    st.markdown("---")
     
     # Game intro
     st.markdown(
