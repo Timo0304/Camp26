@@ -876,132 +876,70 @@ padding:32px; border:3px dashed #FFD93D; text-align:center; width:100%;">
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────
-# TAB 5 — REGISTRATION
+# TAB 5 — REGISTRATION (Simpler version)
 # ─────────────────────────────────────────
 with tab5:
-    st.markdown("### 📝 Register for Camp '26!")
+    st.markdown("## 📝 Register for Camp '26!")
     
-    # Hero section with gradient background
-    st.markdown("""
-    <div style="
-        background: linear-gradient(135deg, #06D6A0 0%, #1A73E8 100%);
-        border-radius: 28px;
-        padding: 48px 32px;
-        text-align: center;
-        margin-bottom: 24px;
-        box-shadow: 0 20px 40px rgba(6,214,160,0.3);
-    ">
-        <div style="font-size: 4rem; margin-bottom: 16px;">🎪✨</div>
-        <h2 style="color: white; font-size: 2rem; margin-bottom: 12px; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">
-            Secure Your Spot Today!
-        </h2>
-        <p style="color: white; font-size: 1.1rem; margin-bottom: 24px; opacity: 0.95;">
-            Don't miss out on this amazing experience! Click the button below to register online.<br>
-            <strong>Early registration is encouraged as spaces are limited.</strong>
-        </p>
-        <a href="https://forms.gle/YOUR_REGISTRATION_LINK_HERE" target="_blank" style="
-            display: inline-block;
-            background: linear-gradient(135deg, #FFD93D, #FF6B35);
-            color: #333;
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.8rem;
-            font-weight: bold;
-            padding: 18px 48px;
-            border-radius: 60px;
-            text-decoration: none;
-            margin: 16px 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            border: 3px solid white;
-            animation: pulse 2s infinite;
-        "
-        onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 15px 40px rgba(0,0,0,0.4)';"
-        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.3)';">
-            🚀 REGISTER NOW! 🚀
-        </a>
-        <div style="margin-top: 24px; display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;">
-            <div style="background: rgba(255,255,255,0.2); border-radius: 16px; padding: 12px 24px; backdrop-filter: blur(10px);">
-                <span style="font-size: 1.5rem;">⏰</span>
-                <span style="color: white; font-weight: bold; margin-left: 8px;">Registration closes August 04, 2026</span>
-            </div>
-            <div style="background: rgba(255,255,255,0.2); border-radius: 16px; padding: 12px 24px; backdrop-filter: blur(10px);">
-                <span style="font-size: 1.5rem;">💰</span>
-                <span style="color: white; font-weight: bold; margin-left: 8px;">Registration is Free</span>
-            </div>
-        </div>
-        <p style="color: white; font-size: 0.9rem; margin-top: 16px; opacity: 0.85;">
-            (Includes meals, materials, and camp T-shirt)
-        </p>
-    </div>
-    
-    <style>
-    @keyframes pulse {
-        0%, 100% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.05);
-        }
-    }
-    </style>
-    """, unsafe_allow_html=True)
+    # Hero section using columns
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.markdown("---")
+        st.markdown("### 🎪 Secure Your Spot Today!")
+        st.markdown("Don't miss out on this amazing experience! Click the button below to register online.")
+        st.markdown("**Early registration is encouraged as spaces are limited.**")
+        st.markdown("---")
+        
+        # Big prominent button
+        st.link_button("🚀 REGISTER NOW! 🚀", "https://forms.gle/YOUR_REGISTRATION_LINK_HERE", use_container_width=True)
+        
+        st.markdown("---")
+        col_a, col_b = st.columns(2)
+        with col_a:
+            st.metric("⏰ Registration Deadline", "July 31, 2026")
+        with col_b:
+            st.metric("💰 Camp Fee", "N15,000")
+        st.caption("(Includes meals, materials, and camp T-shirt)")
+        st.markdown("---")
     
     # What's Included section
-    st.markdown("""
-    <div style="
-        background: linear-gradient(135deg, #fff9e6, #fff0fb);
-        border-radius: 24px;
-        padding: 32px;
-        margin-top: 20px;
-        border: 3px solid #FFD93D;
-    ">
-        <h3 style="color: #FF6B35; text-align: center; margin-bottom: 24px; font-size: 1.8rem;">
-            🎁 What's Included in Your Registration?
-        </h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px;">
-            <div style="text-align: center; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                <div style="font-size: 2.5rem;">🍽️</div>
-                <div style="font-weight: 800; color: #06D6A0; margin-top: 8px;">Meals</div>
-                <div style="font-size: 0.85rem; color: #666;">3 meals daily</div>
-            </div>
-            <div style="text-align: center; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                <div style="font-size: 2.5rem;">👕</div>
-                <div style="font-weight: 800; color: #06D6A0; margin-top: 8px;">Camp T-Shirt</div>
-                <div style="font-size: 0.85rem; color: #666;">Free souvenir</div>
-            </div>
-            <div style="text-align: center; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                <div style="font-size: 2.5rem;">📚</div>
-                <div style="font-weight: 800; color: #06D6A0; margin-top: 8px;">Materials</div>
-                <div style="font-size: 0.85rem; color: #666;">Workbook & stationery</div>
-            </div>
-            <div style="text-align: center; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                <div style="font-size: 2.5rem;">🏆</div>
-                <div style="font-weight: 800; color: #06D6A0; margin-top: 8px;">Awards</div>
-                <div style="font-size: 0.85rem; color: #666;">For outstanding campers</div>
-            </div>
-            <div style="text-align: center; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                <div style="font-size: 2.5rem;">🎯</div>
-                <div style="font-weight: 800; color: #06D6A0; margin-top: 8px;">Activities</div>
-                <div style="font-size: 0.85rem; color: #666;">Games, crafts, and more!</div>
-            </div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("### 🎁 What's Included in Your Registration?")
+    
+    inc_col1, inc_col2, inc_col3, inc_col4, inc_col5 = st.columns(5)
+    with inc_col1:
+        st.markdown("🍽️")
+        st.markdown("**Meals**")
+        st.caption("3 meals daily")
+    with inc_col2:
+        st.markdown("👕")
+        st.markdown("**Camp T-Shirt**")
+        st.caption("Free souvenir")
+    with inc_col3:
+        st.markdown("📚")
+        st.markdown("**Materials**")
+        st.caption("Workbook & stationery")
+    with inc_col4:
+        st.markdown("🏆")
+        st.markdown("**Awards**")
+        st.caption("For outstanding campers")
+    with inc_col5:
+        st.markdown("🎯")
+        st.markdown("**Activities**")
+        st.caption("Games, crafts, and more!")
     
     # Countdown to registration deadline
-    reg_deadline = datetime(2026, 8, 04)
+    reg_deadline = datetime(2026, 7, 31)
     now = datetime.now()
     days_left = (reg_deadline - now).days
     
     if days_left > 0:
-        st.info(f"⏰ **Only {days_left} days left to register!** Don't wait until the last minute!")
+        st.success(f"⏰ **Only {days_left} days left to register!** Don't wait until the last minute!")
     elif days_left == 0:
         st.warning("⚠️ **Today is the last day to register!** Hurry and secure your spot!")
     else:
         st.error("❌ **Registration is now closed.** Please contact the camp organizers for assistance.")
     
-    st.caption("💡 **Note:** Replace the registration link with your actual Google Form or registration page URL!")
-# ─────────────────────────────────────────
+    st.caption("💡 **Note:** Replace the registration link with your actual Google Form or registration page URL!")# ─────────────────────────────────────────
 # TAB 6 — CAMP RULES
 # ─────────────────────────────────────────
 with tab6:
