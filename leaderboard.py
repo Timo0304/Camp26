@@ -25,23 +25,34 @@ def load_leaderboard():
             with open(LEADERBOARD_FILE, "r") as f:
                 content = f.read()
                 if content.strip():  # Check if file is not empty
-                    return json.loads(content)
+                    data = json.loads(content)
+                    # Ensure all required keys exist
+                    if "current_week" not in data:
+                        data["current_week"] = None
+                    if "scores" not in data:
+                        data["scores"] = {}
+                    if "week_start" not in data:
+                        data["week_start"] = None
+                    if "week_end" not in data:
+                        data["week_end"] = None
+                    return data
                 else:
                     # Empty file, return default structure
-                    return {"current_week": None, "scores": {}}
+                    return {"current_week": None, "scores": {}, "week_start": None, "week_end": None}
         except (json.JSONDecodeError, ValueError) as e:
-            # If file is corrupted, create a new one
             print(f"Error reading leaderboard file: {e}. Creating new file.")
-            return {"current_week": None, "scores": {}}
-    return {"current_week": None, "scores": {}}
+            return {"current_week": None, "scores": {}, "week_start": None, "week_end": None}
+    return {"current_week": None, "scores": {}, "week_start": None, "week_end": None}
 
 def save_leaderboard(data):
     """Save leaderboard data to file"""
     try:
         with open(LEADERBOARD_FILE, "w") as f:
             json.dump(data, f, indent=2)
+        return True
     except Exception as e:
         print(f"Error saving leaderboard: {e}")
+        return False
 
 def check_and_reset_week():
     """Check if week has changed and reset leaderboard if needed"""
@@ -49,6 +60,16 @@ def check_and_reset_week():
         data = load_leaderboard()
         current_week, start_date = get_current_week()
         
+        # If no current week is set, initialize it
+        if data.get("current_week") is None:
+            data["current_week"] = current_week
+            data["scores"] = {}
+            data["week_start"] = start_date.strftime("%Y-%m-%d")
+            data["week_end"] = (start_date + timedelta(days=6)).strftime("%Y-%m-%d")
+            save_leaderboard(data)
+            return True  # Initialization happened
+        
+        # Check if week has changed
         if data.get("current_week") != current_week:
             # New week - reset leaderboard
             data["current_week"] = current_week
@@ -57,6 +78,7 @@ def check_and_reset_week():
             data["week_end"] = (start_date + timedelta(days=6)).strftime("%Y-%m-%d")
             save_leaderboard(data)
             return True  # Reset happened
+        
         return False  # No reset
     except Exception as e:
         print(f"Error in check_and_reset_week: {e}")
@@ -68,6 +90,7 @@ def add_score(player_name, score, level, total_questions=5):
         return False
     
     try:
+        # Ensure week is initialized
         check_and_reset_week()
         data = load_leaderboard()
         
@@ -93,11 +116,15 @@ def add_score(player_name, score, level, total_questions=5):
 def get_leaderboard():
     """Get sorted leaderboard for current week"""
     try:
+        # Ensure week is initialized
         check_and_reset_week()
         data = load_leaderboard()
         
         if not data.get("scores"):
-            return pd.DataFrame(), None
+            return pd.DataFrame(), {
+                "week_start": data.get("week_start", "Unknown"),
+                "week_end": data.get("week_end", "Unknown")
+            }
         
         # Convert to list and sort by score (highest first)
         scores_list = list(data["scores"].values())
@@ -111,7 +138,7 @@ def get_leaderboard():
         return df, week_info
     except Exception as e:
         print(f"Error in get_leaderboard: {e}")
-        return pd.DataFrame(), None
+        return pd.DataFrame(), {"week_start": "Unknown", "week_end": "Unknown"}
 
 def get_top_scores(limit=10):
     """Get top N scores for leaderboard"""
@@ -122,7 +149,7 @@ def get_top_scores(limit=10):
         return df.head(limit).to_dict('records'), week_info
     except Exception as e:
         print(f"Error in get_top_scores: {e}")
-        return [], None
+        return [], {"week_start": "Unknown", "week_end": "Unknown"}
 
 def get_player_rank(player_name):
     """Get a player's rank in the leaderboard"""
@@ -143,15 +170,20 @@ def get_player_rank(player_name):
 def get_weekly_stats():
     """Get statistics for the current week"""
     try:
+        # Ensure week is initialized first
+        check_and_reset_week()
+        data = load_leaderboard()
+        
         df, week_info = get_leaderboard()
+        
         if df.empty:
             return {
                 "total_players": 0,
                 "average_score": 0,
                 "highest_score": 0,
                 "perfect_scores": 0,
-                "week_start": week_info.get("week_start", "N/A") if week_info else "N/A",
-                "week_end": week_info.get("week_end", "N/A") if week_info else "N/A"
+                "week_start": data.get("week_start", "N/A"),
+                "week_end": data.get("week_end", "N/A")
             }
         
         return {
@@ -159,8 +191,8 @@ def get_weekly_stats():
             "average_score": round(df["score"].mean(), 1),
             "highest_score": df["score"].max(),
             "perfect_scores": len(df[df["score"] == 5]),
-            "week_start": week_info.get("week_start", "N/A") if week_info else "N/A",
-            "week_end": week_info.get("week_end", "N/A") if week_info else "N/A"
+            "week_start": data.get("week_start", "N/A"),
+            "week_end": data.get("week_end", "N/A")
         }
     except Exception as e:
         print(f"Error in get_weekly_stats: {e}")
