@@ -1154,8 +1154,8 @@ with tab8:
     # Name input for leaderboard
     col_name1, col_name2 = st.columns([2, 1])
     with col_name1:
-        player_name = st.text_input("🏆 **Enter your name to appear on the leaderboard!**", 
-                                    placeholder="e.g., John, Mary, David", 
+        player_name = st.text_input("🏆 **Enter Your Full Name To Appear On The Leaderboard!**", 
+                                    placeholder="e.g., Ayomiposi, Kolade, David", 
                                     key="player_name_input",
                                     help="Your name will be saved with your best score this week!")
     with col_name2:
