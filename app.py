@@ -965,11 +965,6 @@ with tab5:
                 <div style="font-size: 0.85rem; color: #666;">3 meals daily</div>
             </div>
             <div style="text-align: center; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                <div style="font-size: 2.5rem;">👕</div>
-                <div style="font-weight: 800; color: #06D6A0; margin-top: 8px;">Camp T-Shirt</div>
-                <div style="font-size: 0.85rem; color: #666;">Free souvenir</div>
-            </div>
-            <div style="text-align: center; padding: 20px; background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
                 <div style="font-size: 2.5rem;">📚</div>
                 <div style="font-weight: 800; color: #06D6A0; margin-top: 8px;">Materials</div>
                 <div style="font-size: 0.85rem; color: #666;">Workbook & stationery</div>
@@ -1000,7 +995,7 @@ with tab5:
     else:
         st.error("❌ **Registration is now closed.** Please contact the camp organizers for assistance.")
     
-    st.caption("💡 **Note:** Replace the registration link with your actual Google Form or registration page URL!")
+
 
 # ─────────────────────────────────────────
 # TAB 6 — CAMP RULES
