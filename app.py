@@ -259,6 +259,68 @@ h2, h3 {
 .testimony-card:nth-child(2) .tag { background: var(--purple); }
 .testimony-card:nth-child(3) .tag { background: var(--green); }
 
+/* ---- RULES & REQUIREMENTS CARDS ---- */
+.rules-card, .requirements-card {
+    background: linear-gradient(135deg, #fff9e6, #fff0fb);
+    border-radius: 24px;
+    padding: 32px;
+    border: 3px solid;
+    margin-bottom: 24px;
+}
+.rules-card {
+    border-color: var(--orange);
+}
+.requirements-card {
+    border-color: var(--green);
+}
+.rules-list, .bring-list, .not-bring-list {
+    list-style: none;
+    padding: 0;
+}
+.rules-list li, .bring-list li, .not-bring-list li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.rules-list li:before {
+    content: "⚠️";
+    font-size: 1.2rem;
+}
+.bring-list li:before {
+    content: "✅";
+    font-size: 1.2rem;
+}
+.not-bring-list li:before {
+    content: "❌";
+    font-size: 1.2rem;
+}
+.rules-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+.rules-header h2 {
+    color: var(--orange);
+}
+.requirements-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+.requirements-header h2 {
+    color: var(--green);
+}
+.warning-box {
+    background: #fff0f0;
+    border-left: 5px solid var(--red);
+    padding: 16px;
+    margin-top: 24px;
+    border-radius: 12px;
+    font-weight: 700;
+    color: var(--red);
+    text-align: center;
+}
+
 /* ---- SECTION DIVIDER ---- */
 .fun-divider {
     text-align: center;
@@ -274,6 +336,34 @@ h2, h3 {
     border-radius: 24px;
     padding: 32px;
     border: 3px solid var(--pink);
+}
+
+/* ---- REGISTRATION CARD ---- */
+.register-card {
+    background: linear-gradient(135deg, #e8ffe8, #f0fff4);
+    border-radius: 24px;
+    padding: 40px;
+    text-align: center;
+    border: 3px solid var(--green);
+    box-shadow: 8px 8px 0 rgba(6,214,160,0.2);
+    margin: 20px 0;
+}
+.register-big-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #06D6A0, #1A73E8);
+    color: white;
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    padding: 20px 48px;
+    border-radius: 60px;
+    text-decoration: none;
+    margin: 20px 0;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 12px 28px rgba(6,214,160,0.4);
+}
+.register-big-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 16px 32px rgba(26,115,232,0.5);
 }
 
 /* ---- STREAMLIT WIDGET OVERRIDES ---- */
@@ -551,7 +641,7 @@ st.markdown(f"""
 st.markdown('<div class="sticker-row">🎉 ✝️ 🎊 🌟 🎈 🙌 🎵 💛 🎠 ⭐</div>', unsafe_allow_html=True)
 
 # ── COUNTDOWN (always visible under banner) ────────────────────────────────
-event_date = datetime(2026, 8, 13)
+event_date = datetime(2026, 8, 6)
 now = datetime.now()
 time_left = event_date - now
 days    = time_left.days
@@ -586,11 +676,14 @@ st.markdown('<div class="fun-divider">⭐ ⭐ ⭐ ⭐ ⭐</div>', unsafe_allow_h
 # ═══════════════════════════════════════════
 # TABS
 # ═══════════════════════════════════════════
-tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
     "🏠 Home",
     "💬 Testimonies",
     "📸 Gallery",
     "📞 Contact",
+    "📝 Register",
+    "📜 Camp Rules",
+    "🎒 Requirements",
     "🎮 Bible Quiz",
     "🎨 My Flyer",
 ])
@@ -623,7 +716,7 @@ with tab1:
     <div class="event-item">
         <div class="icon">📅</div>
         <div class="etitle">Dates</div>
-        <div class="evalue">Aug 13–16, 2026</div>
+        <div class="evalue">Aug 6–9, 2026</div>
     </div>
     <div class="event-item">
         <div class="icon">📍</div>
@@ -783,9 +876,130 @@ padding:32px; border:3px dashed #FFD93D; text-align:center; width:100%;">
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────
-# TAB 5 — BIBLE QUIZ
+# TAB 5 — REGISTRATION
 # ─────────────────────────────────────────
 with tab5:
+    st.markdown("### 📝 Register for Camp '26!")
+    
+    st.markdown("""
+    <div class="register-card">
+        <div style="font-size: 3rem; margin-bottom: 16px;">📋✨</div>
+        <h2 style="color: #06D6A0; margin-bottom: 16px;">Secure Your Spot Today!</h2>
+        <p style="font-size: 1.1rem; color: #555; margin-bottom: 24px; line-height: 1.6;">
+            Don't miss out on this amazing experience! Click the button below to register online.<br>
+            Early registration is encouraged as spaces are limited.
+        </p>
+        <a href="https://forms.gle/YOUR_REGISTRATION_LINK_HERE" target="_blank" class="register-big-btn">
+            🚀 Register Now! 🚀
+        </a>
+        <p style="margin-top: 24px; font-size: 0.9rem; color: #888;">
+            ⏰ Registration closes July 31, 2026<br>
+            💰 Camp Fee: N15,000 (includes meals, materials, and camp T-shirt)
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div style="background: linear-gradient(135deg, #fff9e6, #fff0fb); border-radius: 20px; padding: 24px; margin-top: 20px; border: 2px solid #FFD93D;">
+        <h3 style="color: #FF6B35; text-align: center;">📌 What's Included?</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-top: 16px;">
+            <div style="text-align: center; padding: 12px;">🍽️ <strong>Meals</strong><br>3 meals daily</div>
+            <div style="text-align: center; padding: 12px;">👕 <strong>Camp T-Shirt</strong><br>Free souvenir</div>
+            <div style="text-align: center; padding: 12px;">📚 <strong>Materials</strong><br>Workbook & stationery</div>
+            <div style="text-align: center; padding: 12px;">🏆 <strong>Awards</strong><br>For outstanding campers</div>
+            <div style="text-align: center; padding: 12px;">🎯 <strong>Activities</strong><br>Games, crafts, and more!</div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.info("💡 **Note:** Replace the registration link with your actual Google Form or registration page URL!")
+
+# ─────────────────────────────────────────
+# TAB 6 — CAMP RULES
+# ─────────────────────────────────────────
+with tab6:
+    st.markdown("""
+    <div class="rules-card">
+        <div class="rules-header">
+            <div style="font-size: 3rem;">📜⚖️</div>
+            <h2>Camp Rules & Regulations</h2>
+            <p style="color: #666; font-size: 1.1rem;">All campers must abide by these rules for a safe and enjoyable experience</p>
+        </div>
+        <ul class="rules-list">
+            <li>Each camper is required to stay in his/her allotted room. There would be room heads assigned to each room.</li>
+            <li>Rooms should be cleaned daily by campers. There would be daily inspections by camp commandants.</li>
+            <li>Each camper will remain with his assigned group during all daytime activities. All campers must participate in all activities.</li>
+            <li>Each camper must be on time for all activities.</li>
+            <li>No food or drink will be allowed in the room.</li>
+            <li>Sickness and accidents must be reported immediately.</li>
+            <li>Campers are not to leave the campgrounds without permission of the camp commandants.</li>
+            <li>A good character, proper language use and proper behaviour must be evidenced at all times.</li>
+            <li>Modest and decent dress is expected at all times.</li>
+            <li>Off limits areas are to be observed by both boys and girls.</li>
+            <li>Campers must stay in their rooms after lights out, except for going to the bathroom.</li>
+            <li>Be at the right place at the right time.</li>
+            <li>No visitor is allowed at the camp.</li>
+            <li>Have fun.</li>
+        </ul>
+        <div class="warning-box">
+            ⚠️ NO ONE IS ALLOWED INTO THE ROOMS UNTIL EVENING, SO REMEMBER TO PICK UP EVERY NECESSARY ITEM WHEN LEAVING THE ROOM.<br>
+            VIOLATION OF ANY OF THE ABOVE RULES COULD RESULT IN DISCIPLINARY ACTION ⚠️
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ─────────────────────────────────────────
+# TAB 7 — CAMP REQUIREMENTS
+# ─────────────────────────────────────────
+with tab7:
+    st.markdown("""
+    <div class="requirements-card">
+        <div class="requirements-header">
+            <div style="font-size: 3rem;">🎒✅❌</div>
+            <h2>Camp Requirements</h2>
+            <p style="color: #666; font-size: 1.1rem;">What to bring and what NOT to bring to camp</p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+            <div style="background: white; border-radius: 16px; padding: 20px; border: 2px solid #06D6A0;">
+                <h3 style="color: #06D6A0; text-align: center; margin-bottom: 16px;">✅ Things to Bring</h3>
+                <ul class="bring-list">
+                    <li>Bible (Hard copy)</li>
+                    <li>Toiletries (sponge, soap, tooth brush, tooth paste, towel, body cream, hair cream and comb)</li>
+                    <li>Bucket and bowl for bathing</li>
+                    <li>Cardigan & Socks</li>
+                    <li>Slippers and change of footwear</li>
+                    <li>Sports vest/Easter vest & sports shoe</li>
+                    <li>Change of clothes</li>
+                    <li>Bed sheet & cover cloth</li>
+                    <li>Sunday wear</li>
+                    <li>Special medical needs (If any)</li>
+                </ul>
+            </div>
+            
+            <div style="background: white; border-radius: 16px; padding: 20px; border: 2px solid #FF4D6D;">
+                <h3 style="color: #FF4D6D; text-align: center; margin-bottom: 16px;">❌ Things NOT to Bring</h3>
+                <ul class="not-bring-list">
+                    <li>Phone and gadgets</li>
+                </ul>
+                <div style="margin-top: 20px; padding: 12px; background: #fff0f0; border-radius: 12px; text-align: center;">
+                    <p style="color: #FF4D6D; font-weight: 700; margin: 0;">⚠️ Please leave all electronic devices at home! ⚠️</p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 24px; padding: 16px; background: #f0f8ff; border-radius: 12px; text-align: center; border: 1px solid #4CC9F0;">
+            <p style="color: #333; font-weight: 700; margin: 0;">
+                💡 <strong>Pro Tip:</strong> Label all your belongings with your name to avoid mix-ups!
+            </p>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ─────────────────────────────────────────
+# TAB 8 — BIBLE QUIZ
+# ─────────────────────────────────────────
+with tab8:
     st.markdown("### 🎮 Bible Quiz Challenge!")
     st.markdown(
         """
@@ -850,7 +1064,7 @@ with tab5:
                     st.session_state.timeout_verse  = None
                     st.rerun()
 
-    # ── Active game
+    # ── Active game (keep the rest of the game logic same)
     elif st.session_state.game_active and not st.session_state.game_over:
         _level = st.session_state.game_level
         _c     = LEVEL_COLORS[_level]
@@ -1168,9 +1382,9 @@ with tab5:
                 st.rerun()
 
 # ─────────────────────────────────────────
-# TAB 6 — MY FLYER
+# TAB 9 — MY FLYER
 # ─────────────────────────────────────────
-with tab6:
+with tab9:
     st.markdown("### 🎨 Make Your 'I Will Be Attending' Flyer!")
 
     st.markdown('<div class="flyer-form">', unsafe_allow_html=True)
@@ -1314,7 +1528,7 @@ st.markdown("""
 ">
     🌟 See You at Camp '26! God Bless You! 🌟<br>
     <span style="font-family:'Nunito',sans-serif;font-size:0.9rem;font-weight:700;opacity:0.9;">
-        August 13–16, 2026 • All Souls' Chapel OAU, Ile-Ife
+        August 6–9, 2026 • All Souls' Chapel OAU, Ile-Ife
     </span>
 </div>
 """, unsafe_allow_html=True)
