@@ -915,65 +915,82 @@ with tab5:
     st.info("💡 **Note:** Replace the registration link with your actual Google Form or registration page URL!")
 
 # ─────────────────────────────────────────
-# TAB 6 — CAMP RULES (Simpler version)
+# TAB 6 — CAMP RULES
 # ─────────────────────────────────────────
 with tab6:
     st.markdown("### 📜 Camp Rules & Regulations")
-    st.markdown("*All campers must abide by these rules for a safe and enjoyable experience*")
-    
+    st.markdown("All campers must abide by these rules for a safe and enjoyable experience")
     st.markdown("---")
     
-    rules_list = """
-    - ⚠️ Each camper is required to stay in his/her allotted room. There would be room heads assigned to each room.
-    - ⚠️ Rooms should be cleaned daily by campers. There would be daily inspections by camp commandants.
-    - ⚠️ Each camper will remain with his assigned group during all daytime activities. All campers must participate in all activities.
-    - ⚠️ Each camper must be on time for all activities.
-    - ⚠️ No food or drink will be allowed in the room.
-    - ⚠️ Sickness and accidents must be reported immediately.
-    - ⚠️ Campers are not to leave the campgrounds without permission of the camp commandants.
-    - ⚠️ A good character, proper language use and proper behaviour must be evidenced at all times.
-    - ⚠️ Modest and decent dress is expected at all times.
-    - ⚠️ Off limits areas are to be observed by both boys and girls.
-    - ⚠️ Campers must stay in their rooms after lights out, except for going to the bathroom.
-    - ⚠️ Be at the right place at the right time.
-    - ⚠️ No visitor is allowed at the camp.
-    - ⚠️ Have fun.
-    """
-    st.markdown(rules_list)
+    # Create two columns for the rules
+    col1, col2 = st.columns(2)
+    
+    rules = [
+        "⚠️ Each camper is required to stay in his/her allotted room. There would be room heads assigned to each room.",
+        "⚠️ Rooms should be cleaned daily by campers. There would be daily inspections by camp commandants.",
+        "⚠️ Each camper will remain with his assigned group during all daytime activities. All campers must participate in all activities.",
+        "⚠️ Each camper must be on time for all activities.",
+        "⚠️ No food or drink will be allowed in the room.",
+        "⚠️ Sickness and accidents must be reported immediately.",
+        "⚠️ Campers are not to leave the campgrounds without permission of the camp commandants.",
+        "⚠️ A good character, proper language use and proper behaviour must be evidenced at all times.",
+        "⚠️ Modest and decent dress is expected at all times.",
+        "⚠️ Off limits areas are to be observed by both boys and girls.",
+        "⚠️ Campers must stay in their rooms after lights out, except for going to the bathroom.",
+        "⚠️ Be at the right place at the right time.",
+        "⚠️ No visitor is allowed at the camp.",
+        "⚠️ Have fun."
+    ]
+    
+    # Split rules between two columns
+    mid_point = len(rules) // 2
+    for i, rule in enumerate(rules):
+        if i < mid_point:
+            with col1:
+                st.markdown(f"<p style='background: #FFF8F0; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px; color: #333333;'>{rule}</p>", unsafe_allow_html=True)
+        else:
+            with col2:
+                st.markdown(f"<p style='background: #FFF8F0; border-radius: 12px; padding: 12px 16px; border-left: 4px solid #FF6B35; margin-bottom: 8px; color: #333333;'>{rule}</p>", unsafe_allow_html=True)
     
     st.markdown("---")
-    st.warning("**NO ONE IS ALLOWED INTO THE ROOMS UNTIL EVENING** — Remember to pick up every necessary item when leaving the room.\n\n**VIOLATION OF ANY OF THE ABOVE RULES COULD RESULT IN DISCIPLINARY ACTION**")
+    st.warning("⚠️ **NO ONE IS ALLOWED INTO THE ROOMS UNTIL EVENING**, SO REMEMBER TO PICK UP EVERY NECESSARY ITEM WHEN LEAVING THE ROOM.\n\n**VIOLATION OF ANY OF THE ABOVE RULES COULD RESULT IN DISCIPLINARY ACTION**")
 
 # ─────────────────────────────────────────
-# TAB 7 — CAMP REQUIREMENTS (Simpler version)
+# TAB 7 — CAMP REQUIREMENTS
 # ─────────────────────────────────────────
 with tab7:
     st.markdown("### 🎒 Camp Requirements")
-    st.markdown("*What to bring and what NOT to bring to camp*")
+    st.markdown("What to bring and what NOT to bring to camp")
+    st.markdown("---")
     
     col1, col2 = st.columns(2)
     
     with col1:
         st.markdown("#### ✅ Things to Bring")
-        st.markdown("""
-        - 📖 Bible (Hard copy)
-        - 🧼 Toiletries (sponge, soap, tooth brush, tooth paste, towel, body cream, hair cream and comb)
-        - 🪣 Bucket and bowl for bathing
-        - 🧥 Cardigan & Socks
-        - 👡 Slippers and change of footwear
-        - 👕 Sports vest/Easter vest & sports shoe
-        - 👖 Change of clothes
-        - 🛏️ Bed sheet & cover cloth
-        - 👔 Sunday wear
-        - 💊 Special medical needs (If any)
-        """)
+        items_to_bring = [
+            "📖 Bible (Hard copy)",
+            "🧼 Toiletries (sponge, soap, tooth brush, tooth paste, towel, body cream, hair cream and comb)",
+            "🪣 Bucket and bowl for bathing",
+            "🧥 Cardigan & Socks",
+            "👡 Slippers and change of footwear",
+            "👕 Sports vest/Easter vest & sports shoe",
+            "👖 Change of clothes",
+            "🛏️ Bed sheet & cover cloth",
+            "👔 Sunday wear",
+            "💊 Special medical needs (If any)"
+        ]
+        for item in items_to_bring:
+            st.markdown(f"<p style='background: #FFF8F0; border-radius: 12px; padding: 10px 16px; border: 1px solid #06D6A0; margin-bottom: 8px; color: #333333;'>{item}</p>", unsafe_allow_html=True)
     
     with col2:
         st.markdown("#### ❌ Things NOT to Bring")
-        st.markdown("- 📱🚫 Phone and gadgets")
+        st.markdown("<p style='background: #FFF0F0; border-radius: 12px; padding: 12px 16px; border: 2px solid #FF4D6D; text-align: center; font-weight: bold; color: #333333;'>📱🚫 Phone and gadgets</p>", unsafe_allow_html=True)
         st.error("⚠️ Please leave all electronic devices at home!")
     
-    st.info("💡 **Pro Tip:** Label all your belongings with your name to avoid mix-ups!")# TAB 8 — BIBLE QUIZ
+    st.markdown("---")
+    st.info("💡 **Pro Tip:** Label all your belongings with your name to avoid mix-ups!")
+# ─────────────────────────────────────────
+# TAB 8 — BIBLE QUIZ
 # ─────────────────────────────────────────
 with tab8:
     st.markdown("### 🎮 Bible Quiz Challenge!")
